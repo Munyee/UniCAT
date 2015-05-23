@@ -55,10 +55,10 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     var thelastone:CGFloat = CGFloat()
     var tag:Int = 0
     var y:Int = 0
-    
-    var names:[String] = ["Heritage Hall","Learning Complex I","Block C","Block D","Block E","Block F","Block G","Block H","Block I","Block J","Block K","Block L","Grand Hall","Block N","Sports Complex","Block P"]
-    var eventcount: [String] = []
-    
+    var z:Int = 0
+    var names:[String] = ["Heritage Hall","Learning Complex I","Student Pavilion I","Block D","Block E","Block F","Block G","Block H","Block I","Block J","Block K","Block L","Grand Hall","Block N","Sports Complex","Block P"]
+    var eventcount: [String] = ["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"]
+    var eventname : [String] = []
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         // Custom initialization
@@ -74,46 +74,37 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         super.viewDidLoad()
          pthread_mutex_init(&mutex,nil)
         dispatch_semaphore_create(0)
-        var temp : [String] = ["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"]
+        var temp : [String] = []
         var counter:Int = 0
-        for(y = 0 ; y < names.count; y++){
-            
-            var hello : Int = 0
-            hello = 0
+        
+            var check : Int = 0
             
             
             var query = PFQuery(className:"Event")
-            query.whereKey("venue", equalTo:names[y])
             query.findObjectsInBackgroundWithBlock({(objects: [AnyObject]?, error:NSError?) -> Void in
             
-                
-                if error == nil {
-                    
-                    
+                    var name :String
                     // Looping through the objects to get the names of the workers in each object
+                
                     for object in objects! {
                         
                         //here to increase count if event++
-                        hello++
+                        temp.append(object["venue"] as! String)
                         
-                        
-                    }
-                    
-                    
-                   // temp = String(hello)
-                    NSLog("Done Load Data")
-                    temp[counter] = String(hello)
-                    println(objects?.last)
-                    super.reloadInputViews()
-                    counter++
-                    
                 }
                 
-                self.eventcount = temp
+                   // temp = String(hello)
+                    println(temp)
+                
+                    NSLog("Done Load Data")
+                    self.eventname = temp
+                    counter++
+                    check++
+                
+                
             })
         
-           
-        }
+        
         
         
        // var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("addRandomAnnotations"), userInfo: nil, repeats: true)
@@ -123,7 +114,8 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
         scrollView.tiledScrollViewDelegate = self
         scrollView.zoomScale = 1.0
-        var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("addRandomAnnotations"), userInfo: nil, repeats: false)
+        var timer1 = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("checkvenue"), userInfo: nil, repeats: false)
+        var timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("addRandomAnnotations"), userInfo: nil, repeats: false)
         scrollView.dataSource = self
         scrollView.tiledScrollViewDelegate = self
         scrollView.backgroundColor = UIColor(red: 201/255, green: 219/255, blue: 111/255, alpha: 1.0)
@@ -152,13 +144,26 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     }
     
     
+    func checkvenue(){
+      
+    }
    
     func addRandomAnnotations() {
-        
+        for(y = 0 ; y < names.count; y++){
+            var eventcounter:Int = 0
+            for(z = 0 ; z < eventname.count; z++){
+                if(eventname[z] == names[y]){
+                    eventcounter++
+                    
+                }
+                eventcount[y] = String(eventcounter)
+                println(eventcount)
+            }
+        }
         var image:UIImage = UIImage()
         buta = setButton( a, label: names[0], eventnum: eventcount[0], size: CGRect(x: 612, y: 560, width: 150, height: 50))
-        butb = setButton( b, label: "Learning Complex I", eventnum: "0", size: CGRect(x: 610, y: 463, width: 150, height: 50))
-        butc = setButton( c, label: "Student Pavilion I", eventnum: "0", size: CGRect(x: 622, y: 392, width: 150, height: 50))
+        butb = setButton( b, label: "Learning Complex I", eventnum: eventcount[1], size: CGRect(x: 610, y: 463, width: 150, height: 50))
+        butc = setButton( c, label: "Student Pavilion I", eventnum: eventcount[2], size: CGRect(x: 622, y: 392, width: 150, height: 50))
         butd = setButton( d, label: "Block D", eventnum: "0", size: CGRect(x: 645, y: 260, width: 150, height: 50))
         bute = setButton( e, label: "Block E", eventnum: "0", size: CGRect(x: 660, y: 165, width: 150, height: 50))
         butf = setButton( f, label: "Block F", eventnum: "0", size: CGRect(x: 468, y: 280, width: 150, height: 50))
@@ -168,7 +173,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         butj = setButton( j, label: "Block J", eventnum: "0", size: CGRect(x: 336, y: 210, width: 150, height: 50))
         butk = setButton( k, label: "Block K", eventnum: "0", size: CGRect(x: 325, y: 445, width: 150, height: 50))
         butl = setButton( l, label: "Block L", eventnum: "0", size: CGRect(x: 317, y: 505, width: 150, height: 50))
-        butm = setButton( m, label: "Grand Hall", eventnum: "0", size: CGRect(x: 345, y: 550, width: 150, height: 50))
+        butm = setButton( m, label: "Grand Hall", eventnum: eventcount[12], size: CGRect(x: 345, y: 550, width: 150, height: 50))
         butn = setButton( n, label: "Block N", eventnum: "0", size: CGRect(x: 423, y: 612, width: 150, height: 50))
         buto = setButton( o, label: "Sports Complex", eventnum: "0", size: CGRect(x: 325, y: 835, width: 150, height: 50))
         butp = setButton( p, label: "Block P", eventnum: "0", size: CGRect(x: 460, y: 590, width: 150, height: 50))
