@@ -122,6 +122,9 @@
 		FE5EF8CD1B0E36D2006E386E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5EF8CC1B0E36D2006E386E /* libz.dylib */; };
 		FE5EF8CF1B0E36E1006E386E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5EF8CE1B0E36E1006E386E /* libsqlite3.dylib */; };
 		FEC183501AFBEA3A00EBA86B /* MapPin.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC1834F1AFBEA3A00EBA86B /* MapPin.xib */; };
+		FEED296D1B1108320042FFE0 /* EventDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED296C1B1108320042FFE0 /* EventDetails.swift */; };
+		FEED296F1B1212480042FFE0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED296E1B1212480042FFE0 /* SettingsViewController.swift */; };
+		FEED29711B1366B00042FFE0 /* userinfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEED29701B1366B00042FFE0 /* userinfo.plist */; };
 		FEF98EE01B0F701F0066137C /* BuildingDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF98EDF1B0F701F0066137C /* BuildingDetails.swift */; };
 /* End PBXBuildFile section */
 
@@ -282,6 +285,9 @@
 		FE5EF8CE1B0E36E1006E386E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		FEC1834F1AFBEA3A00EBA86B /* MapPin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapPin.xib; path = ../MapPin.xib; sourceTree = "<group>"; };
 		FEE821541B0BB9EA006408BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FEED296C1B1108320042FFE0 /* EventDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetails.swift; sourceTree = "<group>"; };
+		FEED296E1B1212480042FFE0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FEED29701B1366B00042FFE0 /* userinfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userinfo.plist; sourceTree = SOURCE_ROOT; };
 		FEF98EDF1B0F701F0066137C /* BuildingDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildingDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -507,7 +513,9 @@
 				84907D5B1AC4A85E00EACB2E /* DetailViewController.swift */,
 				84DC69D71AD99CE300040C57 /* DetailViewCell.swift */,
 				F491E7521A7F7DF20026528E /* MapViewController.swift */,
+				FEED296C1B1108320042FFE0 /* EventDetails.swift */,
 				F491E7541A7F7E010026528E /* PhotoViewController.swift */,
+				FEED296E1B1212480042FFE0 /* SettingsViewController.swift */,
 				848D61FC1AD772B000D737C6 /* InterestCollectionViewController.swift */,
 				848D61FE1AD7732400D737C6 /* InterestCollectionViewCell.swift */,
 				84DC69CC1AD954CA00040C57 /* Map */,
@@ -521,6 +529,7 @@
 			isa = PBXGroup;
 			children = (
 				F47029F41A7F27DB00E30A3C /* Info.plist */,
+				FEED29701B1366B00042FFE0 /* userinfo.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -702,6 +711,7 @@
 				840C2D701AD852B00092CAC9 /* Exercise.png in Resources */,
 				840C2DA51AD857950092CAC9 /* Humor.png in Resources */,
 				840C2DAB1AD857950092CAC9 /* Self-improvement.png in Resources */,
+				FEED29711B1366B00042FFE0 /* userinfo.plist in Resources */,
 				840C2DA61AD857950092CAC9 /* Language.png in Resources */,
 				840C2DC41AD85ACA0092CAC9 /* Programming.png in Resources */,
 				840C2D8D1AD855190092CAC9 /* Photography.png in Resources */,
@@ -739,6 +749,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEF98EE01B0F701F0066137C /* BuildingDetails.swift in Sources */,
+				FEED296D1B1108320042FFE0 /* EventDetails.swift in Sources */,
 				848D61FF1AD7732400D737C6 /* InterestCollectionViewCell.swift in Sources */,
 				843B545B1ADAD1E300A47776 /* ADAnnotationTapGestureRecognizer.m in Sources */,
 				84907D5C1AC4A85E00EACB2E /* DetailViewController.swift in Sources */,
@@ -757,6 +768,7 @@
 				84DC69DA1ADA2ED100040C57 /* Event.swift in Sources */,
 				F491E74C1A7F4C630026528E /* NewsTableViewCell.swift in Sources */,
 				F491E7531A7F7DF20026528E /* MapViewController.swift in Sources */,
+				FEED296F1B1212480042FFE0 /* SettingsViewController.swift in Sources */,
 				843B54621ADAD1E300A47776 /* JCTiledView.m in Sources */,
 				843B545E1ADAD1E300A47776 /* JCPDFTiledView.m in Sources */,
 				F491E74A1A7F4B300026528E /* NewsTableViewController.swift in Sources */,

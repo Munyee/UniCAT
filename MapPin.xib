@@ -20,6 +20,6 @@
         </view>
     </objects>
     <resources>
-        <image name="MapPin" width="340" height="101"/>
+        <image name="MapPin" width="340" height="102"/>
     </resources>
 </document>

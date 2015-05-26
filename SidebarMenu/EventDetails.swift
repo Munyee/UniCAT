@@ -10,7 +10,7 @@ import Foundation
 import Parse
 import UIKit
 
-class BuildingDetails: UITableViewController  {
+class EventDetails: UITableViewController  {
     
     
     @IBOutlet var NameTableView: UITableView!
@@ -31,6 +31,7 @@ class BuildingDetails: UITableViewController  {
         
         
         var cell = self.NameTableView.dequeueReusableCellWithIdentifier("TransportCell") as! UITableViewCell
+        
         
         cell.textLabel!.text = self.workerNames[indexPath.row]
         

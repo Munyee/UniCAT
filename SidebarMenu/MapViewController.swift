@@ -13,6 +13,10 @@ import Parse
 let annotationReuseIdentifier = "JCAnnotationReuseIdentifier";
 
 class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSource {
+    struct Name{
+        static var nameof = ""
+        static var imageview : NSString = ""
+    }
     @IBOutlet weak var menuButton:UIBarButtonItem!
     var mutex = pthread_mutex_t()
     var semaphore = dispatch_semaphore_t()
@@ -53,10 +57,11 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     var textlabel:UILabel = UILabel()
         var first:Bool = Bool()
     var thelastone:CGFloat = CGFloat()
+    
     var tag:Int = 0
     var y:Int = 0
     var z:Int = 0
-    var names:[String] = ["Heritage Hall","Learning Complex I","Student Pavilion I","Block D","Block E","Block F","Block G","Block H","Block I","Block J","Block K","Block L","Grand Hall","Block N","Sports Complex","Block P"]
+    var names:[String] = ["Heritage Hall","Learning Complex I","Student Pavilion I","Faculty of Science","FEGT","Administration Block","Library","FBF","Lecture Complex I","Engineering Workshop","Student Pavilion II","Lecture Complex II","Grand Hall","FICT","Sports Complex","FAS & ICS"]
     var eventcount: [String] = ["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"]
     var eventname : [String] = []
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -67,9 +72,38 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         super.init(coder: aDecoder)
     }
     
-    
+    func loadGameData() {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+        let documentsDirectory = paths[0] as! String
+        let path = documentsDirectory.stringByAppendingPathComponent("userinfo.plist")
+        let fileManager = NSFileManager.defaultManager()
+        //check if file exists
+        if(!fileManager.fileExistsAtPath(path)) {
+            // If it doesn't, copy it from the default file in the Bundle
+            if let bundlePath = NSBundle.mainBundle().pathForResource("userinfo", ofType: "plist") {
+                let resultDictionary = NSMutableDictionary(contentsOfFile: bundlePath)
+                println("Bundle GameData.plist file is --> \(resultDictionary?.description)")
+                fileManager.copyItemAtPath(bundlePath, toPath: path, error: nil)
+                println("copy")
+            } else {
+                println("GameData.plist not found. Please, make sure it is part of the bundle.")
+            }
+        } else {
+            println("GameData.plist already exits at path.")
+            // use this to delete file from documents directory
+            //fileManager.removeItemAtPath(path, error: nil)
+        }
+        let resultDictionary = NSMutableDictionary(contentsOfFile: path)
+        println("Loaded GameData.plist file is --> \(resultDictionary?.description)")
+        var dict = NSDictionary(contentsOfFile: path)
+        Name.imageview = dict?.objectForKey(annotationkey) as! String
+       
+        
+    }
     
     override func viewDidLoad() {
+       
+        loadGameData()
         
         super.viewDidLoad()
          pthread_mutex_init(&mutex,nil)
@@ -114,8 +148,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
         scrollView.tiledScrollViewDelegate = self
         scrollView.zoomScale = 1.0
-        var timer1 = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("checkvenue"), userInfo: nil, repeats: false)
-        var timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: Selector("addRandomAnnotations"), userInfo: nil, repeats: false)
+        var timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: Selector("addRandomAnnotations"), userInfo: nil, repeats: false)
         scrollView.dataSource = self
         scrollView.tiledScrollViewDelegate = self
         scrollView.backgroundColor = UIColor(red: 201/255, green: 219/255, blue: 111/255, alpha: 1.0)
@@ -134,7 +167,6 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        NSLog("%f",scrollView.scrollView.frame.size.width)
         
     }
 
@@ -162,21 +194,21 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         }
         var image:UIImage = UIImage()
         buta = setButton( a, label: names[0], eventnum: eventcount[0], size: CGRect(x: 612, y: 560, width: 150, height: 50))
-        butb = setButton( b, label: "Learning Complex I", eventnum: eventcount[1], size: CGRect(x: 610, y: 463, width: 150, height: 50))
-        butc = setButton( c, label: "Student Pavilion I", eventnum: eventcount[2], size: CGRect(x: 622, y: 392, width: 150, height: 50))
-        butd = setButton( d, label: "Block D", eventnum: "0", size: CGRect(x: 645, y: 260, width: 150, height: 50))
-        bute = setButton( e, label: "Block E", eventnum: "0", size: CGRect(x: 660, y: 165, width: 150, height: 50))
-        butf = setButton( f, label: "Block F", eventnum: "0", size: CGRect(x: 468, y: 280, width: 150, height: 50))
-        butg = setButton( g, label: "Block G", eventnum: "0", size: CGRect(x: 440, y: 320, width: 150, height: 50))
-        buth = setButton( h, label: "Block H", eventnum: "0", size: CGRect(x: 390, y: 385, width: 150, height: 50))
-        buti = setButton( i, label: "Block I", eventnum: "0", size: CGRect(x: 423, y: 420, width: 150, height: 50))
-        butj = setButton( j, label: "Block J", eventnum: "0", size: CGRect(x: 336, y: 210, width: 150, height: 50))
-        butk = setButton( k, label: "Block K", eventnum: "0", size: CGRect(x: 325, y: 445, width: 150, height: 50))
-        butl = setButton( l, label: "Block L", eventnum: "0", size: CGRect(x: 317, y: 505, width: 150, height: 50))
-        butm = setButton( m, label: "Grand Hall", eventnum: eventcount[12], size: CGRect(x: 345, y: 550, width: 150, height: 50))
-        butn = setButton( n, label: "Block N", eventnum: "0", size: CGRect(x: 423, y: 612, width: 150, height: 50))
-        buto = setButton( o, label: "Sports Complex", eventnum: "0", size: CGRect(x: 325, y: 835, width: 150, height: 50))
-        butp = setButton( p, label: "Block P", eventnum: "0", size: CGRect(x: 460, y: 590, width: 150, height: 50))
+        butb = setButton( b, label: names[1], eventnum: eventcount[1], size: CGRect(x: 610, y: 463, width: 150, height: 50))
+        butc = setButton( c, label: names[2], eventnum: eventcount[2], size: CGRect(x: 622, y: 392, width: 150, height: 50))
+        butd = setButton( d, label: names[3], eventnum: eventcount[3], size: CGRect(x: 645, y: 260, width: 150, height: 50))
+        bute = setButton( e, label: names[4], eventnum: eventcount[4], size: CGRect(x: 660, y: 165, width: 150, height: 50))
+        butf = setButton( f, label: names[5], eventnum: eventcount[5], size: CGRect(x: 468, y: 280, width: 150, height: 50))
+        butg = setButton( g, label: names[6], eventnum: eventcount[6], size: CGRect(x: 440, y: 320, width: 150, height: 50))
+        buth = setButton( h, label: names[7], eventnum: eventcount[7], size: CGRect(x: 390, y: 385, width: 150, height: 50))
+        buti = setButton( i, label: names[8], eventnum: eventcount[8], size: CGRect(x: 423, y: 420, width: 150, height: 50))
+        butj = setButton( j, label: names[9], eventnum: eventcount[9], size: CGRect(x: 336, y: 210, width: 150, height: 50))
+        butk = setButton( k, label: names[10], eventnum: eventcount[10], size: CGRect(x: 325, y: 445, width: 150, height: 50))
+        butl = setButton( l, label: names[11], eventnum: eventcount[11], size: CGRect(x: 317, y: 505, width: 150, height: 50))
+        butm = setButton( m, label: names[12], eventnum: eventcount[12], size: CGRect(x: 345, y: 550, width: 150, height: 50))
+        butn = setButton( n, label: names[13], eventnum: eventcount[13], size: CGRect(x: 423, y: 612, width: 150, height: 50))
+        buto = setButton( o, label: names[14], eventnum: eventcount[14], size: CGRect(x: 325, y: 835, width: 150, height: 50))
+        butp = setButton( p, label: names[15], eventnum: eventcount[15], size: CGRect(x: 460, y: 590, width: 150, height: 50))
         
         b.hidden = true
         d.hidden = true
@@ -199,6 +231,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     }
     
     func setButton( imageview : UIImageView,label:String,eventnum:String,size:CGRect)->UIButton{
+        
         tag++
         textlabel.text = label
         var button:UIButton = UIButton()
@@ -208,24 +241,40 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         annot.frame = CGRectMake(0,0,150,50)
         var image:UIImage = UIImage()
         var image1:UIImageView = UIImageView()
-        image = UIImage(named: "MapPin")!
+        if(Name.imageview == "White"){
+            image = UIImage(named: "MapPinWhite")!
+        }
+        else{
+            image = UIImage(named: "MapPinBlack")!
+        }
+        
         var label1 : UILabel = UILabel()
         var event :UILabel = UILabel()
         image1 = imageview
+        image1.alpha = 0.8
         annot = UIImageView(image:image)
         image1.userInteractionEnabled = true
         annot.userInteractionEnabled = true
         image1.frame = size
         label1.frame = CGRect(x: 17, y: -2, width: 150, height: 50)
         label1.text = label
-        label1.textColor = UIColor.whiteColor()
         label1.textAlignment = NSTextAlignment.Center
         label1.font = UIFont(name: "Avenir Next", size: 12)
+        
         event.frame = CGRect(x: 1, y: -2, width: 30, height: 50)
         event.text = eventnum
-        event.textColor = UIColor.whiteColor()
         event.textAlignment = NSTextAlignment.Center
         event.font = UIFont(name: "Avenir Next", size: 12)
+        
+        if(Name.imageview == "White"){
+            label1.textColor = UIColor.blackColor()
+            event.textColor = UIColor.blackColor()
+        }
+        else{
+            label1.textColor = UIColor.whiteColor()
+            event.textColor = UIColor.whiteColor()
+        }
+        
         button.addTarget(self, action: "pressed:", forControlEvents: .TouchUpInside)
         annot.addSubview(label1)
         annot.addSubview(event)
@@ -242,7 +291,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
         scale = CGFloat(scrollView.zoomScale)
         NSLog("%f",scale)
-        if(scale > 1 && scale <= 2){
+        if(scale > 1 && scale <= 1.95){
             b.hidden = true
             d.hidden = true
             e.hidden = true
@@ -471,13 +520,16 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         var x:Int = 0
         for(x = 0 ; x < names.count ; x++){
             if(sender.tag == x+1){
+                
+                Name.nameof = names[x]
                 self.performSegueWithIdentifier("Buildingdetails", sender: nil)
-
+            
             }
         }
         
     }
     
+   
     /*
     // MARK: - Navigation
 

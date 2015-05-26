@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "MapPinDefault.png"
+      "filename" : "MapPinBlack.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "MapPinDefault-1.png"
+      "filename" : "MapPinBlack-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "MapPinDefault-2.png"
+      "filename" : "MapPinBlack-2.png"
     }
   ],
   "info" : {
