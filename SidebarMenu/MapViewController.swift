@@ -13,10 +13,16 @@ import Parse
 let annotationReuseIdentifier = "JCAnnotationReuseIdentifier";
 
 class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSource {
+    
+    
     struct Name{
         static var nameof = ""
         static var imageview : NSString = ""
+        static var floor : Int = 0
+        static var gallery : Int = 0
     }
+    
+    
     @IBOutlet weak var menuButton:UIBarButtonItem!
     var mutex = pthread_mutex_t()
     var semaphore = dispatch_semaphore_t()
@@ -72,6 +78,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         super.init(coder: aDecoder)
     }
     
+    //Load the annotation color from plist
     func loadGameData() {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths[0] as! String
@@ -101,42 +108,61 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
     }
     
+    //-------------------------------------------------------
+    
+    func checkconnection(){
+        var temp : [String] = []
+        var counter:Int = 0
+        var check : Int = 0
+        
+        var query = PFQuery(className:"Event")
+        var today = NSDate()
+        query.whereKey("endDate", greaterThanOrEqualTo: today)
+        query.findObjectsInBackgroundWithBlock({(objects: [AnyObject]?, error:NSError?) -> Void in
+            
+            var name :String
+            // Looping through the objects to get the names of the workers in each object
+            
+            for object in objects! {
+                
+                //here to increase count if event++
+                temp.append(object["venue"] as! String)
+                
+            }
+            
+            // temp = String(hello)
+            println(temp)
+            
+            NSLog("Done Load Data")
+            self.eventname = temp
+            counter++
+            check++
+            
+            
+        })
+    }
+    
     override func viewDidLoad() {
        
         loadGameData()
-        
         super.viewDidLoad()
-         pthread_mutex_init(&mutex,nil)
+        Name.floor = 0
+        Name.gallery = 0
+        pthread_mutex_init(&mutex,nil)
         dispatch_semaphore_create(0)
-        var temp : [String] = []
-        var counter:Int = 0
         
-            var check : Int = 0
-            
-            
-            var query = PFQuery(className:"Event")
-            query.findObjectsInBackgroundWithBlock({(objects: [AnyObject]?, error:NSError?) -> Void in
-            
-                    var name :String
-                    // Looping through the objects to get the names of the workers in each object
-                
-                    for object in objects! {
-                        
-                        //here to increase count if event++
-                        temp.append(object["venue"] as! String)
-                        
-                }
-                
-                   // temp = String(hello)
-                    println(temp)
-                
-                    NSLog("Done Load Data")
-                    self.eventname = temp
-                    counter++
-                    check++
-                
-                
-            })
+        if Reachability.isConnectedToNetwork(){
+            println("Internet connection ok")
+            checkconnection()
+        }
+        else
+        {
+            println("No internet connection")
+            var alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+        
+        
         
         
         
@@ -148,7 +174,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
         scrollView.tiledScrollViewDelegate = self
         scrollView.zoomScale = 1.0
-        var timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: Selector("addRandomAnnotations"), userInfo: nil, repeats: false)
+        var timer = NSTimer.scheduledTimerWithTimeInterval(2.5, target: self, selector: Selector("addRandomAnnotations"), userInfo: nil, repeats: false)
         scrollView.dataSource = self
         scrollView.tiledScrollViewDelegate = self
         scrollView.backgroundColor = UIColor(red: 201/255, green: 219/255, blue: 111/255, alpha: 1.0)
@@ -176,15 +202,62 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     }
     
     
-    func checkvenue(){
-      
+    func buildingName(#room: String) -> String {
+        
+        // Get the Building initial from Room number
+        var initial = room.substringToIndex(advance(room.startIndex, 1))
+        var length = count(room)
+        
+        if (length >= 7 || room == "FBF" || room == "FEGT"){
+            return room
+        }
+        
+        // Return UTAR Building Name
+        switch initial {
+        case "A":
+            return "Heritage Hall"
+        case "B":
+            return "Learning Complex I"
+        case "C":
+            return "Student Pavilion I"
+        case "D":
+            return "Faculty of Science"
+        case "E":
+            return "FEGT"
+        case "F":
+            return "Administration"
+        case "G":
+            return "Library"
+        case "H":
+            return "FBF"
+        case "I":
+            return "Lecture Complex I"
+        case "J":
+            return "Engineering Workshop"
+        case "K":
+            return "Student Pavilion II"
+        case "L":
+            return "Lecture Complex II"
+        case "M":
+            return "Grand Hall"
+        case "N":
+            return "FICT"
+        case "P":
+            return "FAS & ICS"
+        default:
+            return room
+        }
+        
     }
    
+    
     func addRandomAnnotations() {
         for(y = 0 ; y < names.count; y++){
             var eventcounter:Int = 0
             for(z = 0 ; z < eventname.count; z++){
-                if(eventname[z] == names[y]){
+                let c : String = buildingName(room: eventname[z])
+                if(eventname[z] == names[y] || c == names[y]){
+                    
                     eventcounter++
                     
                 }
@@ -193,22 +266,22 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             }
         }
         var image:UIImage = UIImage()
-        buta = setButton( a, label: names[0], eventnum: eventcount[0], size: CGRect(x: 612, y: 560, width: 150, height: 50))
-        butb = setButton( b, label: names[1], eventnum: eventcount[1], size: CGRect(x: 610, y: 463, width: 150, height: 50))
-        butc = setButton( c, label: names[2], eventnum: eventcount[2], size: CGRect(x: 622, y: 392, width: 150, height: 50))
-        butd = setButton( d, label: names[3], eventnum: eventcount[3], size: CGRect(x: 645, y: 260, width: 150, height: 50))
-        bute = setButton( e, label: names[4], eventnum: eventcount[4], size: CGRect(x: 660, y: 165, width: 150, height: 50))
-        butf = setButton( f, label: names[5], eventnum: eventcount[5], size: CGRect(x: 468, y: 280, width: 150, height: 50))
-        butg = setButton( g, label: names[6], eventnum: eventcount[6], size: CGRect(x: 440, y: 320, width: 150, height: 50))
-        buth = setButton( h, label: names[7], eventnum: eventcount[7], size: CGRect(x: 390, y: 385, width: 150, height: 50))
-        buti = setButton( i, label: names[8], eventnum: eventcount[8], size: CGRect(x: 423, y: 420, width: 150, height: 50))
-        butj = setButton( j, label: names[9], eventnum: eventcount[9], size: CGRect(x: 336, y: 210, width: 150, height: 50))
-        butk = setButton( k, label: names[10], eventnum: eventcount[10], size: CGRect(x: 325, y: 445, width: 150, height: 50))
-        butl = setButton( l, label: names[11], eventnum: eventcount[11], size: CGRect(x: 317, y: 505, width: 150, height: 50))
-        butm = setButton( m, label: names[12], eventnum: eventcount[12], size: CGRect(x: 345, y: 550, width: 150, height: 50))
-        butn = setButton( n, label: names[13], eventnum: eventcount[13], size: CGRect(x: 423, y: 612, width: 150, height: 50))
-        buto = setButton( o, label: names[14], eventnum: eventcount[14], size: CGRect(x: 325, y: 835, width: 150, height: 50))
-        butp = setButton( p, label: names[15], eventnum: eventcount[15], size: CGRect(x: 460, y: 590, width: 150, height: 50))
+        buta = setButton( a, label: names[0], eventnum: eventcount[0], size: CGRect(x: 638, y: 772, width: 150, height: 50))
+        butb = setButton( b, label: names[1], eventnum: eventcount[1], size: CGRect(x: 635, y: 670, width: 150, height: 50))
+        butc = setButton( c, label: names[2], eventnum: eventcount[2], size: CGRect(x: 735, y: 618, width: 150, height: 50))
+        butd = setButton( d, label: names[3], eventnum: eventcount[3], size: CGRect(x: 835, y: 550, width: 150, height: 50))
+        bute = setButton( e, label: names[4], eventnum: eventcount[4], size: CGRect(x: 820, y: 495, width: 150, height: 50))
+        butf = setButton( f, label: names[5], eventnum: eventcount[5], size: CGRect(x: 830, y: 418, width: 150, height: 50))
+        butg = setButton( g, label: names[6], eventnum: eventcount[6], size: CGRect(x: 785, y: 390, width: 150, height: 50))
+        buth = setButton( h, label: names[7], eventnum: eventcount[7], size: CGRect(x: 780, y: 300, width: 150, height: 50))
+        buti = setButton( i, label: names[8], eventnum: eventcount[8], size: CGRect(x: 750, y: 338, width: 150, height: 50))
+        butj = setButton( j, label: names[9], eventnum: eventcount[9], size: CGRect(x: 880, y: 312, width: 150, height: 50))
+        butk = setButton( k, label: names[10], eventnum: eventcount[10], size: CGRect(x: 652, y: 243, width: 150, height: 50))
+        butl = setButton( l, label: names[11], eventnum: eventcount[11], size: CGRect(x: 565, y: 270, width: 150, height: 50))
+        butm = setButton( m, label: names[12], eventnum: eventcount[12], size: CGRect(x: 367, y: 360, width: 150, height: 50))
+        butn = setButton( n, label: names[13], eventnum: eventcount[13], size: CGRect(x: 310, y: 490, width: 150, height: 50))
+        buto = setButton( o, label: names[14], eventnum: eventcount[14], size: CGRect(x: 95, y: 610, width: 150, height: 50))
+        butp = setButton( p, label: names[15], eventnum: eventcount[15], size: CGRect(x: 308, y: 520, width: 150, height: 50))
         
         b.hidden = true
         d.hidden = true
@@ -510,18 +583,55 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     
     
     @IBAction func refreshButton(sender: AnyObject) {
-        
+        viewDidLoad()
     }
     
     
     func pressed(sender: UIButton!) {
-        var alertView = UIAlertView();
         
+        
+        
+        //perform segue
         var x:Int = 0
         for(x = 0 ; x < names.count ; x++){
             if(sender.tag == x+1){
                 
                 Name.nameof = names[x]
+                
+                var query = PFQuery(className:"Building")
+                query.whereKey("name", equalTo:Name.nameof)
+                query.findObjectsInBackgroundWithBlock({(objects:[AnyObject]?, error:NSError?) -> Void in
+                    
+                    if error == nil {
+                        
+                        
+                        // Looping through the objects to get the names of the workers in each object
+                        for object in objects! {
+                            
+                            Name.floor = object["floor"] as! Int
+                            
+                            
+                        }
+                        NSLog("Done Load Data")
+                    }
+                    
+                    
+                })
+                
+                var gallery = PFQuery(className:"Gallery")
+                gallery.whereKey("venue", equalTo:Name.nameof)
+                gallery.findObjectsInBackgroundWithBlock {
+                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        // The find succeeded.
+                        Name.gallery = objects!.count
+                        
+                    }
+                    
+                }
+                
+                
                 self.performSegueWithIdentifier("Buildingdetails", sender: nil)
             
             }

@@ -1,163 +1,176 @@
 //
 //  DetailViewController.swift
-//  SidebarMenu
+//  UniCAT
 //
-//  Created by Lye Guang Xing on 3/27/15.
-//  Copyright (c) 2015 AppCoda. All rights reserved.
+//  Created by Lye Guang Xing on 5/15/15.
+//  Copyright (c) 2015 Sweatshop Solutions. All rights reserved.
 //
-/*
+
 import UIKit
+import Parse
+import ParseUI
 
-var event1 = 0
-var event2 = 0
-
-class DetailViewController: UITableViewController {
-    @IBOutlet weak var menuButton:UIBarButtonItem!
+class DetailViewController: UIViewController {
     
-    @IBOutlet weak var addDetailButton: UIBarButtonItem!
-    @IBOutlet weak var favouriteButton: UIBarButtonItem!
-
+    @IBOutlet weak var eventName: UILabel!
+    @IBOutlet weak var eventSubtitle: UILabel!
+    @IBOutlet weak var eventDescription: UITextView!
+    @IBOutlet weak var eventCover: PFImageView!
+    @IBOutlet weak var eventVenue: UILabel!
+    @IBOutlet weak var eventDate: UILabel!
     
-    var favourite = 0
-    var events = Event()
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
+    var currentObject: PFObject?
+    var currentUser = PFUser.currentUser()
+    var subevent = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        if event == 1 {
-            if event2 == 1 {
-                favourite = 1
-                favouriteButton.image = UIImage(named: "Favourite Selected")
+        if let object = currentObject {
+            //Track user - Event accessed
+            
+            if currentUser != nil {
+                let eventView = PFObject(className: "EventView")
+                
+                eventView["type"] = "visit"
+                eventView.setObject(currentUser!, forKey: "userId")
+                eventView.setObject(object, forKey: "eventId")
+                //eventView.saveEventually()
             }
-        } else {
-            if event1 == 1 {
-                favourite = 1
-                favouriteButton.image = UIImage(named: "Favourite Selected")
+            
+            //Show event details
+            eventName.text = object["name"] as? String
+            eventSubtitle.text = object["subtitle"] as? String
+            eventDescription.text = object["description"] as? String
+            
+            eventVenue.text = object["venue"] as? String
+            
+            var initialThumbnail = UIImage(named: "placeholder")
+            eventCover.image = initialThumbnail
+            
+            if let thumbnail = object["cover"] as? PFFile {
+                eventCover.file = thumbnail
+                eventCover.loadInBackground()
             }
+            
+            if let startDate = object["startDate"] as? NSDate {
+                var dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "dd/MM"
+                
+                var timeFormatter = NSDateFormatter()
+                timeFormatter.dateFormat = "h:mm a"
+                
+                let endDate = object["endDate"] as? NSDate
+                
+                var strDate = dateFormatter.stringFromDate(startDate)
+                var enDate = dateFormatter.stringFromDate(endDate!)
+                var strTime = timeFormatter.stringFromDate(startDate)
+                var enTime = timeFormatter.stringFromDate(endDate!)
+                
+                if strDate == enDate {
+                    eventDate.text = strDate + " (" + strTime + " - " + enTime + ")"
+                } else {
+                    eventDate.text = strDate + " - " + enDate + " (" + strTime + ")"
+                }
+            }
+            
+            var query = PFQuery(className: "Event")
+            query.whereKey("mainEvent", equalTo: object)
+            
+            //query.countObjectsInBackground()
+            
+            subevent = query.countObjects()
+            
         }
         
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        view.reloadInputViews()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if event == 1 {
-            if indexPath.row == 0 {
-                let cover = tableView.dequeueReusableCellWithIdentifier("Cover", forIndexPath: indexPath) as! DetailViewCell
-                
-                cover.coverPhoto.image = UIImage(named: "Cover")
-                cover.eventTitle.text = "IT Fair 2015"
-                cover.eventSubtitle.text = "IT Products and Services"
-                cover.countDown.text = "In 4 days"
-                
-                return cover
+        if segue.identifier == "eventDetailToSubevent" {
+            var subeventScene = segue.destinationViewController as! SubEventsTableViewController
+            
+            subeventScene.currentObject = currentObject
+        } else {
+            var nav = segue.destinationViewController as! UINavigationController
+            var editorScene = nav.topViewController as! EditorTableViewController
+            
+            editorScene.currentObject = currentObject
+        }
+    }
+    
+    @IBAction func editEvent(sender: AnyObject) {
+        
+        if currentUser != nil {
+            dispatch_async(dispatch_get_main_queue()) {
+                self.performSegueWithIdentifier("eventDetailToEventEditor", sender: self)
             }
         } else {
-        
-        if indexPath.row == 0 {
-            let cover = tableView.dequeueReusableCellWithIdentifier("Cover", forIndexPath: indexPath) as! DetailViewCell
-            
-            cover.coverPhoto.image = UIImage(named: "Cover")
-            cover.eventTitle.text = "S.O.U.L. 2015"
-            cover.eventSubtitle.text = "Photography Exhibition"
-            cover.countDown.text = "In 8 days"
-            
-            return cover
-        }
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController") as! UIViewController
+            self.presentViewController(vc, animated: true, completion: nil)
         }
         
-        if indexPath.row == 1 {
-            let text = tableView.dequeueReusableCellWithIdentifier("Text", forIndexPath: indexPath) as! DetailViewCell
-            text.textContent.text = "Hello all awesome UTARians"
-            return text
-        } else if indexPath.row == 2 {
-            let text = tableView.dequeueReusableCellWithIdentifier("Text", forIndexPath: indexPath) as! DetailViewCell
-            text.textContent.text = "UTAR Photography Society will be organizing the annual photography exhibition which to show the Stories of UTARians' Lens (S.O.U.L)."
-            return text
-        } else if indexPath.row == 3 {
-            let photo = tableView.dequeueReusableCellWithIdentifier("Photo", forIndexPath: indexPath) as! DetailViewCell
-            return photo
-        }
-        
-        let detail = tableView.dequeueReusableCellWithIdentifier("Detail", forIndexPath: indexPath) as! DetailViewCell
-        return detail
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    @IBAction func showActionSheet(sender: AnyObject) {
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
-        if indexPath.row == 0 {
-            return 300
-        }
-        
-        if indexPath.row == 2 {
-            return 150
-        }
-        
-        if indexPath.row == 3 {
-            return 320
-        }
-        
-        if indexPath.row == 4 {
-            return 243
-        }
-        
-        return 50
-    }
-    
-    @IBAction func backButton(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func favouriteToggle(sender: AnyObject) {
-        if favourite == 0 {
-            favourite = 1
-            favouriteButton.image = UIImage(named: "Favourite Selected")
-            if event == 0 {
-                favCount1++
-                event1 = 1
-            } else {
-                favCount2++
-                event2 = 1
+        let subeventAction = UIAlertAction(title: "Show Subevents", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            println("Show subevents")
+            dispatch_async(dispatch_get_main_queue()) {
+                self.performSegueWithIdentifier("eventDetailToSubevent", sender: self)
             }
-            favCount++
-        } else {
-            favourite = 0
-            favouriteButton.image = UIImage(named: "Favourite")
-            if event == 0 {
-                favCount1--
-                event1 = 0
-            } else {
-                favCount2--
-                event2 = 0
-            }
-            favCount--
+        })
+        
+        let shareAction = UIAlertAction(title: "Share Event", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            println("Launch Facebook Share")
+            
+        })
+        
+        let reportAction = UIAlertAction(title: "Report Fake", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            println("Record fraud report")
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            println("Cancelled")
+        })
+        
+        if subevent != 0 {
+            optionMenu.addAction(subeventAction)
         }
         
-    }
-    
-    @IBAction func addDetailPressed(sender: AnyObject) {
+        optionMenu.addAction(shareAction)
+        optionMenu.addAction(reportAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.presentViewController(optionMenu, animated: true, completion: nil)
         
     }
     
-    @IBAction func moreButton(sender: AnyObject) {
-        
+    /*
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
+    */
+    
 }
-*/
