@@ -53,6 +53,7 @@ class InterestViewController: PFQueryCollectionViewController {
         
         self.parseClassName = "Interest"
         
+        
     }
     
     override func objectsWillLoad() {

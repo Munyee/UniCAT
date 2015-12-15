@@ -5400,8 +5400,41 @@
                         <sections>
                             <tableViewSection id="c77-rZ-gm7">
                                 <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="138" id="WQB-ce-6BS">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="138"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WQB-ce-6BS" id="cG0-9Z-VeE">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROFILE PICTURE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiB-c8-ihB">
+                                                    <rect key="frame" x="15" y="12" width="118" height="20"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addProfile" translatesAutoresizingMaskIntoConstraints="NO" id="Mia-go-G7P">
+                                                    <rect key="frame" x="110" y="38" width="100" height="100"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="4hO-pv-bNT"/>
+                                                        <constraint firstAttribute="height" constant="100" id="6Ms-I2-5wU"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Mia-go-G7P" secondAttribute="bottom" id="7Au-UC-TWm"/>
+                                                <constraint firstItem="fiB-c8-ihB" firstAttribute="top" secondItem="cG0-9Z-VeE" secondAttribute="topMargin" constant="4" id="8EB-FZ-rQl"/>
+                                                <constraint firstItem="Mia-go-G7P" firstAttribute="centerX" secondItem="cG0-9Z-VeE" secondAttribute="centerX" id="IDE-kq-KFg"/>
+                                                <constraint firstItem="fiB-c8-ihB" firstAttribute="leading" secondItem="cG0-9Z-VeE" secondAttribute="leadingMargin" constant="7" id="lcW-vA-ho7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="411" id="EuX-1T-dNZ">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="411"/>
+                                        <rect key="frame" x="0.0" y="202" width="320" height="411"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EuX-1T-dNZ" id="x2w-w3-4OI">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
@@ -5670,7 +5703,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="230" id="Jhp-aq-njC">
-                                        <rect key="frame" x="0.0" y="475" width="320" height="230"/>
+                                        <rect key="frame" x="0.0" y="613" width="320" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jhp-aq-njC" id="26r-tZ-KdZ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
@@ -5798,7 +5831,7 @@
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="save" rowHeight="70" id="Gi9-Xc-R4h">
-                                        <rect key="frame" x="0.0" y="705" width="320" height="70"/>
+                                        <rect key="frame" x="0.0" y="843" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gi9-Xc-R4h" id="5We-js-njb">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
@@ -6666,6 +6699,7 @@
         <image name="Love" width="37" height="32"/>
         <image name="Maybe" width="80" height="35"/>
         <image name="Setting" width="30" height="30"/>
+        <image name="addProfile" width="115" height="115"/>
         <image name="addimage" width="247" height="167"/>
         <image name="back" width="19" height="18"/>
         <image name="black" width="2" height="2"/>
