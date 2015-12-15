@@ -24,20 +24,30 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TYMProgressBarView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>61465D47EB0BC5765EAEC8FCF187CB23</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>61681BF0E677683490353B846C61A129</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>944E2705483472CA8091B956905ACDE8</key>
+		<key>B607C271598969E27CD3E83F3DDC8DC6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9F8AAE040AE1A9A8CA0585744F645C57</key>
+		<key>FCFFE1B8689AA9107E048BBD36F6EA9C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

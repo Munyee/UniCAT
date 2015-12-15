@@ -8,8 +8,9 @@
 
 import UIKit
 
-class UserDetailViewController: UITableViewController, UITextFieldDelegate, DismissViewDelegate {
+class UserDetailViewController: UITableViewController, UITextFieldDelegate, DismissViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate,RSKImageCropViewControllerDelegate {
 
+    @IBOutlet weak var userProfile: PFImageView!
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var stuID: UITextField!
     @IBOutlet weak var mobile: UITextField!
@@ -26,11 +27,17 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
     @IBOutlet weak var role2: UIButton!
     @IBOutlet weak var role3: UIButton!
     
+    let picker = UIImagePickerController()
+    
     var selection = 1
     var role = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
+        self.picker.delegate = self
+        self.userProfile.layer.cornerRadius = self.userProfile.frame.size.width / 2;
 
         self.navigationController?.navigationBarHidden = false
         self.navigationItem.title = "User Details"
@@ -80,6 +87,8 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
         
         let currentUser = PFUser.currentUser()
         
+        userProfile.file = currentUser?["image"] as? PFFile
+        userProfile.loadInBackground()
         name.text = currentUser?["name"] as? String
         stuID.text = currentUser?["studentId"] as? String
         mobile.text = currentUser?["phone"] as? String
@@ -124,6 +133,22 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
     
     func saveInfo(sender:UIButton) {
         let currentUser = PFUser.currentUser()
+        
+        let imageData = UIImageJPEGRepresentation(userProfile.image!, 0.5)
+        let imageFile = PFFile(name: "profile.jpg", data: imageData!)
+        
+        imageFile!.saveInBackgroundWithBlock({
+            (succeeded: Bool, error: NSError?) -> Void in
+            // Handle success or failure here ...
+            if succeeded {
+                print("Success")
+                currentUser?["image"] = imageFile
+                currentUser?.saveEventually()
+            }
+            }, progressBlock: {
+                (percentDone: Int32) -> Void in
+                print(percentDone)
+        })
         
         currentUser?["name"] = name.text
         currentUser?["studentId"] = stuID.text
@@ -194,6 +219,9 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
     @IBAction func saveButton(sender: AnyObject) {
         let currentUser = PFUser.currentUser()
         
+        let imageData = UIImagePNGRepresentation(self.userProfile.image!)
+        let imageFile = PFFile(name:"profile.png", data:imageData!)
+        
         currentUser?["name"] = name.text
         currentUser?["studentId"] = stuID.text
         currentUser?["phone"] = mobile.text
@@ -201,7 +229,7 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
         currentUser?["email"] = email.text
         currentUser?["username"] = email.text
         currentUser?["course"] = course.text
-        
+        currentUser?["image"] = imageFile
         currentUser?["role"] = role
         currentUser?["approve"] = "no"
         
@@ -278,6 +306,72 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
             interestScene.type = 2
             interestScene.dismissDelegate = self
         }
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+
+        let imageCropVC = RSKImageCropViewController.init(image: image, cropMode: RSKImageCropMode.Square)
+        imageCropVC.delegate = self
+        imageCropVC.navigationItem.hidesBackButton = true
+        self.picker.pushViewController(imageCropVC, animated: true)
+    }
+    
+    func imageCropViewControllerDidCancelCrop(controller: RSKImageCropViewController) {
+        self.picker .dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imageCropViewController(controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.userProfile.image = croppedImage;
+        
+        
+    }
+    
+    
+    
+    
+    @IBAction func showActionSheet(sender: AnyObject) {
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        
+        let cameraAction = UIAlertAction(title: "Take Photo", style: .Default, handler: {
+            (alert: UIAlertAction) -> Void in
+            print("Launch Camera")
+            
+            self.picker.allowsEditing = false
+            self.picker.sourceType = UIImagePickerControllerSourceType.Camera
+            self.picker.cameraCaptureMode = .Photo
+            self.presentViewController(self.picker, animated: true, completion: nil)
+            
+        })
+        
+        let libraryAction = UIAlertAction(title: "Choose Photo", style: .Default, handler: {
+            (alert: UIAlertAction) -> Void in
+            print("Open Photos Library")
+            
+            self.picker.allowsEditing = false
+            self.picker.sourceType = .PhotoLibrary
+            self.presentViewController(self.picker, animated: true, completion: nil)
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction) -> Void in
+            print("Cancelled")
+        })
+        
+        
+        optionMenu.addAction(cameraAction)
+        optionMenu.addAction(libraryAction)
+        optionMenu.addAction(cancelAction)
+        
+        self.presentViewController(optionMenu, animated: true, completion: nil)
     }
 
 }

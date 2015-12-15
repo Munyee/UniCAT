@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '851D6E5043D62F58A3017EEE'
-               BlueprintName = 'MBProgressHUD'
+               BlueprintIdentifier = '5225071AE2FE597446A1BB8E'
+               BlueprintName = 'TYMProgressBarView'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libMBProgressHUD.a'>
+               BuildableName = 'libTYMProgressBarView.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

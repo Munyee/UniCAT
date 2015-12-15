@@ -4096,8 +4096,65 @@
                         <sections>
                             <tableViewSection id="Xxl-HS-Jke">
                                 <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="138" id="Q4c-zq-Afv">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="138"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q4c-zq-Afv" id="M7T-Y5-2Ds">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sU9-Bo-xMd" customClass="TYMProgressBarView">
+                                                    <rect key="frame" x="108" y="32" width="104" height="104"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="104" id="RzO-bI-X8M"/>
+                                                        <constraint firstAttribute="width" constant="104" id="pPL-SP-fqv"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROFILE PICTURE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="um4-Ua-hKF">
+                                                    <rect key="frame" x="15" y="12" width="118" height="20"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addProfile" translatesAutoresizingMaskIntoConstraints="NO" id="dP6-jl-gXF" customClass="PFImageView">
+                                                    <rect key="frame" x="110" y="34" width="100" height="100"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="100" id="VAC-SY-byF"/>
+                                                        <constraint firstAttribute="width" constant="100" id="lzC-Wj-wuC"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBr-7v-Rrq">
+                                                    <rect key="frame" x="110" y="38" width="100" height="100"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="100" id="hBk-vG-KIe"/>
+                                                        <constraint firstAttribute="width" constant="100" id="tjG-CZ-TCC"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="showActionSheet:" destination="UB8-ZB-dJ5" eventType="touchUpInside" id="QQV-B4-fj1"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="dP6-jl-gXF" firstAttribute="centerX" secondItem="M7T-Y5-2Ds" secondAttribute="centerX" id="9d1-EO-Zea"/>
+                                                <constraint firstItem="tBr-7v-Rrq" firstAttribute="centerX" secondItem="M7T-Y5-2Ds" secondAttribute="centerX" id="Pgd-bx-ATU"/>
+                                                <constraint firstAttribute="bottom" secondItem="tBr-7v-Rrq" secondAttribute="bottom" id="ShK-vz-wTN"/>
+                                                <constraint firstAttribute="bottom" secondItem="sU9-Bo-xMd" secondAttribute="bottom" constant="2" id="VX3-Mm-IjN"/>
+                                                <constraint firstItem="sU9-Bo-xMd" firstAttribute="centerX" secondItem="M7T-Y5-2Ds" secondAttribute="centerX" id="lWn-4i-wzT"/>
+                                                <constraint firstItem="um4-Ua-hKF" firstAttribute="leading" secondItem="M7T-Y5-2Ds" secondAttribute="leadingMargin" constant="7" id="qK6-fT-pxD"/>
+                                                <constraint firstAttribute="bottom" secondItem="dP6-jl-gXF" secondAttribute="bottom" constant="4" id="sXd-nO-tkp"/>
+                                                <constraint firstItem="um4-Ua-hKF" firstAttribute="top" secondItem="M7T-Y5-2Ds" secondAttribute="topMargin" constant="4" id="u8j-97-dRx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="411" id="zH0-Bl-Y2f">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="411"/>
+                                        <rect key="frame" x="0.0" y="202" width="320" height="411"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zH0-Bl-Y2f" id="eu0-BB-oOA">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
@@ -4360,7 +4417,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="300" id="rFx-qZ-OUw">
-                                        <rect key="frame" x="0.0" y="475" width="320" height="300"/>
+                                        <rect key="frame" x="0.0" y="613" width="320" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rFx-qZ-OUw" id="yaw-Oq-XRz">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
@@ -4563,6 +4620,7 @@
                         <outlet property="roleLabel" destination="fVT-lO-qdB" id="Fjp-RT-0KA"/>
                         <outlet property="state" destination="qqf-QO-97r" id="Ln5-z7-fb6"/>
                         <outlet property="stuID" destination="Mic-sl-LfB" id="Mg1-G5-ccv"/>
+                        <outlet property="userProfile" destination="dP6-jl-gXF" id="gRE-B1-hHp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDg-62-ZIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5414,7 +5472,7 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addProfile" translatesAutoresizingMaskIntoConstraints="NO" id="Mia-go-G7P">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addProfile" translatesAutoresizingMaskIntoConstraints="NO" id="Mia-go-G7P" customClass="PFImageView">
                                                     <rect key="frame" x="110" y="38" width="100" height="100"/>
                                                     <animations/>
                                                     <constraints>
@@ -5422,13 +5480,26 @@
                                                         <constraint firstAttribute="height" constant="100" id="6Ms-I2-5wU"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Qd-Rn-hYy">
+                                                    <rect key="frame" x="110" y="38" width="100" height="100"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="100" id="4i2-34-LwW"/>
+                                                        <constraint firstAttribute="width" constant="100" id="XD5-GI-gm8"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="showActionSheet:" destination="r3R-eo-fWW" eventType="touchUpInside" id="oF2-Ma-FK3"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="Mia-go-G7P" secondAttribute="bottom" id="7Au-UC-TWm"/>
                                                 <constraint firstItem="fiB-c8-ihB" firstAttribute="top" secondItem="cG0-9Z-VeE" secondAttribute="topMargin" constant="4" id="8EB-FZ-rQl"/>
+                                                <constraint firstItem="0Qd-Rn-hYy" firstAttribute="centerX" secondItem="cG0-9Z-VeE" secondAttribute="centerX" id="8Fr-cD-lO4"/>
                                                 <constraint firstItem="Mia-go-G7P" firstAttribute="centerX" secondItem="cG0-9Z-VeE" secondAttribute="centerX" id="IDE-kq-KFg"/>
                                                 <constraint firstItem="fiB-c8-ihB" firstAttribute="leading" secondItem="cG0-9Z-VeE" secondAttribute="leadingMargin" constant="7" id="lcW-vA-ho7"/>
+                                                <constraint firstAttribute="bottom" secondItem="0Qd-Rn-hYy" secondAttribute="bottom" id="wEE-By-Fo1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -5897,6 +5968,7 @@
                         <outlet property="role2" destination="k9v-nZ-jud" id="6j7-95-ctJ"/>
                         <outlet property="role3" destination="fqP-Ye-MTz" id="ohj-WO-Hhf"/>
                         <outlet property="stuID" destination="YaA-mR-QJt" id="2J8-O7-mKh"/>
+                        <outlet property="userProfile" destination="Mia-go-G7P" id="Dpy-WZ-lBE"/>
                         <segue destination="TwZ-DH-1i6" kind="show" identifier="detailToInterest" id="ezl-2l-Zyt"/>
                     </connections>
                 </tableViewController>
