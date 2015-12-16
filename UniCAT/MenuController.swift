@@ -228,6 +228,9 @@ class MenuController: UITableViewController, MFMailComposeViewControllerDelegate
             
             if currentUser != nil {
                 if let user = currentUser {
+                    
+                    profile.profilePic.file = user["image"] as? PFFile
+                    profile.profilePic.loadInBackground()
                     profile.userName.text = user["email"] as? String
                     
                     if interestNo != 0 {

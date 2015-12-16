@@ -18,6 +18,7 @@
 		1899243E1BCA1D0000E4107E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1899243B1BCA1D0000E4107E /* ParseUI.framework */; };
 		18AB23401B77B7C7009089B6 /* InterestViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB233F1B77B7C7009089B6 /* InterestViewCell.swift */; };
 		18AB23421B77B804009089B6 /* InterestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB23411B77B804009089B6 /* InterestViewController.swift */; };
+		1B2383F9089FA0EC4A50F400 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C21B52657B09A50386094E5D /* libPods.a */; };
 		8403A3AF1B3C57DC00EF6C84 /* SelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8403A3AE1B3C57DC00EF6C84 /* SelectionTableViewCell.xib */; };
 		8403A3B11B3C594000EF6C84 /* SelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403A3B01B3C594000EF6C84 /* SelectionTableViewCell.swift */; };
 		8440AE001B3FCCF70012A31E /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440ADFF1B3FCCF70012A31E /* DetailTableViewController.swift */; };
@@ -81,7 +82,6 @@
 		84CB2CED1B39454200E8B569 /* SubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB2CEC1B39454200E8B569 /* SubTableViewCell.swift */; };
 		84CB2CEF1B39457800E8B569 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB2CEE1B39457800E8B569 /* ProfileTableViewCell.swift */; };
 		84DB3A6F1B09D03C0069D768 /* SignUpInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB3A6E1B09D03C0069D768 /* SignUpInViewController.swift */; };
-		BB86DE831E7C2BBF9469EB4F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 714BD946C9CFB13D242C1594 /* libPods.a */; };
 		FE1455CC1C1EBFBC0091B03C /* overlay_park.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CA1C1EBFBC0091B03C /* overlay_park.png */; };
 		FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */; };
 		FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */; };
@@ -143,7 +143,6 @@
 		18AB23411B77B804009089B6 /* InterestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestViewController.swift; sourceTree = "<group>"; };
 		307128F572E65D62BF4E4AB2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3B417127D5664F133A79EA14 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		714BD946C9CFB13D242C1594 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8403A3AE1B3C57DC00EF6C84 /* SelectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectionTableViewCell.xib; sourceTree = "<group>"; };
 		8403A3B01B3C594000EF6C84 /* SelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionTableViewCell.swift; sourceTree = "<group>"; };
 		8440ADFF1B3FCCF70012A31E /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +227,7 @@
 		84CB2CEC1B39454200E8B569 /* SubTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTableViewCell.swift; sourceTree = "<group>"; };
 		84CB2CEE1B39457800E8B569 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		84DB3A6E1B09D03C0069D768 /* SignUpInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpInViewController.swift; sourceTree = "<group>"; };
+		C21B52657B09A50386094E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1455CA1C1EBFBC0091B03C /* overlay_park.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_park.png; sourceTree = "<group>"; };
 		FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_park@2x.png"; sourceTree = "<group>"; };
 		FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
@@ -320,7 +320,7 @@
 				84B4AE061B044775007F1404 /* StoreKit.framework in Frameworks */,
 				84B4AE071B044775007F1404 /* SystemConfiguration.framework in Frameworks */,
 				1899243C1BCA1D0000E4107E /* Bolts.framework in Frameworks */,
-				BB86DE831E7C2BBF9469EB4F /* libPods.a in Frameworks */,
+				1B2383F9089FA0EC4A50F400 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,7 +585,7 @@
 		E88CE78A8C4627457AE1504A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				714BD946C9CFB13D242C1594 /* libPods.a */,
+				C21B52657B09A50386094E5D /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -766,7 +766,6 @@
 				84B4ADC01B04427E007F1404 /* Sources */,
 				84B4ADC11B04427E007F1404 /* Frameworks */,
 				84B4ADC21B04427E007F1404 /* Resources */,
-				6EFBB91B761BC6DC14DD699C /* Embed Pods Frameworks */,
 				F288E950153FF927CA8FA6CC /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -863,21 +862,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6EFBB91B761BC6DC14DD699C /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F288E950153FF927CA8FA6CC /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

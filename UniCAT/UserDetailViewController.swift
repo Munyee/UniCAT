@@ -10,6 +10,7 @@ import UIKit
 
 class UserDetailViewController: UITableViewController, UITextFieldDelegate, DismissViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate,RSKImageCropViewControllerDelegate {
 
+    @IBOutlet weak var progreeBar: MBCircularProgressBarView!
     @IBOutlet weak var userProfile: PFImageView!
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var stuID: UITextField!
@@ -28,6 +29,8 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
     @IBOutlet weak var role3: UIButton!
     
     let picker = UIImagePickerController()
+    var imageFile = PFFile!()
+    var newImage = false
     
     var selection = 1
     var role = ""
@@ -38,7 +41,8 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
         
         self.picker.delegate = self
         self.userProfile.layer.cornerRadius = self.userProfile.frame.size.width / 2;
-
+        self.userProfile.layer.borderWidth = 1.0
+        self.userProfile.layer.borderColor = UIColor.blackColor().CGColor
         self.navigationController?.navigationBarHidden = false
         self.navigationItem.title = "User Details"
         self.navigationItem.backBarButtonItem?.title = "Back"
@@ -134,39 +138,121 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
     func saveInfo(sender:UIButton) {
         let currentUser = PFUser.currentUser()
         
-        let imageData = UIImageJPEGRepresentation(userProfile.image!, 0.5)
-        let imageFile = PFFile(name: "profile.jpg", data: imageData!)
         
-        imageFile!.saveInBackgroundWithBlock({
-            (succeeded: Bool, error: NSError?) -> Void in
-            // Handle success or failure here ...
-            if succeeded {
-                print("Success")
-                currentUser?["image"] = imageFile
-                currentUser?.saveEventually()
-            }
-            }, progressBlock: {
-                (percentDone: Int32) -> Void in
-                print(percentDone)
-        })
+        let cancelButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelInfo:")
+        self.navigationItem.rightBarButtonItem = cancelButton
         
-        currentUser?["name"] = name.text
-        currentUser?["studentId"] = stuID.text
-        currentUser?["phone"] = mobile.text
-        currentUser?["gender"] = gender.text
-        currentUser?["email"] = email.text
-        currentUser?["username"] = email.text
-        currentUser?["course"] = course.text
         
-        currentUser?["address"] = houseNo.text
-        currentUser?["state"] = state.text
-        currentUser?["city"] = city.text
-        currentUser?["postcode"] = postcode.text
-        
-        currentUser?.saveEventually()
-        
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        if newImage {
+            newImage = false
+            let imageData = UIImageJPEGRepresentation(userProfile.image!, 0.5)
+            imageFile = PFFile(name: "profile.jpg", data: imageData!)!
+            
+            imageFile.saveInBackgroundWithBlock({
+                (succeeded: Bool, error: NSError?) -> Void in
+                // Handle success or failure here ...
+                if succeeded {
+                    print("Success")
+                    currentUser?["image"] = self.imageFile
+                    currentUser?["name"] = self.name.text
+                    currentUser?["studentId"] = self.stuID.text
+                    currentUser?["phone"] = self.mobile.text
+                    currentUser?["gender"] = self.gender.text
+                    currentUser?["email"] = self.email.text
+                    currentUser?["username"] = self.email.text
+                    currentUser?["course"] = self.course.text
+                    
+                    currentUser?["address"] = self.houseNo.text
+                    currentUser?["state"] = self.state.text
+                    currentUser?["city"] = self.city.text
+                    currentUser?["postcode"] = self.postcode.text
+                    currentUser?.saveEventually()
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                }
+                }, progressBlock: {
+                    
+                    (percentDone: Int32) -> Void in
+                    print(percentDone)
+                    self.progreeBar.setValue(CGFloat(percentDone), animateWithDuration: 0.5)
+                    
+            })
+        }else{
+            
+            currentUser?["name"] = self.name.text
+            currentUser?["studentId"] = self.stuID.text
+            currentUser?["phone"] = self.mobile.text
+            currentUser?["gender"] = self.gender.text
+            currentUser?["email"] = self.email.text
+            currentUser?["username"] = self.email.text
+            currentUser?["course"] = self.course.text
+            
+            currentUser?["address"] = self.houseNo.text
+            currentUser?["state"] = self.state.text
+            currentUser?["city"] = self.city.text
+            currentUser?["postcode"] = self.postcode.text
+            currentUser?.saveEventually()
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
     }
+    
+    func cancelInfo(sender:UIButton){
+        imageFile.cancel()
+        
+        newImage = false
+        
+        let currentUser = PFUser.currentUser()
+        
+        userProfile.file = currentUser?["image"] as? PFFile
+        userProfile.loadInBackground()
+        name.text = currentUser?["name"] as? String
+        stuID.text = currentUser?["studentId"] as? String
+        mobile.text = currentUser?["phone"] as? String
+        gender.text = currentUser?["gender"] as? String
+        email.text = currentUser?["email"] as? String
+        course.text = currentUser?["course"] as? String
+        
+        if selection == 1 {
+            houseNo.text = currentUser?["address"] as? String
+            state.text = currentUser?["state"] as? String
+            city.text = currentUser?["city"] as? String
+            postcode.text = currentUser?["postcode"] as? String
+            
+            if state.text == "" {
+                state.text = "Perak"
+            }
+            
+            if city.text == "" {
+                city.text = "Kampar"
+            }
+            
+            if postcode.text == "" {
+                postcode.text = "31900"
+            }
+            
+            switch currentUser?["role"] as! String {
+            case "1":
+                roleLabel.text = "Staff / Student"
+            case "2":
+                roleLabel.text = "Visitor / Parents"
+            case "3":
+                if currentUser?["approve"] as? String == "yes" {
+                    roleLabel.text = "Event Planner"
+                } else {
+                    roleLabel.text = "Event Planner (Unverified)"
+                }
+            default:
+                roleLabel.text = "Invalid Role"
+            }
+            
+            self.progreeBar.setValue(0, animateWithDuration: 0.5)
+            
+            let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action: "saveInfo:")
+            self.navigationItem.rightBarButtonItem = saveButton
+            
+        }
+
+    }
+    
     
     func skip(sender:UIButton) {
         let currentUser = PFUser.currentUser()
@@ -329,6 +415,7 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
         
         self.dismissViewControllerAnimated(true, completion: nil)
         self.userProfile.image = croppedImage;
+        newImage = true
         
         
     }

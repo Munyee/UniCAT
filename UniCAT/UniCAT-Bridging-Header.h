@@ -15,4 +15,4 @@
 #import "TCMapViewController.h"
 #import<CoreLocation/CoreLocation.h>
 #import <RSKImageCropper/RSKImageCropper.h>
-#import <TYMProgressBarView/TYMProgressBarView.h>
+#import "MBCircularProgressBarView.h"

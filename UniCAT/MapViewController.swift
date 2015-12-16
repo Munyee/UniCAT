@@ -151,6 +151,10 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     }
     
     func checkconnection(){
+        
+       
+        
+        
         var temp : [String] = []
         var counter:Int = 0
         var check : Int = 0
@@ -159,6 +163,10 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         let today = NSDate()
         query.whereKey("endDate", greaterThanOrEqualTo: today)
         query.findObjectsInBackgroundWithBlock({(objects: [PFObject]?, error:NSError?) -> Void in
+            
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Fetching data"
             
             // Looping through the objects to get the names of the workers in each object
             
@@ -210,12 +218,10 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         super.viewDidLoad()
         
         
-        //        PFCloud.callFunctionInBackground("averageStars", withParameters: ["movie": "The Matrix"]) {
-        //            (ratings, error) in
-        //            if !(error != nil) {
-        //                print(ratings);
-        //            }
-        //        }
+        
+        
+        
+        
         if(PFUser.currentUser() == nil && NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
@@ -271,12 +277,13 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         }
         else
         {
-            print("No internet connection")
+//            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             let alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
             NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showpoi"), userInfo: nil, repeats: false)
             poihidden()
             var timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("addAnnotations"), userInfo: nil, repeats: false)
+            
             
             
         }
@@ -329,6 +336,8 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     //Set all the building annotations
     func addAnnotations() {
         
+        
+        
         buta = setButton( a, label: names[0], eventnum: eventcount[0], size: CGRect(x: 638, y: 772, width: 150, height: 50))
         butb = setButton( b, label: names[1], eventnum: eventcount[1], size: CGRect(x: 635, y: 670, width: 150, height: 50))
         butc = setButton( c, label: names[2], eventnum: eventcount[2], size: CGRect(x: 735, y: 618, width: 150, height: 50))
@@ -363,6 +372,8 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         buti.hidden = true
         butl.hidden = true
         butp.hidden = true
+        
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         
         
     }

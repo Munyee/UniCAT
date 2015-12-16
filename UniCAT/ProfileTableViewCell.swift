@@ -15,6 +15,7 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var interestCount: UILabel!
     @IBOutlet weak var contCount: UILabel!
     
+    @IBOutlet weak var profilePic: PFImageView!
     @IBOutlet weak var commentFrame: UIImageView!
     
     override func awakeFromNib() {
@@ -22,6 +23,7 @@ class ProfileTableViewCell: UITableViewCell {
         // Initialization code
         
         photoFrame.layer.cornerRadius = 10
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
