@@ -45,11 +45,6 @@ class FoodViewController: PFQueryCollectionViewController {
         self.navigationItem.rightBarButtonItem = rightItem
         
         
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "rect")
-        
-        NSUserDefaults.standardUserDefaults().synchronize()
-        
-        
         let query = PFQuery(className:"UserLocation")
         query.whereKey("userId", equalTo: PFUser.currentUser()!)
         query.findObjectsInBackgroundWithBlock({(objects: [PFObject]?, error:NSError?) -> Void in

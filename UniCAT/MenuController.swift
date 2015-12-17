@@ -65,6 +65,7 @@ class MenuController: UITableViewController, MFMailComposeViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
     }
     
     override func viewDidAppear(animated: Bool) {

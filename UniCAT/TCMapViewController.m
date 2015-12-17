@@ -64,6 +64,8 @@
 
 @property CLLocationCoordinate2D endPoint;
 
+@property (nonatomic,strong) NSMutableArray *images;
+
 @end
 
 @implementation TCMapViewController
@@ -98,7 +100,7 @@
     [super viewDidLoad];
     
     _counter = 0;
-    
+    self.images = [[NSMutableArray alloc] initWithCapacity:500];
     pfFile = [[NSMutableArray alloc]init];
     
     ways = @[@"Destination",@"Turn Right",@"Straight"];
@@ -264,31 +266,50 @@
     CustomInfoWindow *infoWindow = [[[NSBundle mainBundle] loadNibNamed:@"InfoView" owner:self options:nil]objectAtIndex:0];
     infoWindow.label.text = ways[marker.zIndex-1];
     
+//    PFFile *image = [pfFile[marker.zIndex-2] valueForKey:@"Image"];
+    
+//    infoWindow.customImage.file = image;
+//    [infoWindow.customImage loadInBackground];
+//    [infoWindow.customImage loadInBackground:^(UIImage *image, NSError *error) {
+//        if (!error) {
+//            mapView.
+//            [MBProgressHUD hideAllHUDsForView:self.view animated:true];
+//        }
+//    }];
+
+                [MBProgressHUD hideAllHUDsForView:self.view animated:true];
+
     if(marker.zIndex == 1){
         infoWindow.customImage.image = self.staticimage;
     }
     else
     {
-        PFFile *image = [pfFile[marker.zIndex-2] valueForKey:@"Image"];
+        infoWindow.customImage.image = [self.images objectAtIndex:marker.zIndex-2];
         
-        NSURL *imageFileUrl = [[NSURL alloc] initWithString:image.url];
-        NSData *imageData = [NSData dataWithContentsOfURL:imageFileUrl];
-        
-        //set the image view to the message image
-        infoWindow.customImage.image = [UIImage imageWithData:imageData];
+//        MBProgressHUD *loadingNotification = [MBProgressHUD showHUDAddedTo:self.view animated:true];
+//        loadingNotification.labelText = @"Loading";
+//
+//        NSURL *imageFileUrl = [[NSURL alloc] initWithString:image.url];
+        //        NSData *imageData = [NSData dataWithContentsOfURL:imageFileUrl];
+        //
+        //        //set the image view to the message image
+        //        infoWindow.customImage.image = [UIImage imageWithData:imageData];
+        //        [MBProgressHUD hideAllHUDsForView:self.view animated:true];
         
         
 //        [image getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
 //            if (!error) {
 //                infoWindow.customImage.image = [UIImage imageWithData:imageData];
-//                
+//                [MBProgressHUD hideAllHUDsForView:self.view animated:true];
 //            }
 //        }];
 
     }
-    [MBProgressHUD hideAllHUDsForView:self.view animated:true];
-    [infoWindow sendSubviewToBack:mapView];
+    
     return infoWindow;
+    
+    
+    
 }
 
 
@@ -330,8 +351,15 @@
                     if (error) {
                         // There was an error
                     } else {
+                        
                         for(PFObject *object in objects){
                             [pfFile addObject:object];
+                            PFFile *image = [object valueForKey:@"Image"];
+                            [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                                if (!error) {
+                                    [self.images addObject:[UIImage imageWithData:data]];
+                                }
+                            }];
                             TCPlace *placeExtra = [[TCPlace alloc]init];
                             placeExtra.location = step.endLocation;
                             [self createMarkerForPlace:placeExtra onMap:self.mapView];

@@ -217,10 +217,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
-        
+        self.menuButton.enabled = false;
         
         if(PFUser.currentUser() == nil && NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -271,26 +268,28 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         Name.floor = 0
         Name.gallery = 0
         
-        if Reachability.isConnectedToNetwork(){
+//        if Reachability.isConnectedToNetwork(){
             print("Internet connection ok")
             checkconnection()
-        }
-        else
-        {
+//        }
+//        else
+//        {
 //            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-            let alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-            NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showpoi"), userInfo: nil, repeats: false)
-            poihidden()
-            var timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("addAnnotations"), userInfo: nil, repeats: false)
-            
-            
-            
-        }
-        
+//            self.menuButton.enabled = false;
+//            let alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
+//            alert.show()
+//            NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showpoi"), userInfo: nil, repeats: false)
+//            poihidden()
+//            var timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("addAnnotations"), userInfo: nil, repeats: false)
+//            
+//            
+//            
+//        }
+    
         
         
         first = true
+        
         scrollView = JCTiledPDFScrollView(frame: self.view.bounds, URL: NSBundle.mainBundle().URLForResource("Map", withExtension: "pdf"))
         
         scrollView.tiledScrollViewDelegate = self
@@ -374,7 +373,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         butp.hidden = true
         
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-        
+        self.menuButton.enabled = true;
         
     }
     

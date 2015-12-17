@@ -12,7 +12,7 @@
 
 @interface CustomInfoWindow : UIView
 
-@property (weak, nonatomic) IBOutlet UIImageView *customImage;
+@property (weak, nonatomic) IBOutlet PFImageView *customImage;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end

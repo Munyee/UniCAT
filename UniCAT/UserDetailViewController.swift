@@ -303,23 +303,70 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
     }
     
     @IBAction func saveButton(sender: AnyObject) {
-        let currentUser = PFUser.currentUser()
         
-        let imageData = UIImagePNGRepresentation(self.userProfile.image!)
-        let imageFile = PFFile(name:"profile.png", data:imageData!)
         
-        currentUser?["name"] = name.text
-        currentUser?["studentId"] = stuID.text
-        currentUser?["phone"] = mobile.text
-        currentUser?["gender"] = gender.text
-        currentUser?["email"] = email.text
-        currentUser?["username"] = email.text
-        currentUser?["course"] = course.text
-        currentUser?["image"] = imageFile
-        currentUser?["role"] = role
-        currentUser?["approve"] = "no"
+        if (newImage){
+            let currentUser = PFUser.currentUser()
+            let imageData = UIImageJPEGRepresentation(userProfile.image!, 0.5)
+            imageFile = PFFile(name:"profile.jpg", data:imageData!)
+            
+            imageFile.saveInBackgroundWithBlock({
+                (succeeded: Bool, error: NSError?) -> Void in
+                // Handle success or failure here ...
+                if succeeded {
+                    print("Success")
+                    currentUser?["image"] = self.imageFile
+                    currentUser?["name"] = self.name.text
+                    currentUser?["studentId"] = self.stuID.text
+                    currentUser?["phone"] = self.mobile.text
+                    currentUser?["gender"] = self.gender.text
+                    currentUser?["email"] = self.email.text
+                    currentUser?["username"] = self.email.text
+                    currentUser?["course"] = self.course.text
+                    currentUser?["role"] = self.role
+                    currentUser?["approve"] = "no"
+                    currentUser?.saveEventually()
+                }
+                }, progressBlock: {
+                    
+                    (percentDone: Int32) -> Void in
+                    print(percentDone)
+                    
+            })
+        }
+        else{
+            let currentUser = PFUser.currentUser()
+            let image = UIImage(named: "Logo")
+            let imageData = UIImageJPEGRepresentation(image!, 0.5)
+            imageFile = PFFile(name:"profile.jpg", data:imageData!)
+            imageFile.saveInBackgroundWithBlock({
+                (succeeded: Bool, error: NSError?) -> Void in
+                // Handle success or failure here ...
+                if succeeded {
+                    print("Success")
+                    currentUser?["image"] = self.imageFile
+                    currentUser?["name"] = self.name.text
+                    currentUser?["studentId"] = self.stuID.text
+                    currentUser?["phone"] = self.mobile.text
+                    currentUser?["gender"] = self.gender.text
+                    currentUser?["email"] = self.email.text
+                    currentUser?["username"] = self.email.text
+                    currentUser?["course"] = self.course.text
+                    currentUser?["role"] = self.role
+                    currentUser?["approve"] = "no"
+                    
+                    currentUser?.saveEventually()
+
+                }
+                }, progressBlock: {
+                    
+                    (percentDone: Int32) -> Void in
+                    print(percentDone)                    
+            })
+        }
         
-        currentUser?.saveEventually()
+        
+        
         
         if gender.text == "M" || gender.text == "F" {
             self.performSegueWithIdentifier("detailToInterest", sender: self)
