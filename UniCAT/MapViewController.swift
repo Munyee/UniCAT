@@ -217,7 +217,6 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.menuButton.enabled = false;
         
         if(PFUser.currentUser() == nil && NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -306,12 +305,6 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
         
         
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
-        
     }
     
     
@@ -373,7 +366,6 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         butp.hidden = true
         
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-        self.menuButton.enabled = true;
         
     }
     

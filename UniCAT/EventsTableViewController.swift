@@ -8,11 +8,13 @@
 
 import UIKit
 
-class EventsTableViewController: PFQueryTableViewController {
+class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate{
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    var type = 1
     let building = Building()
+    var typeName = ["Events", "Archer", "Wizard", "Cleric"]
     var selectedBuilding = ""
     var selection = 0
     var attendObj: [PFObject] = []
@@ -395,6 +397,10 @@ class EventsTableViewController: PFQueryTableViewController {
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
+    @IBAction func chooseType(sender: AnyObject) {
+        self.performSegueWithIdentifier("pickerView", sender: self)
+    }
+    
     @IBAction func add(sender: AnyObject) {
         /*var currentUser = PFUser.currentUser()
         
@@ -424,6 +430,12 @@ class EventsTableViewController: PFQueryTableViewController {
                     detailScene.currentObject = (objects?[row] as! PFObject)
                 }
             }
+        }
+        else if segue.identifier == "pickerView" {
+            let pickerScene = segue.destinationViewController as! PickerViewController
+
+            pickerScene.type = type
+            pickerScene.refreshDelegate = self
         }
     }
     

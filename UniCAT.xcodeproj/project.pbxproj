@@ -82,6 +82,7 @@
 		84CB2CED1B39454200E8B569 /* SubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB2CEC1B39454200E8B569 /* SubTableViewCell.swift */; };
 		84CB2CEF1B39457800E8B569 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB2CEE1B39457800E8B569 /* ProfileTableViewCell.swift */; };
 		84DB3A6F1B09D03C0069D768 /* SignUpInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB3A6E1B09D03C0069D768 /* SignUpInViewController.swift */; };
+		CB0E96DF1C23E90C00F80353 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0E96DE1C23E90C00F80353 /* PickerViewController.swift */; };
 		FE1455CC1C1EBFBC0091B03C /* overlay_park.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CA1C1EBFBC0091B03C /* overlay_park.png */; };
 		FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */; };
 		FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */; };
@@ -228,6 +229,7 @@
 		84CB2CEE1B39457800E8B569 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		84DB3A6E1B09D03C0069D768 /* SignUpInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpInViewController.swift; sourceTree = "<group>"; };
 		C21B52657B09A50386094E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB0E96DE1C23E90C00F80353 /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		FE1455CA1C1EBFBC0091B03C /* overlay_park.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_park.png; sourceTree = "<group>"; };
 		FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_park@2x.png"; sourceTree = "<group>"; };
 		FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 		844566281B3AAA3F0086B8D4 /* Event Sharing Module */ = {
 			isa = PBXGroup;
 			children = (
+				CB0E96DE1C23E90C00F80353 /* PickerViewController.swift */,
 				18AB233F1B77B7C7009089B6 /* InterestViewCell.swift */,
 				18AB23411B77B804009089B6 /* InterestViewController.swift */,
 				187258B11B789ED9007DC408 /* ChooseInterestViewController.swift */,
@@ -953,6 +956,7 @@
 				FEED41601C1E9857002A8049 /* PhotoView.swift in Sources */,
 				844566421B3AAB350086B8D4 /* JCTiledPDFScrollView.m in Sources */,
 				84A054AA1B05AE6E004DC5AC /* EventsTableViewController.swift in Sources */,
+				CB0E96DF1C23E90C00F80353 /* PickerViewController.swift in Sources */,
 				84BCE5291B16241700832632 /* EditorTableViewController.swift in Sources */,
 				18AB23421B77B804009089B6 /* InterestViewController.swift in Sources */,
 				FEED41A51C1EA587002A8049 /* TCPlacesAutocompleteService.m in Sources */,
