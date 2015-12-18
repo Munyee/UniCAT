@@ -549,7 +549,7 @@
 
 -(void)currentLocation:(id) sender
 {
-    [self mapView:self.mapView setCameraTarget:currentLocation selectMarker:nil];
+    [self mapView:self.mapView setCameraTarget:_myLocation.coordinate selectMarker:nil];
 }
 
 - (NSArray *)createCellModelsWithSteps:(NSArray *)theSteps

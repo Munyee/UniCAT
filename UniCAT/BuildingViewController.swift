@@ -49,28 +49,29 @@ class BuildingViewController: JPBFloatingTextViewController {
         case "D":
             location = CLLocation(latitude: 4.338071, longitude: 101.143580)
         case "E":
-            break
+            location = CLLocation(latitude: 4.338780, longitude: 101.143479)
         case "F":
-            break
+            location = CLLocation(latitude: 4.339766, longitude: 101.143608)
         case "G":
-            break
+            location = CLLocation(latitude: 4.339929, longitude: 101.143061)
         case "H":
-            break
+            location = CLLocation(latitude: 4.341391, longitude: 101.142968)
         case "I":
-            break
+            location = CLLocation(latitude: 4.340802, longitude: 101.142486)
         case "J":
-            break
+            location = CLLocation(latitude: 4.341213, longitude: 101.144216)
         case "K":
-            break
+            location = CLLocation(latitude: 4.342081, longitude: 101.141268)
         case "L":
-            break
+            location = CLLocation(latitude: 4.341819, longitude: 101.140305)
         case "M":
-            location = CLLocation(latitude:4.340263, longitude: 101.137669)
-            break
+            location = CLLocation(latitude: 4.340561, longitude: 101.137677)
         case "N":
-            break
+            location = CLLocation(latitude: 4.338680, longitude: 101.136600)
         case "P":
-            break
+            location = CLLocation(latitude: 4.338530, longitude: 101.137182)
+        case "O":
+            location = CLLocation(latitude: 4.337456, longitude: 101.134147)
         default:
             break
             

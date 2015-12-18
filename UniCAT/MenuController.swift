@@ -68,6 +68,8 @@ class MenuController: UITableViewController, MFMailComposeViewControllerDelegate
         
     }
     
+    
+    
     override func viewDidAppear(animated: Bool) {
         interestNo = NSUserDefaults.standardUserDefaults().integerForKey("interestNo")
         eventInterestNo = NSUserDefaults.standardUserDefaults().integerForKey("eventInterestNo")
