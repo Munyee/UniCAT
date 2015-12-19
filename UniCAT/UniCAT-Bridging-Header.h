@@ -16,3 +16,5 @@
 #import<CoreLocation/CoreLocation.h>
 #import <RSKImageCropper/RSKImageCropper.h>
 #import "MBCircularProgressBarView.h"
+#import "SLColorArt.h"
+#import <ColorArt/UIImage+ColorArt.h>

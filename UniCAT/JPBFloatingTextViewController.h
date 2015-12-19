@@ -7,6 +7,7 @@
 //
 
 #import "JPBParallaxTableViewController.h"
+#import <ColorArt/UIImage+ColorArt.h>
 
 @interface JPBFloatingTextViewController : JPBParallaxTableViewController
 
@@ -14,6 +15,13 @@
 - (void)setSubtitleText:(NSString*)text;
 - (void)selLabelBackground:(UIColor*)color;
 - (void)setLabelBackgroundGradientColor:(UIColor*)bottomColor;
+
+- (void)setTitleColor:(UIColor*)color;
+- (void)setSubtitleTextColor:(UIColor*)color;
+
+
 - (CGFloat)horizontalOffset;
+
+@property (nonatomic, strong) SLColorArt *color;
 
 @end

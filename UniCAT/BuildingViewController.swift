@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class BuildingViewController: JPBFloatingTextViewController {
 
@@ -15,21 +16,29 @@ class BuildingViewController: JPBFloatingTextViewController {
     var eventCount = ""
     var type = 0
     var location:CLLocation = CLLocation(latitude: 0, longitude: 0)
-
+    var colorArt = SLColorArt()
     
     let building = Building()
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        let image = UIImage(named: currentAlphabet)
+        colorArt = (image?.colorArt())!
+        
+        self.setHeaderImage(image)
+        
         tableView.registerNib(UINib(nibName: "DetailTableViewCell", bundle: nil), forCellReuseIdentifier: "DetailTableViewCell")
         tableView.registerNib(UINib(nibName: "SelectionTableViewCell", bundle: nil), forCellReuseIdentifier: "SelectionTableViewCell")
         
-        tableView.delegate = self
-        tableView.dataSource = self
         
-        self.setHeaderImage(UIImage(named: currentAlphabet))
         self.setTitleText(currentBuilding)
+        
         if currentBuilding == "Grand Hall" {
             self.setSubtitleText("Dewan Tun Ling Liong Sik")
         } else if currentAlphabet == "U" {
@@ -37,6 +46,7 @@ class BuildingViewController: JPBFloatingTextViewController {
         } else {
             self.setSubtitleText("Block " + currentAlphabet)
         }
+        
         
         
         switch(currentAlphabet){
@@ -176,7 +186,6 @@ class BuildingViewController: JPBFloatingTextViewController {
                 if eventCount == "o" {
                     cell.countFrame.hidden = true
                 }
-                
                 return cell
             }
             
@@ -199,7 +208,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             cell.icon.image = UIImage(named: "direction")
             cell.titleLabel.text = "Direction to Here"
             cell.countFrame.hidden = true
-            
+
             return cell
             
         case 3:

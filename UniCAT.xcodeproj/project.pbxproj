@@ -87,6 +87,9 @@
 		FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */; };
 		FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */; };
 		FE1455D21C1ECCB10091B03C /* FoodViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */; };
+		FE58005F1C254B900010DB1F /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE58005E1C254B900010DB1F /* ImageView.swift */; };
+		FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */; };
+		FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */; };
 		FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */; };
 		FEED415D1C1E8D24002A8049 /* DefineLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415C1C1E8D24002A8049 /* DefineLocation.swift */; };
 		FEED41601C1E9857002A8049 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415F1C1E9857002A8049 /* PhotoView.swift */; };
@@ -235,6 +238,9 @@
 		FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_park@2x.png"; sourceTree = "<group>"; };
 		FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewCell.swift; sourceTree = "<group>"; };
+		FE58005E1C254B900010DB1F /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewController.swift; sourceTree = "<group>"; };
+		FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewCell.swift; sourceTree = "<group>"; };
 		FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FEED415C1C1E8D24002A8049 /* DefineLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefineLocation.swift; sourceTree = "<group>"; };
 		FEED415F1C1E9857002A8049 /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
@@ -599,8 +605,11 @@
 		FE1455CE1C1ECC980091B03C /* Food Module */ = {
 			isa = PBXGroup;
 			children = (
+				FE58005E1C254B900010DB1F /* ImageView.swift */,
 				FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */,
 				FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */,
+				FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */,
+				FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */,
 			);
 			name = "Food Module";
 			sourceTree = "<group>";
@@ -773,6 +782,7 @@
 				84B4ADC11B04427E007F1404 /* Frameworks */,
 				84B4ADC21B04427E007F1404 /* Resources */,
 				F288E950153FF927CA8FA6CC /* Copy Pods Resources */,
+				E465A7E6C355A0DBBDA26471 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -868,6 +878,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		E465A7E6C355A0DBBDA26471 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F288E950153FF927CA8FA6CC /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -919,6 +944,7 @@
 				8445665F1B3AEA410086B8D4 /* FXBlurView.m in Sources */,
 				844566411B3AAB350086B8D4 /* JCTiledLayer.m in Sources */,
 				FEED41621C1E9872002A8049 /* CollectionViewControllerCell.swift in Sources */,
+				FE58005F1C254B900010DB1F /* ImageView.swift in Sources */,
 				84680BBE1B1CDA580020CFB5 /* SubEventsTableViewCell.swift in Sources */,
 				FEED41C11C1EA6A2002A8049 /* TCStepsViewController.m in Sources */,
 				84A6F5DA1B4521EC00C6A4C9 /* FbTableViewCell.swift in Sources */,
@@ -966,6 +992,7 @@
 				FEED41A51C1EA587002A8049 /* TCPlacesAutocompleteService.m in Sources */,
 				8445664E1B3AB1D20086B8D4 /* AnnotationView.swift in Sources */,
 				FEED418E1C1EA516002A8049 /* TCCellModel.m in Sources */,
+				FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */,
 				84CB2CEF1B39457800E8B569 /* ProfileTableViewCell.swift in Sources */,
 				FEED41A71C1EA587002A8049 /* TCPlacesAutocompletePrediction.m in Sources */,
 				FEED41A61C1EA587002A8049 /* TCPlacesAutocompleteParameters.m in Sources */,
@@ -974,6 +1001,7 @@
 				84DB3A6F1B09D03C0069D768 /* SignUpInViewController.swift in Sources */,
 				84A706D51B1B5C2A001DF85A /* Building.swift in Sources */,
 				8445663F1B3AAB350086B8D4 /* JCAnnotationView.m in Sources */,
+				FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */,
 				84CB2CED1B39454200E8B569 /* SubTableViewCell.swift in Sources */,
 				84680BBC1B1CD9EA0020CFB5 /* SubEventsTableViewController.swift in Sources */,
 				844566591B3AE1490086B8D4 /* JPBParallaxTableViewController.m in Sources */,
