@@ -214,6 +214,20 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     return false
     }
     */
+    
+    override func viewDidAppear(animated: Bool) {
+//        if(PFUser.currentUser() == nil){
+//            if let tabBarController = self.tabBarController {
+//                let indexToRemove = 2
+//                if indexToRemove < tabBarController.viewControllers?.count {
+//                    var viewControllers = tabBarController.viewControllers
+//                    viewControllers?.removeAtIndex(indexToRemove)
+//                    tabBarController.viewControllers = viewControllers
+//                }
+//            }
+//            
+//        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -12,10 +12,14 @@ class UserMenuViewController: UITableViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    @IBOutlet weak var logout: UIBarButtonItem!
     var interest = Set<PFObject>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "firstStartup")
+        NSUserDefaults.standardUserDefaults().synchronize()
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -25,26 +29,46 @@ class UserMenuViewController: UITableViewController {
         
         tableView.registerNib(UINib(nibName: "SelectionTableViewCell", bundle: nil), forCellReuseIdentifier: "SelectionTableViewCell")
         
-        var currentUser = PFUser.currentUser()
-        if currentUser?["approve"] as? String == "yes" {
-            print("Success")
-            var interestQuery = PFQuery(className: "Interest")
-            
-            interestQuery.findObjectsInBackgroundWithBlock {
-                (objects: [PFObject]?, error: NSError?) -> Void in
+        
+        
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        if(PFUser.currentUser() == nil && NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
+            logout.title = "Login"
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+        else if (PFUser.currentUser() == nil){
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "firstStartup")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.tabBarController?.selectedIndex = 0
+            logout.title = "Login"
+        }
+        else{
+            var currentUser = PFUser.currentUser()
+            if currentUser?["approve"] as? String == "yes" {
+                print("Success")
+                var interestQuery = PFQuery(className: "Interest")
                 
-                if error == nil {
-                    if let objects = objects as? [PFObject]! {
-                        for object in objects {
-                            self.interest.insert(object)
+                interestQuery.findObjectsInBackgroundWithBlock {
+                    (objects: [PFObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        if let objects = objects as? [PFObject]! {
+                            for object in objects {
+                                self.interest.insert(object)
+                            }
                         }
                     }
                 }
             }
+            
+            logout.title = "Logout"
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         tableView.reloadData()
     }
     
@@ -52,7 +76,7 @@ class UserMenuViewController: UITableViewController {
         var currentUser = PFUser.currentUser()
         
         if currentUser?["approve"] as? String == "yes" {
-            return 5
+            return 4
         } else {
             return 3
         }
@@ -134,15 +158,6 @@ class UserMenuViewController: UITableViewController {
             
             return cell
             
-        case 4:
-            var cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
-            
-            cell.icon.image = UIImage(named: "blank")
-            cell.titleLabel.text = ""
-            cell.countFrame.hidden = true
-            cell.arrow.hidden = true
-            
-            return cell
             
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UserMenuCell
@@ -283,6 +298,7 @@ class UserMenuViewController: UITableViewController {
                     }
                 }
             }
+            
         default:
             print("Invalid selection", terminator: "")
         }
@@ -294,5 +310,28 @@ class UserMenuViewController: UITableViewController {
             
             interestScene.type = 1
         }
+    }
+    @IBAction func logout(sender: AnyObject) {
+        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.Indeterminate
+        loadingNotification.labelText = "Loading"
+        
+        let currentUser = PFUser.currentUser()
+        
+        if currentUser != nil {
+            PFUser.logOut()
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+            var currentUser = PFUser.currentUser()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+        else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+        
+
     }
 }

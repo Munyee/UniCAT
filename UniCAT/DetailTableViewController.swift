@@ -320,16 +320,39 @@ class DetailTableViewController: UITableViewController {
             
             if error == nil {
                 if let objects = objects {
+                    if(objects.count == 0)
+                    {
+                        let newAttend = PFObject(className: "EventAttendance")
+                        newAttend["eventId"] = self.currentObject
+                        newAttend["userId"] = self.currentUser
+                        newAttend["type"] = "yes"
+                        newAttend.saveEventually()
+                    }
                     for object in objects {
-                        object.deleteInBackground()
+                        let idquery = PFQuery(className:"EventAttendance")
+                        idquery.getObjectInBackgroundWithId(object.objectId!) {
+                            (objectid: PFObject?, error: NSError?) -> Void in
+                            if error != nil {
+                                print(error)
+                            } else if let newAttend = objectid {
+                                newAttend["eventId"] = self.currentObject
+                                newAttend["userId"] = self.currentUser
+                                newAttend["type"] = "yes"
+                                newAttend.saveEventually()
+                            }
+                        }
+                        
+//                        object.deleteInBackground()
+//                        let newAttend = PFObject(className: "EventAttendance")
+//                        
+//                        newAttend["eventId"] = self.currentObject
+//                        newAttend["userId"] = self.currentUser
+//                        newAttend["type"] = "yes"
+//                        newAttend.saveEventually()
+//                        
                     }
                 }
-                let newAttend = PFObject(className: "EventAttendance")
                 
-                newAttend["eventId"] = self.currentObject
-                newAttend["userId"] = self.currentUser
-                newAttend["type"] = "yes"
-                newAttend.saveEventually()
             }
         }
         
@@ -348,16 +371,38 @@ class DetailTableViewController: UITableViewController {
             
             if error == nil {
                 if let objects = objects {
+                    if(objects.count == 0)
+                    {
+                        let newAttend = PFObject(className: "EventAttendance")
+                        newAttend["eventId"] = self.currentObject
+                        newAttend["userId"] = self.currentUser
+                        newAttend["type"] = "maybe"
+                        newAttend.saveEventually()
+                    }
                     for object in objects {
-                        object.deleteInBackground()
+                        let idquery = PFQuery(className:"EventAttendance")
+                        idquery.getObjectInBackgroundWithId(object.objectId!) {
+                            (objectid: PFObject?, error: NSError?) -> Void in
+                            if error != nil {
+                                print(error)
+                            } else if let newAttend = objectid {
+                                newAttend["eventId"] = self.currentObject
+                                newAttend["userId"] = self.currentUser
+                                newAttend["type"] = "maybe"
+                                newAttend.saveEventually()
+                            }
+                        }
+
+//                        object.deleteInBackground()
+//                        let newAttend = PFObject(className: "EventAttendance")
+//                        
+//                        newAttend["eventId"] = self.currentObject
+//                        newAttend["userId"] = self.currentUser
+//                        newAttend["type"] = "maybe"
+//                        newAttend.saveEventually()
                     }
                 }
-                let newAttend = PFObject(className: "EventAttendance")
                 
-                newAttend["eventId"] = self.currentObject
-                newAttend["userId"] = self.currentUser
-                newAttend["type"] = "maybe"
-                newAttend.saveEventually()
             }
         }
         
@@ -376,17 +421,38 @@ class DetailTableViewController: UITableViewController {
             
             if error == nil {
                 if let objects = objects {
+                    if(objects.count == 0)
+                    {
+                        let newAttend = PFObject(className: "EventAttendance")
+                        newAttend["eventId"] = self.currentObject
+                        newAttend["userId"] = self.currentUser
+                        newAttend["type"] = "no"
+                        newAttend.saveEventually()
+                    }
                     for object in objects {
-                        object.deleteInBackground()
+                        let idquery = PFQuery(className:"EventAttendance")
+                        idquery.getObjectInBackgroundWithId(object.objectId!) {
+                            (objectid: PFObject?, error: NSError?) -> Void in
+                            if error != nil {
+                                print(error)
+                            } else if let newAttend = objectid {
+                                newAttend["eventId"] = self.currentObject
+                                newAttend["userId"] = self.currentUser
+                                newAttend["type"] = "no"
+                                newAttend.saveEventually()
+                            }
+                        }
+//
+//                        let newAttend = PFObject(className: "EventAttendance")
+//                        
+//                        newAttend["eventId"] = self.currentObject
+//                        newAttend["userId"] = self.currentUser
+//                        newAttend["type"] = "no"
+//                        newAttend.saveEventually()
                     }
                 }
                 
-                let newAttend = PFObject(className: "EventAttendance")
                 
-                newAttend["eventId"] = self.currentObject
-                newAttend["userId"] = self.currentUser
-                newAttend["type"] = "no"
-                newAttend.saveEventually()
             }
         }
         

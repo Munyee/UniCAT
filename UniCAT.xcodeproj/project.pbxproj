@@ -87,6 +87,7 @@
 		FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */; };
 		FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */; };
 		FE1455D21C1ECCB10091B03C /* FoodViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */; };
+		FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */; };
 		FEED415D1C1E8D24002A8049 /* DefineLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415C1C1E8D24002A8049 /* DefineLocation.swift */; };
 		FEED41601C1E9857002A8049 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415F1C1E9857002A8049 /* PhotoView.swift */; };
 		FEED41621C1E9872002A8049 /* CollectionViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED41611C1E9872002A8049 /* CollectionViewControllerCell.swift */; };
@@ -234,6 +235,7 @@
 		FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_park@2x.png"; sourceTree = "<group>"; };
 		FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewCell.swift; sourceTree = "<group>"; };
+		FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FEED415C1C1E8D24002A8049 /* DefineLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefineLocation.swift; sourceTree = "<group>"; };
 		FEED415F1C1E9857002A8049 /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		FEED41611C1E9872002A8049 /* CollectionViewControllerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewControllerCell.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 				FEED41671C1EA475002A8049 /* TCGoogleMapsLib */,
 				847315DD1B37EAB10037D750 /* Side Menu */,
 				84B4ADC91B044280007F1404 /* AppDelegate.swift */,
+				FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */,
 				FE1455CE1C1ECC980091B03C /* Food Module */,
 				FEED415E1C1E9837002A8049 /* Photo Module */,
 				844566471B3AAB640086B8D4 /* Map Module */,
@@ -945,6 +948,7 @@
 				FEED41B71C1EA5BB002A8049 /* TCPlacesService.m in Sources */,
 				FEED41811C1EA4EF002A8049 /* TCDirectionsLeg.m in Sources */,
 				1862BFD31B84BD6C00F481D0 /* IntroViewController.swift in Sources */,
+				FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */,
 				844566431B3AAB350086B8D4 /* JCTiledScrollView.m in Sources */,
 				FEED417E1C1EA4EF002A8049 /* TCDirectionsParameters.m in Sources */,
 				FEED41951C1EA556002A8049 /* TCPlaceDetailsService.m in Sources */,

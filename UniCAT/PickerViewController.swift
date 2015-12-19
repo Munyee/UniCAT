@@ -17,14 +17,23 @@ class PickerViewController: UIViewController, UIPickerViewDelegate {
     @IBOutlet weak var pickerView: UIPickerView!
     
     var refreshDelegate: RefreshViewDelegate?
-    var type: Int = 1
-    var typeName = ["Events", "Archer", "Wizard", "Cleric"]
+    var type: Int = 0
+    var typeName = ["Events", "Past Events", "Favourite"]
     
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
         
+        if(PFUser.currentUser() == nil){
+            typeName = ["Events", "Past Events"]
+        }
+        else{
+            typeName = ["Events", "Past Events", "Favourite"]
+        }
+        
         pickerView.delegate = self
-        pickerView.selectRow(type-1, inComponent: 0, animated: false)
+        pickerView.selectRow(type, inComponent: 0, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,7 +57,7 @@ class PickerViewController: UIViewController, UIPickerViewDelegate {
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        refreshDelegate?.updateClass(row+1)
+        refreshDelegate?.updateClass(row)
     }
     
     @IBAction func dismissView(sender: AnyObject) {

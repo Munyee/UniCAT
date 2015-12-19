@@ -8,13 +8,13 @@
 
 import UIKit
 
-class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate{
+class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var typeButton: UIButton!
     
-    var type = 1
     let building = Building()
-    var typeName = ["Events", "Archer", "Wizard", "Cleric"]
+    var typeName = ["Events", "Past Events", "Favourite"]
     var selectedBuilding = ""
     var selection = 0
     var attendObj: [PFObject] = []
@@ -31,6 +31,7 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate{
             return true;
         }
     }
+    
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.PortraitUpsideDown]
@@ -69,7 +70,7 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate{
         case 0, 4:
             query.whereKey("endDate", greaterThanOrEqualTo: today)
             query.orderByAscending("startDate")
-        case 1: // Favourite - Events Attending/Maybe
+        case 2: // Favourite - Events Attending/Maybe
             let currentUser = PFUser.currentUser()
             let query2 = PFQuery(className:"EventAttendance")
             
@@ -82,10 +83,10 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate{
             /*query.whereKey("objectId", matchesKey:"eventId", inQuery:query2)
             query.whereKey("endDate", greaterThanOrEqualTo: today)
             query.orderByAscending("startDate")*/
-        case 2: // All Event
-            query.whereKey("endDate", greaterThanOrEqualTo: today)
-            query.orderByAscending("startDate")
-        case 3: // Past Event
+//        case 2: // All Event
+//            query.whereKey("endDate", greaterThanOrEqualTo: today)
+//            query.orderByAscending("startDate")
+        case 1: // Past Event
             query.whereKey("endDate", lessThan: today)
             query.orderByDescending("startDate")
         case 5: // From Map
@@ -119,8 +120,17 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate{
     }
     
     override func objectsDidLoad(error: NSError!) {
+        
+        if(PFUser.currentUser() == nil){
+            typeName = ["Events", "Past Events"]
+        }
+        else{
+            typeName = ["Events", "Past Events", "Favourite"]
+        }
+        self.loadObjects()
         super.objectsDidLoad(error)
         editableObjects = NSMutableArray(array: self.objects!)
+        self.tableView?.reloadData()
         
     }
     
@@ -206,7 +216,7 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate{
         }
         
     }
-        
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         
         let cellIdentifier:String = "cell"
@@ -434,9 +444,19 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate{
         else if segue.identifier == "pickerView" {
             let pickerScene = segue.destinationViewController as! PickerViewController
 
-            pickerScene.type = type
+            pickerScene.type = selection
             pickerScene.refreshDelegate = self
         }
+    }
+    
+    func updateClass(classType: Int) {
+        selection = classType
+        
+        typeButton.setTitle(typeName[selection], forState: UIControlState.Normal)
+        
+        self.clear()
+        self.loadObjects()
+        self.tableView?.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
