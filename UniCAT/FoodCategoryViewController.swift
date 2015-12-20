@@ -150,18 +150,56 @@ class FoodCategoryViewController: PFQueryCollectionViewController{
     }
     
     func save(sender:UIButton){
-        for var index = 0; index < self.collectionView?.numberOfItemsInSection(0); index++ {
-            if(choice[index] != ""){
-                let favourite = PFObject(className:"UserFavouriteFood")
-                favourite["UserId"] = PFUser.currentUser()
-                favourite["Food"] = self.foodCategory[index]
-                favourite.saveEventually()
-            }
-            
-            if( index == (self.collectionView?.numberOfItemsInSection(0))!-1){
-                self.dismissViewControllerAnimated(true, completion: nil)
+        let currentuser = PFUser.currentUser()
+        let query = PFQuery(className: "UserFavouriteFood")
+        query.whereKey("UserId", equalTo:currentuser!)
+        query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error: NSError?) -> Void in
+            if error == nil{
+                
+                if(objects!.count == 0){
+                    for var index = 0; index < self.collectionView?.numberOfItemsInSection(0); index++ {
+                        if(self.choice[index] != ""){
+                            let favourite = PFObject(className:"UserFavouriteFood")
+                            favourite["UserId"] = PFUser.currentUser()
+                            favourite["Food"] = self.foodCategory[index]
+                            favourite.saveEventually()
+                        }
+                        
+                        if( index == (self.collectionView?.numberOfItemsInSection(0))!-1){
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                            
+                        }
+                    }
+                }
+                
+                
+                if let objects = objects{
+                    for object in objects{
+                        object.deleteInBackgroundWithBlock({ (Bool success, NSError error) -> Void in
+                            
+                        })
+                        
+                        if (object.objectId == objects[objects.count-1].objectId){
+                            for var index = 0; index < self.collectionView?.numberOfItemsInSection(0); index++ {
+                                if(self.choice[index] != ""){
+                                    let favourite = PFObject(className:"UserFavouriteFood")
+                                    favourite["UserId"] = PFUser.currentUser()
+                                    favourite["Food"] = self.foodCategory[index]
+                                    favourite.saveEventually()
+                                }
+                                
+                                if( index == (self.collectionView?.numberOfItemsInSection(0))!-1){
+                                    self.dismissViewControllerAnimated(true, completion: nil)
+                                    self.navigationController?.popToRootViewControllerAnimated(true)
+                                }
+                            }
+                        }
+                        
+                    }
+                }
             }
         }
+        
     }
 
 }

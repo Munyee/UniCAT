@@ -261,9 +261,28 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
     
     func skip(sender:UIButton) {
         let currentUser = PFUser.currentUser()
-        currentUser?["gender"] = "U"
-        currentUser?["role"] = "2"
-        currentUser?.saveEventually()
+        let image = UIImage(named: "Logo")
+        let imageData = UIImageJPEGRepresentation(image!, 0.5)
+        imageFile = PFFile(name:"profile.jpg", data:imageData!)
+        imageFile.saveInBackgroundWithBlock({
+            (succeeded: Bool, error: NSError?) -> Void in
+            // Handle success or failure here ...
+            if succeeded {
+                print("Success")
+                var fullNameArr = self.email.text?.characters.split("@").map(String.init)
+                currentUser?["image"] = self.imageFile
+                currentUser?["name"] = fullNameArr![0]
+                currentUser?["gender"] = "U"
+                currentUser?["role"] = "2"
+                currentUser?.saveEventually()
+                
+            }
+            }, progressBlock: {
+                
+                (percentDone: Int32) -> Void in
+                print(percentDone)
+        })
+        
         
         self.performSegueWithIdentifier("detailToInterest", sender: self)
     }

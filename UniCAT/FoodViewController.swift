@@ -10,6 +10,7 @@ import UIKit
 
 class FoodViewController: PFQueryCollectionViewController {
     
+    @IBOutlet weak var nofriend: UILabel!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet var pfCollection: UICollectionView!
     var rightItem:UIBarButtonItem = UIBarButtonItem()
@@ -33,7 +34,7 @@ class FoodViewController: PFQueryCollectionViewController {
 
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
         if(PFUser.currentUser() != nil){
             self.objectsWillLoad()
             self.navigationController?.navigationBarHidden = false
@@ -49,74 +50,77 @@ class FoodViewController: PFQueryCollectionViewController {
             
             
             
-            let query = PFQuery(className:"UserLocation")
-            query.whereKey("userId", equalTo: PFUser.currentUser()!)
-            query.findObjectsInBackgroundWithBlock({(objects: [PFObject]?, error:NSError?) -> Void in
-                // Looping through the objects to get the names of the workers in each object
+        }
+    }
+    
+    func updatelocation(){
+        let query = PFQuery(className:"UserLocation")
+        query.whereKey("userId", equalTo: PFUser.currentUser()!)
+        query.findObjectsInBackgroundWithBlock({(objects: [PFObject]?, error:NSError?) -> Void in
+            // Looping through the objects to get the names of the workers in each object
+            
+            if(objects!.count == 0){
                 
-                if(objects!.count == 0){
-                    
-                    PFGeoPoint.geoPointForCurrentLocationInBackground ({
-                        (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-                        if error == nil {
-                            let point = PFGeoPoint(latitude:self.locationManager.location!.coordinate.latitude, longitude:self.locationManager.location!.coordinate.longitude)
-                            
-                            var saveLocation = PFObject(className:"UserLocation")
-                            saveLocation["userId"] = PFUser.currentUser()
-                            saveLocation["coordination"] = point
-                            
-                            saveLocation.saveInBackgroundWithBlock {
-                                (success: Bool, error: NSError?) -> Void in
-                                if (success) {
-                                    // The object has been saved.
-                                } else {
-                                    // There was a problem, check error.description
-                                }
+                PFGeoPoint.geoPointForCurrentLocationInBackground ({
+                    (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+                    if error == nil {
+                        let point = PFGeoPoint(latitude:self.locationManager.location!.coordinate.latitude, longitude:self.locationManager.location!.coordinate.longitude)
+                        
+                        var saveLocation = PFObject(className:"UserLocation")
+                        saveLocation["userId"] = PFUser.currentUser()
+                        saveLocation["coordination"] = point
+                        
+                        saveLocation.saveInBackgroundWithBlock {
+                            (success: Bool, error: NSError?) -> Void in
+                            if (success) {
+                                // The object has been saved.
+                            } else {
+                                // There was a problem, check error.description
                             }
-                            
-                        }
-                    })
-                }
-                
-                for object in objects! {
-                    self.id = object.objectId!
-                    
-                    PFGeoPoint.geoPointForCurrentLocationInBackground ({
-                        (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-                        if error == nil {
-                            let point = PFGeoPoint(latitude:self.locationManager.location!.coordinate.latitude, longitude:self.locationManager.location!.coordinate.longitude)
-                            
-                            let query = PFQuery(className:"UserLocation")
-                            query.whereKey("userId", equalTo: PFUser.currentUser()!)
-                            query.getObjectInBackgroundWithId(self.id) {
-                                (coordination: PFObject?, error: NSError?) -> Void in
-                                if coordination == nil {
-                                    let object = PFObject(className: "UserLocation")
-                                    object["coordination"] = point
-                                    object.setObject(PFUser.currentUser()!, forKey: "userId")
-                                    object.saveInBackground()
-                                } else if let gameScore = coordination {
-                                    gameScore["coordination"] = point
-                                    gameScore.saveInBackground()
-                                }
-                                
-                            }
-                            
-                        }
-                        else
-                        {
-                            print("error")
                         }
                         
-                    })
+                    }
+                })
+            }
+            
+            for object in objects! {
+                self.id = object.objectId!
+                
+                PFGeoPoint.geoPointForCurrentLocationInBackground ({
+                    (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+                    if error == nil {
+                        let point = PFGeoPoint(latitude:self.locationManager.location!.coordinate.latitude, longitude:self.locationManager.location!.coordinate.longitude)
+                        
+                        let query = PFQuery(className:"UserLocation")
+                        query.whereKey("userId", equalTo: PFUser.currentUser()!)
+                        query.getObjectInBackgroundWithId(self.id) {
+                            (coordination: PFObject?, error: NSError?) -> Void in
+                            if coordination == nil {
+                                let object = PFObject(className: "UserLocation")
+                                object["coordination"] = point
+                                object.setObject(PFUser.currentUser()!, forKey: "userId")
+                                object.saveInBackground()
+                            } else if let gameScore = coordination {
+                                gameScore["coordination"] = point
+                                gameScore.saveInBackground()
+                            }
+                            
+                        }
+                        
+                    }
+                    else
+                    {
+                        print("error")
+                    }
                     
-                    
-                }
+                })
                 
                 
-            })
+            }
+            
+            
+        })
 
-        }
     }
     
     override func objectsWillLoad() {
@@ -125,6 +129,8 @@ class FoodViewController: PFQueryCollectionViewController {
             let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             loadingNotification.mode = MBProgressHUDMode.Indeterminate
             loadingNotification.labelText = "Loading"
+            
+            updatelocation()
             
             
             
@@ -140,6 +146,17 @@ class FoodViewController: PFQueryCollectionViewController {
             reset()
         }
         
+    }
+    
+    override func objectsDidLoad(error: NSError?) {
+        if queryForCollection().countObjects(nil) == 0{
+            nofriend.hidden = false
+            self.pfCollection.hidden = false
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+        }
+        else{
+            nofriend.hidden = true
+        }
     }
     
     func check (sender: UIBarButtonItem){
@@ -181,11 +198,21 @@ class FoodViewController: PFQueryCollectionViewController {
     override func queryForCollection() -> PFQuery {
         
         
-        let point = PFGeoPoint(latitude: 0, longitude: 0)
         
+        let df = NSDateFormatter()
+        df.dateFormat = "dd MMM yyyy 'at' HH:mm:ss 'UTC"
+        
+//        let date = df.stringFromDate(NSDate())
+        
+        let date = NSDate().dateByAddingTimeInterval(-25.0*60.0)
+        
+        let point = PFGeoPoint(latitude: 0, longitude: 0)
         let query = PFQuery(className: "UserLocation")
 //        query.whereKey("role", equalTo: "join")
         query.whereKey("coordination", notEqualTo: point)
+        query.whereKey("userId", notEqualTo: PFUser.currentUser()!)
+        query.whereKey("updatedAt", greaterThanOrEqualTo: date)
+        
         query.includeKey("userId")
         if(PFUser.currentUser() == nil){
             query.whereKey("nodata", equalTo: "nodata")

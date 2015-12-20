@@ -191,6 +191,8 @@ class UserMenuViewController: UITableViewController {
             self.performSegueWithIdentifier("menuToDetail", sender: self)
         case 1:
             self.performSegueWithIdentifier("menuToInterest", sender: self)
+        case 2:
+            self.performSegueWithIdentifier("menuToFood", sender: self)
         case 3:
             if currentUser?["approve"] as? String == "yes" {
                 var userIntQuery = PFQuery(className: "UserInterest")

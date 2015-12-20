@@ -2604,6 +2604,7 @@
                         <outlet property="logout" destination="Fef-f0-xL1" id="8x7-wi-WEp"/>
                         <segue destination="UB8-ZB-dJ5" kind="show" identifier="menuToDetail" id="zFt-mc-Rda"/>
                         <segue destination="dCC-6b-P1D" kind="show" identifier="menuToInterest" id="KWH-4b-YaA"/>
+                        <segue destination="o94-9v-l4r" kind="push" identifier="menuToFood" id="QNB-WK-j7p"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dce-G8-yC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2614,7 +2615,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="31470F35-7CD3-45C2-8F5D-3CACBB47E20C" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="ECF71D1B-A715-46EE-BA20-D0D2D32361F2" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -6292,6 +6293,14 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="3" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <label key="backgroundView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Friend Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rnq-9k-Ko6">
+                            <rect key="frame" x="0.0" y="-64" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="square" id="8uf-FV-aE3" customClass="FoodViewCell" customModule="UniCAT" customModuleProvider="target">
                                 <rect key="frame" x="110" y="67" width="101" height="134"/>
@@ -6465,6 +6474,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Select Friends" id="Dwk-8V-5Ze"/>
                     <connections>
+                        <outlet property="nofriend" destination="rnq-9k-Ko6" id="Fey-NP-PwN"/>
                         <outlet property="pfCollection" destination="gii-yN-m5R" id="zjf-eW-slN"/>
                         <segue destination="SC9-7g-ZiX" kind="push" id="657-8y-UlR"/>
                     </connections>
@@ -6582,9 +6592,92 @@
             </objects>
             <point key="canvasLocation" x="957" y="1038"/>
         </scene>
+        <!--Food Category View Controller-->
+        <scene sceneID="0hw-x4-UKb">
+            <objects>
+                <collectionViewController id="o94-9v-l4r" customClass="FoodCategoryViewController" customModule="UniCAT" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="8q0-IX-nIQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="US1-Ac-g1H">
+                            <size key="itemSize" width="308" height="136"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="foodCategory" id="GUB-Z6-yox" customClass="FoodCategoryViewCell" customModule="UniCAT" customModuleProvider="target">
+                                <rect key="frame" x="6" y="69" width="308" height="136"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="308" height="136"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFg-mb-oYi">
+                                            <rect key="frame" x="2" y="2" width="304" height="132"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="slP-EX-tIm" customClass="PFImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="304" height="132"/>
+                                                    <animations/>
+                                                </imageView>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="slP-EX-tIm" secondAttribute="trailing" id="H7B-ug-c5c"/>
+                                                <constraint firstItem="slP-EX-tIm" firstAttribute="top" secondItem="cFg-mb-oYi" secondAttribute="top" id="PoL-Su-8Uf"/>
+                                                <constraint firstItem="slP-EX-tIm" firstAttribute="leading" secondItem="cFg-mb-oYi" secondAttribute="leading" id="TX8-Py-bbP"/>
+                                                <constraint firstAttribute="bottom" secondItem="slP-EX-tIm" secondAttribute="bottom" id="xgM-6m-bYe"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rat-fR-xL1">
+                                            <rect key="frame" x="10" y="56" width="288" height="25"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="cFg-mb-oYi" firstAttribute="top" secondItem="GUB-Z6-yox" secondAttribute="top" constant="2" id="36x-lO-Q7U"/>
+                                    <constraint firstItem="cFg-mb-oYi" firstAttribute="leading" secondItem="GUB-Z6-yox" secondAttribute="leading" constant="2" id="3eS-bz-UGK"/>
+                                    <constraint firstItem="rat-fR-xL1" firstAttribute="centerX" secondItem="GUB-Z6-yox" secondAttribute="centerX" id="LOy-h5-JkD"/>
+                                    <constraint firstItem="rat-fR-xL1" firstAttribute="centerY" secondItem="GUB-Z6-yox" secondAttribute="centerY" id="QvU-Kx-xdg"/>
+                                    <constraint firstAttribute="bottom" secondItem="cFg-mb-oYi" secondAttribute="bottom" constant="2" id="TAX-ux-wui"/>
+                                    <constraint firstAttribute="trailing" secondItem="cFg-mb-oYi" secondAttribute="trailing" constant="2" id="XA9-ox-S4q"/>
+                                    <constraint firstItem="rat-fR-xL1" firstAttribute="leading" secondItem="GUB-Z6-yox" secondAttribute="leading" constant="10" id="zn7-ab-HHZ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="category" destination="rat-fR-xL1" id="4jM-QJ-UuN"/>
+                                    <outlet property="userImage" destination="slP-EX-tIm" id="BCn-mT-BBg"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="o94-9v-l4r" id="Dyr-zw-94h"/>
+                            <outlet property="delegate" destination="o94-9v-l4r" id="KIx-af-HGD"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="znC-jJ-qf8"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l4r-uG-WJy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="328" y="-1073"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="31470F35-7CD3-45C2-8F5D-3CACBB47E20C" width="36" height="32">
+        <image name="Add Cover" width="70" height="92"/>
+        <image name="Dropdown" width="15" height="9"/>
+        <image name="ECF71D1B-A715-46EE-BA20-D0D2D32361F2" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -6712,8 +6805,6 @@ G48bmBurG68buhvDG8gb0BvTG9gb5xvrG/Ib+hwHHAwcDhwQHBUcHRwgHCUcLRwwHEIcRRxKAAAAAAAA
 AgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAHEw
 </mutableData>
         </image>
-        <image name="Add Cover" width="70" height="92"/>
-        <image name="Dropdown" width="15" height="9"/>
         <image name="Interest" width="24" height="24"/>
         <image name="Logo" width="512" height="512"/>
         <image name="Love" width="37" height="32"/>
