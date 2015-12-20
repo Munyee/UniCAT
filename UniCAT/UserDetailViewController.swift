@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol DismissViewDelegate {
+    func dismissView()
+}
+
+
 class UserDetailViewController: UITableViewController, UITextFieldDelegate, DismissViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate,RSKImageCropViewControllerDelegate {
 
     @IBOutlet weak var progreeBar: MBCircularProgressBarView!
@@ -368,9 +373,16 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
         
         
         
-        if gender.text == "M" || gender.text == "F" {
+        if gender.text == "M" || gender.text == "F" && name.text != "" {
             self.performSegueWithIdentifier("detailToInterest", sender: self)
-        } else {
+        }
+        else if name.text == "" {
+            name.backgroundColor = UIColor(red: 224/255.0, green: 72/255.0, blue: 81/255.0, alpha: 1.0)
+            name.textColor = UIColor.whiteColor()
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
+        }
+        else {
             gender.backgroundColor = UIColor(red: 224/255.0, green: 72/255.0, blue: 81/255.0, alpha: 1.0)
             gender.textColor = UIColor.whiteColor()
             
@@ -437,7 +449,7 @@ class UserDetailViewController: UITableViewController, UITextFieldDelegate, Dism
         if segue.identifier == "detailToInterest" {
             let interestScene = segue.destinationViewController as! ChooseInterestViewController
             interestScene.type = 2
-            interestScene.dismissDelegate = self
+            interestScene.dismissViewControllerAnimated(false, completion: nil)
         }
     }
     

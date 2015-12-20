@@ -76,7 +76,7 @@ class UserMenuViewController: UITableViewController {
         var currentUser = PFUser.currentUser()
         
         if currentUser?["approve"] as? String == "yes" {
-            return 4
+            return 5
         } else {
             return 3
         }
@@ -127,32 +127,45 @@ class UserMenuViewController: UITableViewController {
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
             
-            if currentUser?["approve"] as? String == "yes" {
-                var cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+            cell.icon.image = UIImage(named: "Love")
+            cell.titleLabel.text = "Food Category"
+            cell.countFrame.hidden = true
+            
+            if let user = currentUser {
+                let query = PFQuery(className: "UserFavouriteFood")
+                query.whereKey("UserId", equalTo: user)
+                query.findObjectsInBackgroundWithBlock{
+                    (objects: [PFObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        if let objects = objects {
+                            cell.count.text = "\(objects.count)"
+                            if cell.count.text != "0" {
+                                cell.countFrame.hidden = false
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cell
+            
+        case 3:
+            let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+            
                 
                 cell.icon.image = UIImage(named: "event")
-                cell.titleLabel.text = "Calculate Interest"
+                cell.titleLabel.text = "Sort Interest"
                 cell.countFrame.hidden = true
                 cell.arrow.hidden = true
                 
                 return cell
-            } else {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
-            
-            cell.icon.image = UIImage(named: "blank")
-            cell.titleLabel.text = ""
-            cell.countFrame.hidden = true
-            cell.arrow.hidden = true
-                
-                return cell
-            }
-            
-        case 3:
+        case 4:
             var cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
             
             cell.icon.image = UIImage(named: "direction")
-            cell.titleLabel.text = "Sort Interest"
+            cell.titleLabel.text = "Generate Report"
             cell.countFrame.hidden = true
             cell.arrow.hidden = true
             
@@ -178,7 +191,7 @@ class UserMenuViewController: UITableViewController {
             self.performSegueWithIdentifier("menuToDetail", sender: self)
         case 1:
             self.performSegueWithIdentifier("menuToInterest", sender: self)
-        case 2:
+        case 3:
             if currentUser?["approve"] as? String == "yes" {
                 var userIntQuery = PFQuery(className: "UserInterest")
                 userIntQuery.includeKey("interestId")
@@ -226,7 +239,11 @@ class UserMenuViewController: UITableViewController {
                                         
                                         for interestObj in self.interest {
                                             print(interestObj["Level"])
-                                            interestObj.saveEventually()
+                                            interestObj.saveEventually({ (Bool success, NSError error) -> Void in
+                                                if(success){
+                                                    print("Updated")
+                                                }
+                                            })
                                         }
                                     }
                                 }
@@ -237,7 +254,7 @@ class UserMenuViewController: UITableViewController {
             } else {
                 print("Invalid selection")
             }
-        case 3:
+        case 4:
             if currentUser?["approve"] as? String == "yes" {
                 var interestQuery = PFQuery(className: "Interest")
                 interestQuery.orderByDescending("Level")

@@ -7,12 +7,21 @@
 //
 
 import Foundation
+import UIKit
+
 
 class FoodCategoryViewController: PFQueryCollectionViewController{
     
-    var count : [Int32] = [];
-    var color : [SLColorArt] = []
+//    var dismissDelegate: DismissViewDelegate?
     
+    var count = 0
+    var color : [SLColorArt] = []
+    var choice : [String] = []
+    var choose : [String] = []
+    var foodCategory : [PFObject] = []
+    
+    
+   
     
     required init(coder aDecoder:NSCoder)
     {
@@ -29,14 +38,22 @@ class FoodCategoryViewController: PFQueryCollectionViewController{
     
     override func objectsWillLoad() {
         for var index = 0; index < self.collectionView?.numberOfItemsInSection(0); index++ {
-             color.append(SLColorArt())
+            color.append(SLColorArt())
+            choice.append("")
+            choose.append("")
         }
     }
     
     override func objectsDidLoad(error: NSError?) {
+        let skipButton : UIBarButtonItem = UIBarButtonItem(title: "Skip", style: UIBarButtonItemStyle.Plain, target: self, action: "skip:")
+        self.navigationItem.rightBarButtonItem = skipButton
         color.removeAll()
+        choice.removeAll()
+        choose.removeAll()
         for var index = 0; index < self.collectionView?.numberOfItemsInSection(0); index++ {
             color.append(SLColorArt())
+            choice.append("")
+            choose.append("")
         }
         self.collectionView?.reloadData()
     }
@@ -48,14 +65,6 @@ class FoodCategoryViewController: PFQueryCollectionViewController{
         let query = PFQuery(className: "FoodCaterogy")
         query.orderByAscending("Category")
         //        query.whereKey("role", equalTo: "join")
-        if(PFUser.currentUser() == nil){
-            query.whereKey("nodata", equalTo: "nodata")
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
-            self.presentViewController(vc, animated: true, completion: nil)
-        }
-        //        query.whereKey("coordination", nearGeoPoint: userSelectViewController.userlocation, withinKilometers: 1)
-        
         return query
         
     }
@@ -68,7 +77,7 @@ class FoodCategoryViewController: PFQueryCollectionViewController{
         
         
         
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("foodCategory", forIndexPath: indexPath) as! FoodCategoryViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("foodCategory", forIndexPath: indexPath) as! FoodCategoryViewCell
         
         
         let image = object?["image"] as? PFFile
@@ -86,41 +95,73 @@ class FoodCategoryViewController: PFQueryCollectionViewController{
                 else{
                     let color = (image?.colorArt())!
                     self.color[indexPath.row] = color
+                    self.foodCategory.append(object!)
+                    self.choose[indexPath.row] = (object?.objectId)!
                     cell.setup(color)
                     cell.category.textColor = color.primaryColor
                 }
-//                    if(self.count[indexPath.row] == 0){
-//                    cell.setup()
-//                    self.count[indexPath.row] = 1
-//                }
             }
         };
         
-//        if(cell.count < 2){
-//            cell.setup()
-//        }
+        self.collectionView?.allowsMultipleSelection = true
         
-//        if (indexPath.row == self.pfCollection.numberOfItemsInSection(0)-1) {
-//            
-//            self.pfCollection.hidden = false
-//            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-//        }
-//        
-//        
-//        if (cell.selected || choice[indexPath.row+1] != "" ) {
-//            cell.backgroundColor = UIColor.greenColor()
-//        }
-//        else
-//        {
-//            cell.backgroundColor = UIColor.whiteColor()
-//        }
-//        
-//        
-//        //        }
-//        
-//        self.pfCollection.allowsMultipleSelection = true
-        
+        if(cell.selected){
+            cell.backgroundColor = UIColor.greenColor()
+        }
+        else{
+            cell.backgroundColor = UIColor.whiteColor()
+        }
         return cell
+    }
+    
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FoodCategoryViewCell
+        
+        if(choice[indexPath.row] == ""){
+            choice[indexPath.row] = choose[indexPath.row]
+            cell.backgroundColor = UIColor.greenColor()
+            count++
+            let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action: "save:")
+            self.navigationItem.rightBarButtonItem = saveButton
+        }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FoodCategoryViewCell
+        
+        if(choice[indexPath.row] != ""){
+            choice[indexPath.row] = ""
+            cell.backgroundColor = UIColor.whiteColor()
+            count--
+        }
+        
+        if(count == 0){
+            let skipButton : UIBarButtonItem = UIBarButtonItem(title: "Skip", style: UIBarButtonItemStyle.Plain, target: self, action: "skip:")
+            self.navigationItem.rightBarButtonItem = skipButton
+        }
+        
+        
+        
+    }
+    
+    func skip(sender:UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func save(sender:UIButton){
+        for var index = 0; index < self.collectionView?.numberOfItemsInSection(0); index++ {
+            if(choice[index] != ""){
+                let favourite = PFObject(className:"UserFavouriteFood")
+                favourite["UserId"] = PFUser.currentUser()
+                favourite["Food"] = self.foodCategory[index]
+                favourite.saveEventually()
+            }
+            
+            if( index == (self.collectionView?.numberOfItemsInSection(0))!-1){
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
     }
 
 }

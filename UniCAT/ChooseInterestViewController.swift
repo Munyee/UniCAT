@@ -8,15 +8,13 @@
 
 import UIKit
 
-protocol DismissViewDelegate {
-    func dismissView()
-}
+
 
 class ChooseInterestViewController: PFQueryCollectionViewController {
 
     @IBOutlet var collectionview: UICollectionView!
     
-    var dismissDelegate: DismissViewDelegate?
+    
     
     var selected = Set<PFObject>()
     var intObject: [PFObject] = []
@@ -108,7 +106,9 @@ class ChooseInterestViewController: PFQueryCollectionViewController {
             }
         }
         
-        dismissDelegate?.dismissView()
+        self.performSegueWithIdentifier("InterestToFood", sender: self)
+        
+//        dismissDelegate?.dismissView()
     }
     
     func saveInterest(sender:UIButton) {
