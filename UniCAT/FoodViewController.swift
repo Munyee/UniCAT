@@ -36,8 +36,7 @@ class FoodViewController: PFQueryCollectionViewController {
 
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
+    override func viewDidAppear (animated: Bool) {
         if(PFUser.currentUser() != nil){
             updatelocation()
             
@@ -55,6 +54,14 @@ class FoodViewController: PFQueryCollectionViewController {
             
             
         }
+        else if(PFUser.currentUser() == nil){
+           
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+            self.presentViewController(vc, animated: true, completion: nil)
+            self.tabBarController?.selectedIndex = 0
+        }
+        
     }
     
     func updatelocation(){
@@ -193,6 +200,7 @@ class FoodViewController: PFQueryCollectionViewController {
     
     override func queryForCollection() -> PFQuery {
         
+        
         let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.Indeterminate
         loadingNotification.labelText = "Fetching data"
@@ -201,24 +209,25 @@ class FoodViewController: PFQueryCollectionViewController {
         let df = NSDateFormatter()
         df.dateFormat = "dd MMM yyyy 'at' HH:mm:ss 'UTC"
         
-//        let date = df.stringFromDate(NSDate())
+        
         
         let date = NSDate().dateByAddingTimeInterval(-25.0*60.0)
         
         let point = PFGeoPoint(latitude: 0, longitude: 0)
         let query = PFQuery(className: "UserLocation")
-//        query.whereKey("role", equalTo: "join")
+        if(PFUser.currentUser() == nil){
+            query.whereKey("nodata", equalTo: "nodata")
+            
+        }
+        else{
+            query.whereKey("userId", notEqualTo: PFUser.currentUser()!)
+        }
         query.whereKey("coordination", notEqualTo: point)
-        query.whereKey("userId", notEqualTo: PFUser.currentUser()!)
+        
         query.whereKey("updatedAt", greaterThanOrEqualTo: date)
         
         query.includeKey("userId")
-        if(PFUser.currentUser() == nil){
-            query.whereKey("nodata", equalTo: "nodata")
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
-            self.presentViewController(vc, animated: true, completion: nil)
-        }
+        
 //        query.whereKey("coordination", nearGeoPoint: userSelectViewController.userlocation, withinKilometers: 1)
         
         return query

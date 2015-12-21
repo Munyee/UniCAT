@@ -37,16 +37,16 @@ class UserMenuViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         
         if(PFUser.currentUser() == nil && NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
-            logout.title = "Login"
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
             self.presentViewController(vc, animated: true, completion: nil)
+            self.tabBarController?.selectedIndex = 0
         }
         else if (PFUser.currentUser() == nil){
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "firstStartup")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+            self.presentViewController(vc, animated: true, completion: nil)
             self.tabBarController?.selectedIndex = 0
-            logout.title = "Login"
         }
         else{
             var currentUser = PFUser.currentUser()

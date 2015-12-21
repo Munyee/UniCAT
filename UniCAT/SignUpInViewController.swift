@@ -225,8 +225,8 @@ class SignUpInViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func skipLogin(sender: AnyObject) {
         
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "firstStartup")
-        NSUserDefaults.standardUserDefaults().synchronize()
+//        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "firstStartup")
+//        NSUserDefaults.standardUserDefaults().synchronize()
         
         dismissViewControllerAnimated(true, completion: nil)
         

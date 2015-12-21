@@ -232,11 +232,11 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         super.viewDidLoad()
         
         
-        if(PFUser.currentUser() == nil && NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
-            self.presentViewController(vc, animated: true, completion: nil)
-        }
+//        if(PFUser.currentUser() == nil && !NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+//            self.presentViewController(vc, animated: true, completion: nil)
+//        }
         
         
         
