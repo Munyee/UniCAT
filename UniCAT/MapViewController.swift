@@ -143,7 +143,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        // Custom initialization
+        // Custom initializationƒ
     }
     
     required init(coder aDecoder: NSCoder)  {
@@ -311,8 +311,8 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         scrollView.dataSource = self
         scrollView.tiledScrollViewDelegate = self
         scrollView.tiledView.shouldAnnotateRect = true
-        scrollView.levelsOfZoom = 3;
-        scrollView.levelsOfDetail = 3;
+        scrollView.levelsOfZoom = 1;
+        scrollView.levelsOfDetail = 1;
         scrollView.scrollView.setContentOffset(CGPoint(x: 470, y: 520), animated: true)
         
         view.addSubview(scrollView)
@@ -1267,7 +1267,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     func downloadSheet(sender: AnyObject)
     {
         
-        let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Building Details", "Bus Stop", "ATM", "Food", "Clinic", "Wifi" ,"Sport")
+        let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: nil , destructiveButtonTitle: nil, otherButtonTitles: "Building Details", "Bus Stop", "ATM", "Food", "Clinic", "Wifi" ,"Sport")
         
         actionSheet.showInView(self.view)
     }
@@ -1275,6 +1275,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int)
     {
+        scrollView.setZoomScale(0, animated: true)
         poibool = true
         buspoi = false
         atmpoi = false
@@ -1283,39 +1284,38 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         print("\(buttonIndex)")
         switch (buttonIndex){
             
+        
         case 0:
-            print("Cancel")
-        case 1:
             hidden()
             poihidden()
             poibool = false
             showbuildinganno()
-        case 2:
+        case 1:
             hidden()
             poihidden()
             buspoi = true
             showbus()
-        case 3:
+        case 2:
             hidden()
             poihidden()
             atmpoi = true
             showATM()
-        case 4:
+        case 3:
             hidden()
             poihidden()
             foodpoi = true
             showfood()
-        case 5:
+        case 4:
             hidden()
             poihidden()
             clinicpoi = true
             showclinic()
-        case 6:
+        case 5:
             hidden()
             poihidden()
             wifipoi = true
             showwifi()
-        case 7:
+        case 6:
             hidden()
             poihidden()
             sportpoi = true

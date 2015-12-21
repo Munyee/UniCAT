@@ -147,6 +147,7 @@ class FoodCategoryViewController: PFQueryCollectionViewController{
     
     func skip(sender:UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func save(sender:UIButton){

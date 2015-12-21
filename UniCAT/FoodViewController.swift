@@ -27,6 +27,8 @@ class FoodViewController: PFQueryCollectionViewController {
     var userLocation : [PFGeoPoint] = []
     var userPoint : [String] = []
     var num : Int32 = 0;
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +37,10 @@ class FoodViewController: PFQueryCollectionViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
         if(PFUser.currentUser() != nil){
-            self.objectsWillLoad()
+            updatelocation()
+            
             self.navigationController?.navigationBarHidden = false
             let button: UIButton = UIButton()
             button.setImage(UIImage(named: "rect"), forState: .Normal)
@@ -69,7 +73,6 @@ class FoodViewController: PFQueryCollectionViewController {
                         var saveLocation = PFObject(className:"UserLocation")
                         saveLocation["userId"] = PFUser.currentUser()
                         saveLocation["coordination"] = point
-                        
                         saveLocation.saveInBackgroundWithBlock {
                             (success: Bool, error: NSError?) -> Void in
                             if (success) {
@@ -125,14 +128,6 @@ class FoodViewController: PFQueryCollectionViewController {
     
     override func objectsWillLoad() {
         if(PFUser.currentUser() != nil){
-            self.pfCollection.hidden = true
-            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.Indeterminate
-            loadingNotification.labelText = "Loading"
-            
-            updatelocation()
-            
-            
             
             choice = []
             choice.append(PFUser.currentUser()!.objectId!)
@@ -195,9 +190,13 @@ class FoodViewController: PFQueryCollectionViewController {
         return 1
     }
     
+    
     override func queryForCollection() -> PFQuery {
         
-        
+        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.Indeterminate
+        loadingNotification.labelText = "Fetching data"
+        self.pfCollection.hidden = true
         
         let df = NSDateFormatter()
         df.dateFormat = "dd MMM yyyy 'at' HH:mm:ss 'UTC"

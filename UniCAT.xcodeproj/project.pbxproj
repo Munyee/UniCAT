@@ -83,6 +83,8 @@
 		84CB2CEF1B39457800E8B569 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB2CEE1B39457800E8B569 /* ProfileTableViewCell.swift */; };
 		84DB3A6F1B09D03C0069D768 /* SignUpInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB3A6E1B09D03C0069D768 /* SignUpInViewController.swift */; };
 		CB0E96DF1C23E90C00F80353 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0E96DE1C23E90C00F80353 /* PickerViewController.swift */; };
+		CB6D93651C27D1F1001A1ED9 /* UserFavFoodTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6D93641C27D1F1001A1ED9 /* UserFavFoodTableView.swift */; };
+		CB6D93671C27D534001A1ED9 /* UserFavFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6D93661C27D534001A1ED9 /* UserFavFoodTableViewCell.swift */; };
 		FE1455CC1C1EBFBC0091B03C /* overlay_park.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CA1C1EBFBC0091B03C /* overlay_park.png */; };
 		FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */; };
 		FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */; };
@@ -234,6 +236,8 @@
 		84DB3A6E1B09D03C0069D768 /* SignUpInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpInViewController.swift; sourceTree = "<group>"; };
 		C21B52657B09A50386094E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0E96DE1C23E90C00F80353 /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		CB6D93641C27D1F1001A1ED9 /* UserFavFoodTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFavFoodTableView.swift; sourceTree = "<group>"; };
+		CB6D93661C27D534001A1ED9 /* UserFavFoodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFavFoodTableViewCell.swift; sourceTree = "<group>"; };
 		FE1455CA1C1EBFBC0091B03C /* overlay_park.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_park.png; sourceTree = "<group>"; };
 		FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_park@2x.png"; sourceTree = "<group>"; };
 		FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
@@ -610,6 +614,8 @@
 				FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */,
 				FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */,
 				FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */,
+				CB6D93641C27D1F1001A1ED9 /* UserFavFoodTableView.swift */,
+				CB6D93661C27D534001A1ED9 /* UserFavFoodTableViewCell.swift */,
 			);
 			name = "Food Module";
 			sourceTree = "<group>";
@@ -934,7 +940,9 @@
 				186D4D891B78C08100A2D6F8 /* UserMenuCell.swift in Sources */,
 				8440AE041B40202F0012A31E /* InfoTableViewCell.swift in Sources */,
 				FEED415D1C1E8D24002A8049 /* DefineLocation.swift in Sources */,
+				CB6D93651C27D1F1001A1ED9 /* UserFavFoodTableView.swift in Sources */,
 				FEED41C21C1EA6A2002A8049 /* TCMapViewController.m in Sources */,
+				CB6D93671C27D534001A1ED9 /* UserFavFoodTableViewCell.swift in Sources */,
 				FEED41841C1EA4EF002A8049 /* TCDuration.m in Sources */,
 				187258B51B78B7F5007DC408 /* UserMenuViewController.swift in Sources */,
 				FEED41651C1EA464002A8049 /* TCGoogleAPIKeys.m in Sources */,

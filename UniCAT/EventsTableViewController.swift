@@ -347,11 +347,6 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate 
                 menuButton.action = "revealToggle:"
                 self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             }
-        } else {
-            menuButton.image = UIImage(named: "back")
-            menuButton.target = self
-            menuButton.action = "backButton"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
         switch selection {
