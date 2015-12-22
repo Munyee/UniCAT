@@ -46,22 +46,22 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     var buto = UIButton()
     var butp = UIButton()
     
-    var a   = UIImageView()
-    var b = UIImageView()
-    var c = UIImageView()
-    var d = UIImageView()
-    var e = UIImageView()
-    var f = UIImageView()
-    var g = UIImageView()
-    var h = UIImageView()
-    var i = UIImageView()
-    var j = UIImageView()
-    var k = UIImageView()
-    var l = UIImageView()
-    var m = UIImageView()
-    var n = UIImageView()
-    var o = UIImageView()
-    var p = UIImageView()
+    var a   = SpringImageView()
+    var b = SpringImageView()
+    var c = SpringImageView()
+    var d = SpringImageView()
+    var e = SpringImageView()
+    var f = SpringImageView()
+    var g = SpringImageView()
+    var h = SpringImageView()
+    var i = SpringImageView()
+    var j = SpringImageView()
+    var k = SpringImageView()
+    var l = SpringImageView()
+    var m = SpringImageView()
+    var n = SpringImageView()
+    var o = SpringImageView()
+    var p = SpringImageView()
     
     //---Poi variable-----------------------------------------
     var butWifiA = UIButton()
@@ -152,7 +152,6 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     
     func checkconnection(){
         
-       
         
         
         var temp : [String] = []
@@ -345,6 +344,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
         
         buta = setButton( a, label: names[0], eventnum: eventcount[0], size: CGRect(x: 638, y: 772, width: 150, height: 50))
+        
         butb = setButton( b, label: names[1], eventnum: eventcount[1], size: CGRect(x: 635, y: 670, width: 150, height: 50))
         butc = setButton( c, label: names[2], eventnum: eventcount[2], size: CGRect(x: 735, y: 618, width: 150, height: 50))
         butd = setButton( d, label: names[3], eventnum: eventcount[3], size: CGRect(x: 835, y: 550, width: 150, height: 50))
@@ -383,7 +383,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
     }
     
-    func setButton( imageview : UIImageView,label:String,eventnum:String,size:CGRect)->UIButton{
+    func setButton( imageview : SpringImageView,label:String,eventnum:String,size:CGRect)->UIButton{
         
         //User settings for White/Black
         Name.imageview = "Black"
@@ -396,7 +396,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         var annot:UIImageView = UIImageView()
         annot.frame = CGRectMake(0,0,150,50)
         var image:UIImage = UIImage()
-        var image1:UIImageView = UIImageView()
+        var image1:SpringImageView = SpringImageView()
         let label1 : UILabel = UILabel()
         if eventnum == "0" || eventnum == "o" {
             label1.frame = CGRect(x: 0, y: -2, width: 150, height: 50)
@@ -430,7 +430,10 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         //image1.userInteractionEnabled = true
         //annot.userInteractionEnabled = true
         image1.frame = size
-        
+        image1.animation = "slideDown"
+        image1.curve = "easeInSine"
+        image1.duration = 1.0
+        image1.animate()
         event.frame = CGRect(x: 1, y: -2, width: 30, height: 50)
         event.text = eventnum
         event.textAlignment = NSTextAlignment.Center
@@ -646,22 +649,11 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     }
     
     func hidden(){
-        a.hidden = true
-        b.hidden = true
-        c.hidden = true
-        d.hidden = true
-        e.hidden = true
-        f.hidden = true
-        g.hidden = true
-        h.hidden = true
-        i.hidden = true
-        j.hidden = true
-        k.hidden = true
-        l.hidden = true
-        m.hidden = true
-        n.hidden = true
-        o.hidden = true
-        p.hidden = true
+        let items : [SpringImageView] = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]
+        
+        for item in items{
+            item.hidden = true
+        }
         buta.hidden = true
         butb.hidden = true
         butc.hidden = true
@@ -684,14 +676,18 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     
     func showbuildinganno(){
         if(scale > 1 && scale <= 1.95 && poibool == false){
-            b.hidden = true
-            d.hidden = true
-            e.hidden = true
-            f.hidden = true
-            h.hidden = true
-            i.hidden = true
-            l.hidden = true
-            p.hidden = true
+            
+            let items : [SpringImageView] = [b,d,e,f,h,i,l,p];
+            
+            for item in items{
+                item.hidden = true
+                item.animation = "slideDown"
+                item.curve = "easeInSine"
+                item.duration = 1.0
+                item.animate()
+                
+            }
+           
             butb.hidden = true
             butd.hidden = true
             bute.hidden = true
@@ -721,14 +717,12 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             p.hidden = true
         }
         else if(scale == 1 && poibool == false){
-            b.hidden = true
-            d.hidden = true
-            e.hidden = true
-            f.hidden = true
-            h.hidden = true
-            i.hidden = true
-            l.hidden = true
-            p.hidden = true
+            let items : [SpringImageView] = [b,d,e,f,h,i,l,p];
+            
+            for item in items{
+                item.hidden = true
+                
+            }
             butb.hidden = true
             butd.hidden = true
             bute.hidden = true
@@ -737,22 +731,19 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             buti.hidden = true
             butl.hidden = true
             butp.hidden = true
-            a.hidden = false
-            c.hidden = false
-            g.hidden = false
-            j.hidden = false
-            k.hidden = false
-            m.hidden = false
-            n.hidden = false
-            o.hidden = false
-            buta.hidden = false
-            butc.hidden = false
-            butg.hidden = false
-            butj.hidden = false
-            butk.hidden = false
-            butm.hidden = false
-            butn.hidden = false
-            buto.hidden = false
+            
+            let itemsVisible : [SpringImageView] = [a,c,g,j,k,m,n,o];
+            
+            for item in itemsVisible{
+                item.hidden = false
+             }
+            
+            let buttonVisible : [UIButton] = [buta,butc,butg,butj,butk,butm,butn,buto]
+            
+            for item in buttonVisible{
+                item.hidden = false
+            }
+            
         }else if(poibool == false)
         {
             a.hidden = false

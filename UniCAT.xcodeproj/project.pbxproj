@@ -83,6 +83,34 @@
 		84CB2CEF1B39457800E8B569 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB2CEE1B39457800E8B569 /* ProfileTableViewCell.swift */; };
 		84DB3A6F1B09D03C0069D768 /* SignUpInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB3A6E1B09D03C0069D768 /* SignUpInViewController.swift */; };
 		CB0E96DF1C23E90C00F80353 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0E96DE1C23E90C00F80353 /* PickerViewController.swift */; };
+		CB42E8051C293C2500302D6B /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7E91C293C2500302D6B /* AsyncButton.swift */; };
+		CB42E8061C293C2500302D6B /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7EA1C293C2500302D6B /* AsyncImageView.swift */; };
+		CB42E8071C293C2500302D6B /* AutoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7EB1C293C2500302D6B /* AutoTextView.swift */; };
+		CB42E8081C293C2500302D6B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7EC1C293C2500302D6B /* LoadingView.swift */; };
+		CB42E8091C293C2500302D6B /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB42E7ED1C293C2500302D6B /* LoadingView.xib */; };
+		CB42E80A1C293C2500302D6B /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7EE1C293C2500302D6B /* BlurView.swift */; };
+		CB42E80B1C293C2500302D6B /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7EF1C293C2500302D6B /* DesignableButton.swift */; };
+		CB42E80C1C293C2500302D6B /* DesignableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F01C293C2500302D6B /* DesignableImageView.swift */; };
+		CB42E80D1C293C2500302D6B /* DesignableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F11C293C2500302D6B /* DesignableLabel.swift */; };
+		CB42E80E1C293C2500302D6B /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F21C293C2500302D6B /* DesignableTextField.swift */; };
+		CB42E80F1C293C2500302D6B /* DesignableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F31C293C2500302D6B /* DesignableTextView.swift */; };
+		CB42E8101C293C2500302D6B /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F41C293C2500302D6B /* DesignableView.swift */; };
+		CB42E8111C293C2500302D6B /* DesignableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F51C293C2500302D6B /* DesignableTabBarController.swift */; };
+		CB42E8121C293C2500302D6B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F61C293C2500302D6B /* ImageLoader.swift */; };
+		CB42E8131C293C2500302D6B /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F71C293C2500302D6B /* KeyboardLayoutConstraint.swift */; };
+		CB42E8141C293C2500302D6B /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F81C293C2500302D6B /* Misc.swift */; };
+		CB42E8151C293C2500302D6B /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7F91C293C2500302D6B /* SoundPlayer.swift */; };
+		CB42E8161C293C2500302D6B /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7FA1C293C2500302D6B /* Spring.swift */; };
+		CB42E8171C293C2500302D6B /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7FB1C293C2500302D6B /* SpringAnimation.swift */; };
+		CB42E8181C293C2500302D6B /* SpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7FC1C293C2500302D6B /* SpringButton.swift */; };
+		CB42E8191C293C2500302D6B /* SpringImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7FD1C293C2500302D6B /* SpringImageView.swift */; };
+		CB42E81A1C293C2500302D6B /* SpringLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7FE1C293C2500302D6B /* SpringLabel.swift */; };
+		CB42E81B1C293C2500302D6B /* SpringTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E7FF1C293C2500302D6B /* SpringTextField.swift */; };
+		CB42E81C1C293C2500302D6B /* SpringTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E8001C293C2500302D6B /* SpringTextView.swift */; };
+		CB42E81D1C293C2500302D6B /* SpringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E8011C293C2500302D6B /* SpringView.swift */; };
+		CB42E81E1C293C2500302D6B /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E8021C293C2500302D6B /* TransitionManager.swift */; };
+		CB42E81F1C293C2500302D6B /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E8031C293C2500302D6B /* TransitionZoom.swift */; };
+		CB42E8201C293C2500302D6B /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E8041C293C2500302D6B /* UnwindSegue.swift */; };
 		CB6D93651C27D1F1001A1ED9 /* UserFavFoodTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6D93641C27D1F1001A1ED9 /* UserFavFoodTableView.swift */; };
 		CB6D93671C27D534001A1ED9 /* UserFavFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6D93661C27D534001A1ED9 /* UserFavFoodTableViewCell.swift */; };
 		FE1455CC1C1EBFBC0091B03C /* overlay_park.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CA1C1EBFBC0091B03C /* overlay_park.png */; };
@@ -236,6 +264,34 @@
 		84DB3A6E1B09D03C0069D768 /* SignUpInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpInViewController.swift; sourceTree = "<group>"; };
 		C21B52657B09A50386094E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0E96DE1C23E90C00F80353 /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		CB42E7E91C293C2500302D6B /* AsyncButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
+		CB42E7EA1C293C2500302D6B /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
+		CB42E7EB1C293C2500302D6B /* AutoTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoTextView.swift; sourceTree = "<group>"; };
+		CB42E7EC1C293C2500302D6B /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		CB42E7ED1C293C2500302D6B /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
+		CB42E7EE1C293C2500302D6B /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		CB42E7EF1C293C2500302D6B /* DesignableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableButton.swift; sourceTree = "<group>"; };
+		CB42E7F01C293C2500302D6B /* DesignableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableImageView.swift; sourceTree = "<group>"; };
+		CB42E7F11C293C2500302D6B /* DesignableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableLabel.swift; sourceTree = "<group>"; };
+		CB42E7F21C293C2500302D6B /* DesignableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTextField.swift; sourceTree = "<group>"; };
+		CB42E7F31C293C2500302D6B /* DesignableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTextView.swift; sourceTree = "<group>"; };
+		CB42E7F41C293C2500302D6B /* DesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		CB42E7F51C293C2500302D6B /* DesignableTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTabBarController.swift; sourceTree = "<group>"; };
+		CB42E7F61C293C2500302D6B /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		CB42E7F71C293C2500302D6B /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
+		CB42E7F81C293C2500302D6B /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
+		CB42E7F91C293C2500302D6B /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		CB42E7FA1C293C2500302D6B /* Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
+		CB42E7FB1C293C2500302D6B /* SpringAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringAnimation.swift; sourceTree = "<group>"; };
+		CB42E7FC1C293C2500302D6B /* SpringButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringButton.swift; sourceTree = "<group>"; };
+		CB42E7FD1C293C2500302D6B /* SpringImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringImageView.swift; sourceTree = "<group>"; };
+		CB42E7FE1C293C2500302D6B /* SpringLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringLabel.swift; sourceTree = "<group>"; };
+		CB42E7FF1C293C2500302D6B /* SpringTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringTextField.swift; sourceTree = "<group>"; };
+		CB42E8001C293C2500302D6B /* SpringTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringTextView.swift; sourceTree = "<group>"; };
+		CB42E8011C293C2500302D6B /* SpringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringView.swift; sourceTree = "<group>"; };
+		CB42E8021C293C2500302D6B /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
+		CB42E8031C293C2500302D6B /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
+		CB42E8041C293C2500302D6B /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		CB6D93641C27D1F1001A1ED9 /* UserFavFoodTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFavFoodTableView.swift; sourceTree = "<group>"; };
 		CB6D93661C27D534001A1ED9 /* UserFavFoodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFavFoodTableViewCell.swift; sourceTree = "<group>"; };
 		FE1455CA1C1EBFBC0091B03C /* overlay_park.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_park.png; sourceTree = "<group>"; };
@@ -569,6 +625,7 @@
 		84B4ADED1B0445F9007F1404 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB42E8211C293C3A00302D6B /* Spring */,
 				189924391BCA1D0000E4107E /* Bolts.framework */,
 				1899243A1BCA1D0000E4107E /* Parse.framework */,
 				1899243B1BCA1D0000E4107E /* ParseUI.framework */,
@@ -587,6 +644,41 @@
 				84B4ADFA1B044775007F1404 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB42E8211C293C3A00302D6B /* Spring */ = {
+			isa = PBXGroup;
+			children = (
+				CB42E7E91C293C2500302D6B /* AsyncButton.swift */,
+				CB42E7EA1C293C2500302D6B /* AsyncImageView.swift */,
+				CB42E7EB1C293C2500302D6B /* AutoTextView.swift */,
+				CB42E7EC1C293C2500302D6B /* LoadingView.swift */,
+				CB42E7ED1C293C2500302D6B /* LoadingView.xib */,
+				CB42E7EE1C293C2500302D6B /* BlurView.swift */,
+				CB42E7EF1C293C2500302D6B /* DesignableButton.swift */,
+				CB42E7F01C293C2500302D6B /* DesignableImageView.swift */,
+				CB42E7F11C293C2500302D6B /* DesignableLabel.swift */,
+				CB42E7F21C293C2500302D6B /* DesignableTextField.swift */,
+				CB42E7F31C293C2500302D6B /* DesignableTextView.swift */,
+				CB42E7F41C293C2500302D6B /* DesignableView.swift */,
+				CB42E7F51C293C2500302D6B /* DesignableTabBarController.swift */,
+				CB42E7F61C293C2500302D6B /* ImageLoader.swift */,
+				CB42E7F71C293C2500302D6B /* KeyboardLayoutConstraint.swift */,
+				CB42E7F81C293C2500302D6B /* Misc.swift */,
+				CB42E7F91C293C2500302D6B /* SoundPlayer.swift */,
+				CB42E7FA1C293C2500302D6B /* Spring.swift */,
+				CB42E7FB1C293C2500302D6B /* SpringAnimation.swift */,
+				CB42E7FC1C293C2500302D6B /* SpringButton.swift */,
+				CB42E7FD1C293C2500302D6B /* SpringImageView.swift */,
+				CB42E7FE1C293C2500302D6B /* SpringLabel.swift */,
+				CB42E7FF1C293C2500302D6B /* SpringTextField.swift */,
+				CB42E8001C293C2500302D6B /* SpringTextView.swift */,
+				CB42E8011C293C2500302D6B /* SpringView.swift */,
+				CB42E8021C293C2500302D6B /* TransitionManager.swift */,
+				CB42E8031C293C2500302D6B /* TransitionZoom.swift */,
+				CB42E8041C293C2500302D6B /* UnwindSegue.swift */,
+			);
+			name = Spring;
 			sourceTree = "<group>";
 		};
 		D92B5B263EB7D3E562E19139 /* Pods */ = {
@@ -871,6 +963,7 @@
 				FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */,
 				8403A3AF1B3C57DC00EF6C84 /* SelectionTableViewCell.xib in Resources */,
 				84B4ADD11B044280007F1404 /* Images.xcassets in Resources */,
+				CB42E8091C293C2500302D6B /* LoadingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,6 +1030,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				847315DC1B37EA990037D750 /* SWRevealViewController.m in Sources */,
+				CB42E81E1C293C2500302D6B /* TransitionManager.swift in Sources */,
 				186D4D891B78C08100A2D6F8 /* UserMenuCell.swift in Sources */,
 				8440AE041B40202F0012A31E /* InfoTableViewCell.swift in Sources */,
 				FEED415D1C1E8D24002A8049 /* DefineLocation.swift in Sources */,
@@ -945,23 +1039,32 @@
 				CB6D93671C27D534001A1ED9 /* UserFavFoodTableViewCell.swift in Sources */,
 				FEED41841C1EA4EF002A8049 /* TCDuration.m in Sources */,
 				187258B51B78B7F5007DC408 /* UserMenuViewController.swift in Sources */,
+				CB42E8071C293C2500302D6B /* AutoTextView.swift in Sources */,
 				FEED41651C1EA464002A8049 /* TCGoogleAPIKeys.m in Sources */,
 				18AB23401B77B7C7009089B6 /* InterestViewCell.swift in Sources */,
+				CB42E80D1C293C2500302D6B /* DesignableLabel.swift in Sources */,
+				CB42E8131C293C2500302D6B /* KeyboardLayoutConstraint.swift in Sources */,
+				CB42E81F1C293C2500302D6B /* TransitionZoom.swift in Sources */,
 				84A6F5D81B4521CD00C6A4C9 /* TelTableViewCell.swift in Sources */,
 				8445663E1B3AAB350086B8D4 /* CGPDFDocument.m in Sources */,
 				8445665F1B3AEA410086B8D4 /* FXBlurView.m in Sources */,
 				844566411B3AAB350086B8D4 /* JCTiledLayer.m in Sources */,
+				CB42E8141C293C2500302D6B /* Misc.swift in Sources */,
+				CB42E80F1C293C2500302D6B /* DesignableTextView.swift in Sources */,
 				FEED41621C1E9872002A8049 /* CollectionViewControllerCell.swift in Sources */,
 				FE58005F1C254B900010DB1F /* ImageView.swift in Sources */,
 				84680BBE1B1CDA580020CFB5 /* SubEventsTableViewCell.swift in Sources */,
 				FEED41C11C1EA6A2002A8049 /* TCStepsViewController.m in Sources */,
+				CB42E81C1C293C2500302D6B /* SpringTextView.swift in Sources */,
 				84A6F5DA1B4521EC00C6A4C9 /* FbTableViewCell.swift in Sources */,
 				84CB2CE91B39447800E8B569 /* MenuTableViewCell.swift in Sources */,
 				FEED418D1C1EA516002A8049 /* TCUserLocationManager.m in Sources */,
 				FEED417D1C1EA4EF002A8049 /* TCDirectionsService.m in Sources */,
+				CB42E8061C293C2500302D6B /* AsyncImageView.swift in Sources */,
 				FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */,
 				FEED418C1C1EA516002A8049 /* TCGoogleMapsAPIDataMapper.m in Sources */,
 				84680BBA1B1C417D0020CFB5 /* Extension.swift in Sources */,
+				CB42E8181C293C2500302D6B /* SpringButton.swift in Sources */,
 				844566441B3AAB350086B8D4 /* JCTiledView.m in Sources */,
 				844566451B3AAB350086B8D4 /* JCVisibleAnnotationTuple.m in Sources */,
 				844566501B3AB3B90086B8D4 /* Reachability.swift in Sources */,
@@ -970,14 +1073,20 @@
 				FEED41C71C1EA767002A8049 /* CustomInfoWindow.m in Sources */,
 				FEED41BA1C1EA5BB002A8049 /* TCPlacesServiceStatusCode.m in Sources */,
 				84CB2CEB1B39453900E8B569 /* MainTableViewCell.swift in Sources */,
+				CB42E80E1C293C2500302D6B /* DesignableTextField.swift in Sources */,
 				FEED41821C1EA4EF002A8049 /* TCDirectionsStep.m in Sources */,
+				CB42E8121C293C2500302D6B /* ImageLoader.swift in Sources */,
 				844566271B3A9A4C0086B8D4 /* LoginTableViewCell.swift in Sources */,
+				CB42E80C1C293C2500302D6B /* DesignableImageView.swift in Sources */,
 				186BE70E1B79E16300775A3D /* FavouriteTableViewController.swift in Sources */,
+				CB42E8191C293C2500302D6B /* SpringImageView.swift in Sources */,
 				187258B21B789ED9007DC408 /* ChooseInterestViewController.swift in Sources */,
 				84B4ADCC1B044280007F1404 /* ViewController.swift in Sources */,
 				FEED41B81C1EA5BB002A8049 /* TCPlacesServiceError.m in Sources */,
 				84B4ADCA1B044280007F1404 /* AppDelegate.swift in Sources */,
 				8445665C1B3AE26D0086B8D4 /* BuildingViewController.swift in Sources */,
+				CB42E8171C293C2500302D6B /* SpringAnimation.swift in Sources */,
+				CB42E8101C293C2500302D6B /* DesignableView.swift in Sources */,
 				FE1455D21C1ECCB10091B03C /* FoodViewCell.swift in Sources */,
 				FEED41B71C1EA5BB002A8049 /* TCPlacesService.m in Sources */,
 				FEED41811C1EA4EF002A8049 /* TCDirectionsLeg.m in Sources */,
@@ -987,21 +1096,30 @@
 				FEED417E1C1EA4EF002A8049 /* TCDirectionsParameters.m in Sources */,
 				FEED41951C1EA556002A8049 /* TCPlaceDetailsService.m in Sources */,
 				847315D91B37E5240037D750 /* MenuController.swift in Sources */,
+				CB42E8111C293C2500302D6B /* DesignableTabBarController.swift in Sources */,
 				FEED41AC1C1EA5AA002A8049 /* TCGooglePlacesAPIClient.m in Sources */,
 				847C70CA1B3B095D00953B54 /* DetailTableViewCell.swift in Sources */,
 				84A054B11B079D2C004DC5AC /* EventsTableViewCell.swift in Sources */,
 				FEED41B91C1EA5BB002A8049 /* TCPlacesServiceErrorConstants.m in Sources */,
 				FEED41601C1E9857002A8049 /* PhotoView.swift in Sources */,
 				844566421B3AAB350086B8D4 /* JCTiledPDFScrollView.m in Sources */,
+				CB42E80B1C293C2500302D6B /* DesignableButton.swift in Sources */,
 				84A054AA1B05AE6E004DC5AC /* EventsTableViewController.swift in Sources */,
 				CB0E96DF1C23E90C00F80353 /* PickerViewController.swift in Sources */,
+				CB42E8161C293C2500302D6B /* Spring.swift in Sources */,
+				CB42E8081C293C2500302D6B /* LoadingView.swift in Sources */,
+				CB42E81D1C293C2500302D6B /* SpringView.swift in Sources */,
+				CB42E81B1C293C2500302D6B /* SpringTextField.swift in Sources */,
 				84BCE5291B16241700832632 /* EditorTableViewController.swift in Sources */,
 				18AB23421B77B804009089B6 /* InterestViewController.swift in Sources */,
 				FEED41A51C1EA587002A8049 /* TCPlacesAutocompleteService.m in Sources */,
 				8445664E1B3AB1D20086B8D4 /* AnnotationView.swift in Sources */,
 				FEED418E1C1EA516002A8049 /* TCCellModel.m in Sources */,
+				CB42E8051C293C2500302D6B /* AsyncButton.swift in Sources */,
 				FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */,
 				84CB2CEF1B39457800E8B569 /* ProfileTableViewCell.swift in Sources */,
+				CB42E81A1C293C2500302D6B /* SpringLabel.swift in Sources */,
+				CB42E8151C293C2500302D6B /* SoundPlayer.swift in Sources */,
 				FEED41A71C1EA587002A8049 /* TCPlacesAutocompletePrediction.m in Sources */,
 				FEED41A61C1EA587002A8049 /* TCPlacesAutocompleteParameters.m in Sources */,
 				84A054AF1B0631AA004DC5AC /* DetailViewController.swift in Sources */,
@@ -1010,6 +1128,7 @@
 				84A706D51B1B5C2A001DF85A /* Building.swift in Sources */,
 				8445663F1B3AAB350086B8D4 /* JCAnnotationView.m in Sources */,
 				FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */,
+				CB42E8201C293C2500302D6B /* UnwindSegue.swift in Sources */,
 				84CB2CED1B39454200E8B569 /* SubTableViewCell.swift in Sources */,
 				84680BBC1B1CD9EA0020CFB5 /* SubEventsTableViewController.swift in Sources */,
 				844566591B3AE1490086B8D4 /* JPBParallaxTableViewController.m in Sources */,
@@ -1024,6 +1143,7 @@
 				FEED417F1C1EA4EF002A8049 /* TCDirectionsStatus.m in Sources */,
 				8445664C1B3AACB30086B8D4 /* MapViewController.swift in Sources */,
 				FEED41961C1EA556002A8049 /* TCPlace.m in Sources */,
+				CB42E80A1C293C2500302D6B /* BlurView.swift in Sources */,
 				FEED41A81C1EA587002A8049 /* TCPlacesPredictionTerm.m in Sources */,
 				844566581B3AE1490086B8D4 /* JPBParallaxBlurViewController.m in Sources */,
 			);
