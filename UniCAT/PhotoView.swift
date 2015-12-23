@@ -84,18 +84,7 @@ class PhotoView: PFQueryCollectionViewController{
         }
     }
     
-    
-    func checkconnection(){
-    }
-    
-    
-    override func viewDidLoad() {
-        
-        checkconnection()
-//        super.viewDidLoad()
-        collection.backgroundColor = UIColor.blackColor()
-        
-    }
+   
     
     override func queryForCollection() -> PFQuery {
         print(selectedBuilding)
@@ -223,26 +212,26 @@ class PhotoView: PFQueryCollectionViewController{
     }
     
     func alert(sender:UIView){
-        var alertController = UIAlertController(title: "Report", message: "Reporting this image\nAre you sure?", preferredStyle: .Alert)
-        var okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+        let alertController = UIAlertController(title: "Report", message: "Reporting this image\nAre you sure?", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
             UIAlertAction in
             NSLog("OK Pressed")
             //send reporting details
-            var reportobject = PFQuery(className:"Gallery")
+            let reportobject = PFQuery(className:"Gallery")
             reportobject.getObjectInBackgroundWithId(self.objectid[self.num]){
                 (report: PFObject?, error: NSError?) -> Void in
                 if error != nil {
                     print(error)
-                } else if let gameScore = report {
-                    report!["report"] = "reported"
-                    report!.saveInBackground()
+                } else if let report = report {
+                    report["report"] = "reported"
+                    report.saveInBackground()
                 }
             }
             
-            var alert = UIAlertView(title: "Reported", message: "Thank you for your reporting.", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Reported", message: "Thank you for your reporting.", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
-        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
             UIAlertAction in
             NSLog("Cancel Pressed")
         }
@@ -327,16 +316,16 @@ class PhotoView: PFQueryCollectionViewController{
         reportview.addSubview(imager)
         
         thisimage.userInteractionEnabled = true
-        var closeup = UISwipeGestureRecognizer(target: self, action: "close:")
+        let closeup = UISwipeGestureRecognizer(target: self, action: "close:")
         closeup.direction = UISwipeGestureRecognizerDirection.Up
         thisimage.addGestureRecognizer(closeup)
         
-        var closedown = UISwipeGestureRecognizer(target: self, action: "close:")
+        let closedown = UISwipeGestureRecognizer(target: self, action: "close:")
         closedown.direction = UISwipeGestureRecognizerDirection.Down
         thisimage.addGestureRecognizer(closedown)
         
         
-        var scrollLeft = UISwipeGestureRecognizer(target: self, action: "left:")
+        let scrollLeft = UISwipeGestureRecognizer(target: self, action: "left:")
         scrollLeft.direction = UISwipeGestureRecognizerDirection.Left
         thisimage.addGestureRecognizer(scrollLeft)
         
@@ -344,12 +333,12 @@ class PhotoView: PFQueryCollectionViewController{
         scrollRight.direction = UISwipeGestureRecognizerDirection.Right
         thisimage.addGestureRecognizer(scrollRight)
         
-        var tapclose = UITapGestureRecognizer(target: self, action: "close:")
+        let tapclose = UITapGestureRecognizer(target: self, action: "close:")
         tapclose.numberOfTapsRequired = 1
         closeview.addGestureRecognizer(tapclose)
         
         
-        var report = UITapGestureRecognizer(target: self, action: "alert:")
+        let report = UITapGestureRecognizer(target: self, action: "alert:")
         report.numberOfTapsRequired = 1
         reportview.addGestureRecognizer(report)
         

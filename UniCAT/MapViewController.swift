@@ -654,22 +654,11 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         for item in items{
             item.hidden = true
         }
-        buta.hidden = true
-        butb.hidden = true
-        butc.hidden = true
-        butd.hidden = true
-        bute.hidden = true
-        butf.hidden = true
-        butg.hidden = true
-        buth.hidden = true
-        buti.hidden = true
-        butj.hidden = true
-        butk.hidden = true
-        butl.hidden = true
-        butm.hidden = true
-        butn.hidden = true
-        buto.hidden = true
-        butp.hidden = true
+        
+        let buttons : [UIButton] = [buta,butb,butc,butd,bute,butf,butg,buth,buti,butj,butk,butl,butm,butn,buto,butp]
+        for but in buttons{
+            but.hidden = true
+        }
     }
     
     
@@ -699,22 +688,12 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             
         }
         else if(scale < 1 && poibool == false){
-            a.hidden = true
-            b.hidden = true
-            c.hidden = true
-            d.hidden = true
-            e.hidden = true
-            f.hidden = true
-            g.hidden = true
-            h.hidden = true
-            i.hidden = true
-            j.hidden = true
-            k.hidden = true
-            l.hidden = true
-            m.hidden = true
-            n.hidden = true
-            o.hidden = true
-            p.hidden = true
+            
+            let items : [SpringImageView] = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]
+            
+            for item in items{
+                item.hidden = true
+            }
         }
         else if(scale == 1 && poibool == false){
             let items : [SpringImageView] = [b,d,e,f,h,i,l,p];
@@ -746,22 +725,11 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             
         }else if(poibool == false)
         {
-            a.hidden = false
-            b.hidden = false
-            c.hidden = false
-            d.hidden = false
-            e.hidden = false
-            f.hidden = false
-            g.hidden = false
-            h.hidden = false
-            i.hidden = false
-            j.hidden = false
-            k.hidden = false
-            l.hidden = false
-            m.hidden = false
-            n.hidden = false
-            o.hidden = false
-            p.hidden = false
+            let items : [SpringImageView] = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]
+            
+            for item in items{
+                item.hidden = false
+            }
             buta.hidden = false
             butb.hidden = false
             butc.hidden = false
