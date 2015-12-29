@@ -117,6 +117,7 @@
 		FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */; };
 		FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */; };
 		FE1455D21C1ECCB10091B03C /* FoodViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */; };
+		FE55A4981C316D9A00B97CEE /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE55A4971C316D9A00B97CEE /* AddPhotoViewController.swift */; };
 		FE58005F1C254B900010DB1F /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE58005E1C254B900010DB1F /* ImageView.swift */; };
 		FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */; };
 		FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */; };
@@ -298,6 +299,7 @@
 		FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_park@2x.png"; sourceTree = "<group>"; };
 		FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewCell.swift; sourceTree = "<group>"; };
+		FE55A4971C316D9A00B97CEE /* AddPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPhotoViewController.swift; sourceTree = "<group>"; };
 		FE58005E1C254B900010DB1F /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewController.swift; sourceTree = "<group>"; };
 		FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewCell.swift; sourceTree = "<group>"; };
@@ -715,6 +717,7 @@
 		FEED415E1C1E9837002A8049 /* Photo Module */ = {
 			isa = PBXGroup;
 			children = (
+				FE55A4971C316D9A00B97CEE /* AddPhotoViewController.swift */,
 				FEED415F1C1E9857002A8049 /* PhotoView.swift */,
 				FEED41611C1E9872002A8049 /* CollectionViewControllerCell.swift */,
 			);
@@ -1100,6 +1103,7 @@
 				FEED41AC1C1EA5AA002A8049 /* TCGooglePlacesAPIClient.m in Sources */,
 				847C70CA1B3B095D00953B54 /* DetailTableViewCell.swift in Sources */,
 				84A054B11B079D2C004DC5AC /* EventsTableViewCell.swift in Sources */,
+				FE55A4981C316D9A00B97CEE /* AddPhotoViewController.swift in Sources */,
 				FEED41B91C1EA5BB002A8049 /* TCPlacesServiceErrorConstants.m in Sources */,
 				FEED41601C1E9857002A8049 /* PhotoView.swift in Sources */,
 				844566421B3AAB350086B8D4 /* JCTiledPDFScrollView.m in Sources */,
