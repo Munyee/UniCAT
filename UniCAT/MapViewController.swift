@@ -356,7 +356,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         buto = setButton( o, label: names[14], eventnum: eventcount[14], size: CGRect(x: 95, y: 610, width: 150, height: 50))
         butp = setButton( p, label: names[15], eventnum: eventcount[15], size: CGRect(x: 308, y: 520, width: 150, height: 50))
         
-        scrollView.setZoomScale(2, animated: true)
+        scrollView.setZoomScale(1.5, animated: true)
         b.hidden = true
         d.hidden = true
         e.hidden = true
@@ -710,6 +710,10 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             
             for item in itemsVisible{
                 item.hidden = false
+                item.animation = "fadeIn"
+                item.curve = "easeIn"
+                item.duration = 2.5
+                item.animate()
             }
             
             let buttonVisible : [UIButton] = [buta,butc,butg,butj,butk,butm,butn,buto]
@@ -718,7 +722,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
                 item.hidden = false
             }
             
-        }else if(poibool == false)
+        }else if(poibool == false && scale == 2)
         {
             let items : [SpringImageView] = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]
             
@@ -728,6 +732,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
                 item.curve = "easeIn"
                 item.duration = 2.5
                 item.animate()
+                
             }
             buta.hidden = false
             butb.hidden = false

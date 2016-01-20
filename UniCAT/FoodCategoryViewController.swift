@@ -84,6 +84,7 @@ class FoodCategoryViewController: PFQueryCollectionViewController{
         let label = object?["Category"] as? String
         cell.category.text = label
         cell.userImage.file = image
+        cell.cellWidth.constant = self.view.frame.size.width-4
         cell.userImage.loadInBackground { (UIImage image, NSError error) -> Void in
             if ((error == nil))
             {
@@ -125,6 +126,11 @@ class FoodCategoryViewController: PFQueryCollectionViewController{
             let saveButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action: "save:")
             self.navigationItem.rightBarButtonItem = saveButton
         }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        return CGSizeMake((UIScreen.mainScreen().bounds.size.width), 136)
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {

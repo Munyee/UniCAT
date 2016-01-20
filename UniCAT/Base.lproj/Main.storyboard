@@ -2423,7 +2423,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="A733FC62-A8AC-4A12-94C9-5CCCF35F3C80" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="26B4BA7E-7143-48EF-9F60-3C5F0FA51F92" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -6181,36 +6181,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="US1-Ac-g1H">
-                            <size key="itemSize" width="308" height="136"/>
+                            <size key="itemSize" width="310" height="136"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="foodCategory" id="GUB-Z6-yox" customClass="FoodCategoryViewCell" customModule="UniCAT" customModuleProvider="target">
-                                <rect key="frame" x="6" y="69" width="308" height="136"/>
+                                <rect key="frame" x="5" y="69" width="310" height="136"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="308" height="136"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="136"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFg-mb-oYi">
-                                            <rect key="frame" x="2" y="2" width="304" height="132"/>
+                                            <rect key="frame" x="2" y="2" width="400" height="132"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="slP-EX-tIm" customClass="PFImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="304" height="132"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="400" height="132"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="slP-EX-tIm" secondAttribute="trailing" id="H7B-ug-c5c"/>
-                                                <constraint firstItem="slP-EX-tIm" firstAttribute="top" secondItem="cFg-mb-oYi" secondAttribute="top" id="PoL-Su-8Uf"/>
-                                                <constraint firstItem="slP-EX-tIm" firstAttribute="leading" secondItem="cFg-mb-oYi" secondAttribute="leading" id="TX8-Py-bbP"/>
-                                                <constraint firstAttribute="bottom" secondItem="slP-EX-tIm" secondAttribute="bottom" id="xgM-6m-bYe"/>
+                                                <constraint firstItem="slP-EX-tIm" firstAttribute="leading" secondItem="cFg-mb-oYi" secondAttribute="leading" id="4XK-Ty-XBR"/>
+                                                <constraint firstAttribute="width" constant="400" id="5gG-lq-q35"/>
+                                                <constraint firstItem="slP-EX-tIm" firstAttribute="top" secondItem="cFg-mb-oYi" secondAttribute="top" id="Lz7-4X-Ktx"/>
+                                                <constraint firstItem="slP-EX-tIm" firstAttribute="centerY" secondItem="cFg-mb-oYi" secondAttribute="centerY" id="Nt6-W4-H9t"/>
+                                                <constraint firstAttribute="trailing" secondItem="slP-EX-tIm" secondAttribute="trailing" id="SpF-I5-1ig"/>
+                                                <constraint firstAttribute="bottom" secondItem="slP-EX-tIm" secondAttribute="bottom" id="Vib-Z2-tOF"/>
+                                                <constraint firstAttribute="trailing" secondItem="slP-EX-tIm" secondAttribute="trailing" id="gan-Bf-YNR"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Nt6-W4-H9t"/>
+                                                    <exclude reference="gan-Bf-YNR"/>
+                                                </mask>
+                                            </variation>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rat-fR-xL1">
-                                            <rect key="frame" x="10" y="56" width="288" height="25"/>
+                                            <rect key="frame" x="10" y="56" width="290" height="25"/>
                                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -6226,11 +6235,11 @@
                                     <constraint firstItem="rat-fR-xL1" firstAttribute="centerX" secondItem="GUB-Z6-yox" secondAttribute="centerX" id="LOy-h5-JkD"/>
                                     <constraint firstItem="rat-fR-xL1" firstAttribute="centerY" secondItem="GUB-Z6-yox" secondAttribute="centerY" id="QvU-Kx-xdg"/>
                                     <constraint firstAttribute="bottom" secondItem="cFg-mb-oYi" secondAttribute="bottom" constant="2" id="TAX-ux-wui"/>
-                                    <constraint firstAttribute="trailing" secondItem="cFg-mb-oYi" secondAttribute="trailing" constant="2" id="XA9-ox-S4q"/>
                                     <constraint firstItem="rat-fR-xL1" firstAttribute="leading" secondItem="GUB-Z6-yox" secondAttribute="leading" constant="10" id="zn7-ab-HHZ"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="category" destination="rat-fR-xL1" id="4jM-QJ-UuN"/>
+                                    <outlet property="cellWidth" destination="5gG-lq-q35" id="Ki6-8p-ZJd"/>
                                     <outlet property="userImage" destination="slP-EX-tIm" id="BCn-mT-BBg"/>
                                 </connections>
                             </collectionViewCell>
@@ -6249,7 +6258,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="A733FC62-A8AC-4A12-94C9-5CCCF35F3C80" width="36" height="32">
+        <image name="26B4BA7E-7143-48EF-9F60-3C5F0FA51F92" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

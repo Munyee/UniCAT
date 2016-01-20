@@ -15,7 +15,9 @@ class FoodCategoryViewCell: PFCollectionViewCell {
     @IBOutlet weak var category: UILabel!
     let myGradientLayer: CAGradientLayer
     var count = 0
+    @IBOutlet weak var cellWidth: NSLayoutConstraint!
     
+    @IBOutlet weak var cellView: UIView!
     override init(frame: CGRect)
     {
         myGradientLayer = CAGradientLayer()
@@ -33,6 +35,7 @@ class FoodCategoryViewCell: PFCollectionViewCell {
     
     func setup(color : SLColorArt)
     {
+        
         let components = CGColorGetComponents(color.backgroundColor.CGColor)
         
         let red = components[0];
