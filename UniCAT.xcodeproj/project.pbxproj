@@ -13,8 +13,6 @@
 		186D4D8B1B78C2CB00A2D6F8 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186D4D8A1B78C2CB00A2D6F8 /* UserDetailViewController.swift */; };
 		187258B21B789ED9007DC408 /* ChooseInterestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187258B11B789ED9007DC408 /* ChooseInterestViewController.swift */; };
 		187258B51B78B7F5007DC408 /* UserMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187258B41B78B7F5007DC408 /* UserMenuViewController.swift */; };
-		1899243C1BCA1D0000E4107E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189924391BCA1D0000E4107E /* Bolts.framework */; };
-		1899243D1BCA1D0000E4107E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1899243A1BCA1D0000E4107E /* Parse.framework */; };
 		1899243E1BCA1D0000E4107E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1899243B1BCA1D0000E4107E /* ParseUI.framework */; };
 		18AB23401B77B7C7009089B6 /* InterestViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB233F1B77B7C7009089B6 /* InterestViewCell.swift */; };
 		18AB23421B77B804009089B6 /* InterestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB23411B77B804009089B6 /* InterestViewController.swift */; };
@@ -122,6 +120,7 @@
 		FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */; };
 		FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */; };
 		FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */; };
+		FEE1DA731C4F30FB002B8E19 /* DEMOPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */; };
 		FEED415D1C1E8D24002A8049 /* DefineLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415C1C1E8D24002A8049 /* DefineLocation.swift */; };
 		FEED41601C1E9857002A8049 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415F1C1E9857002A8049 /* PhotoView.swift */; };
 		FEED41621C1E9872002A8049 /* CollectionViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED41611C1E9872002A8049 /* CollectionViewControllerCell.swift */; };
@@ -172,8 +171,6 @@
 		186D4D8A1B78C2CB00A2D6F8 /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		187258B11B789ED9007DC408 /* ChooseInterestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseInterestViewController.swift; sourceTree = "<group>"; };
 		187258B41B78B7F5007DC408 /* UserMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMenuViewController.swift; sourceTree = "<group>"; };
-		189924391BCA1D0000E4107E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		1899243A1BCA1D0000E4107E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		1899243B1BCA1D0000E4107E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		18AB233F1B77B7C7009089B6 /* InterestViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestViewCell.swift; sourceTree = "<group>"; };
 		18AB23411B77B804009089B6 /* InterestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestViewController.swift; sourceTree = "<group>"; };
@@ -304,6 +301,8 @@
 		FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewController.swift; sourceTree = "<group>"; };
 		FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewCell.swift; sourceTree = "<group>"; };
 		FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		FEE1DA711C4F30FB002B8E19 /* DEMOPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOPhoto.h; sourceTree = "<group>"; };
+		FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOPhoto.m; sourceTree = "<group>"; };
 		FEED415C1C1E8D24002A8049 /* DefineLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefineLocation.swift; sourceTree = "<group>"; };
 		FEED415F1C1E9857002A8049 /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		FEED41611C1E9872002A8049 /* CollectionViewControllerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewControllerCell.swift; sourceTree = "<group>"; };
@@ -380,7 +379,6 @@
 				84B4ADFC1B044775007F1404 /* AudioToolbox.framework in Frameworks */,
 				84B4ADFD1B044775007F1404 /* CFNetwork.framework in Frameworks */,
 				84B4ADFE1B044775007F1404 /* CoreGraphics.framework in Frameworks */,
-				1899243D1BCA1D0000E4107E /* Parse.framework in Frameworks */,
 				84B4ADFF1B044775007F1404 /* CoreLocation.framework in Frameworks */,
 				1899243E1BCA1D0000E4107E /* ParseUI.framework in Frameworks */,
 				84B4AE001B044775007F1404 /* libsqlite3.dylib in Frameworks */,
@@ -391,7 +389,6 @@
 				84B4AE051B044775007F1404 /* Social.framework in Frameworks */,
 				84B4AE061B044775007F1404 /* StoreKit.framework in Frameworks */,
 				84B4AE071B044775007F1404 /* SystemConfiguration.framework in Frameworks */,
-				1899243C1BCA1D0000E4107E /* Bolts.framework in Frameworks */,
 				1B2383F9089FA0EC4A50F400 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,8 +625,6 @@
 			isa = PBXGroup;
 			children = (
 				CB42E8211C293C3A00302D6B /* Spring */,
-				189924391BCA1D0000E4107E /* Bolts.framework */,
-				1899243A1BCA1D0000E4107E /* Parse.framework */,
 				1899243B1BCA1D0000E4107E /* ParseUI.framework */,
 				84B4ADEE1B044775007F1404 /* Accounts.framework */,
 				84B4ADEF1B044775007F1404 /* AudioToolbox.framework */,
@@ -717,6 +712,8 @@
 		FEED415E1C1E9837002A8049 /* Photo Module */ = {
 			isa = PBXGroup;
 			children = (
+				FEE1DA711C4F30FB002B8E19 /* DEMOPhoto.h */,
+				FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */,
 				FE55A4971C316D9A00B97CEE /* AddPhotoViewController.swift */,
 				FEED415F1C1E9857002A8049 /* PhotoView.swift */,
 				FEED41611C1E9872002A8049 /* CollectionViewControllerCell.swift */,
@@ -1148,6 +1145,7 @@
 				8445664C1B3AACB30086B8D4 /* MapViewController.swift in Sources */,
 				FEED41961C1EA556002A8049 /* TCPlace.m in Sources */,
 				CB42E80A1C293C2500302D6B /* BlurView.swift in Sources */,
+				FEE1DA731C4F30FB002B8E19 /* DEMOPhoto.m in Sources */,
 				FEED41A81C1EA587002A8049 /* TCPlacesPredictionTerm.m in Sources */,
 				844566581B3AE1490086B8D4 /* JPBParallaxBlurViewController.m in Sources */,
 			);
@@ -1281,6 +1279,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1289,9 +1288,11 @@
 				INFOPLIST_FILE = UniCAT/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "UniCAT/UniCAT-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -1302,6 +1303,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1312,6 +1314,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "UniCAT/UniCAT-Bridging-Header.h";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

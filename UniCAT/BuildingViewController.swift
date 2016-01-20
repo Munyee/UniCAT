@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class BuildingViewController: JPBFloatingTextViewController {
-
+    
     var currentBuilding = ""
     var currentAlphabet = ""
     var eventCount = ""
@@ -19,7 +19,7 @@ class BuildingViewController: JPBFloatingTextViewController {
     var colorArt = SLColorArt()
     
     let building = Building()
-
+    
     
     
     
@@ -119,13 +119,13 @@ class BuildingViewController: JPBFloatingTextViewController {
     }
     /*
     func dismissBuilding(sender: UIButton!) {
-        dismissViewControllerAnimated(true, completion: nil)
-        println("Back to Map")
+    dismissViewControllerAnimated(true, completion: nil)
+    println("Back to Map")
     }
     override func viewDidAppear(animated: Bool) {
-        
-        //self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.setToolbarHidden(true, animated: true)
+    
+    //self.navigationController?.setNavigationBarHidden(false, animated: true)
+    self.navigationController?.setToolbarHidden(true, animated: true)
     }
     */
     
@@ -133,7 +133,7 @@ class BuildingViewController: JPBFloatingTextViewController {
         //return 7
         return 6
     }
-
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case 1:
@@ -145,7 +145,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             
         case 3: // Show on Map (TOFIX: Event to Building to Map)
             self.navigationController?.popViewControllerAnimated(true)
-        
+            
         case 4: //Photo Gallery
             self.performSegueWithIdentifier("buildingToPhoto", sender: nil)
         case 5: //Past Events
@@ -168,7 +168,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             return cell
             
         case 1:
-            if eventCount == "0" {
+            if eventCount == "0" || eventCount == "o"{
                 let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
                 
                 cell.selectionStyle = .None
@@ -189,27 +189,38 @@ class BuildingViewController: JPBFloatingTextViewController {
                 return cell
             }
             
-        
             
-//        case 3:
-//            let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
-//            
-//            //cell.selectionStyle = .None
-//            cell.icon.image = UIImage(named: "timetable")
-//            cell.titleLabel.text = "Timetable"
-//            cell.countFrame.hidden = true
-//            
-//            return cell
+            
+            //        case 3:
+            //            let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+            //
+            //            //cell.selectionStyle = .None
+            //            cell.icon.image = UIImage(named: "timetable")
+            //            cell.titleLabel.text = "Timetable"
+            //            cell.countFrame.hidden = true
+            //
+            //            return cell
             
         case 2:
-            let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
-            
-            //cell.selectionStyle = .None
-            cell.icon.image = UIImage(named: "direction")
-            cell.titleLabel.text = "Direction to Here"
-            cell.countFrame.hidden = true
-
-            return cell
+            if(!Reachability.isConnectedToNetwork()){
+                let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
+                
+                cell.selectionStyle = .None
+                cell.detailText.text = ""
+                
+                return cell
+            }
+            else
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+                
+                //cell.selectionStyle = .None
+                cell.icon.image = UIImage(named: "direction")
+                cell.titleLabel.text = "Direction to Here"
+                cell.countFrame.hidden = true
+                
+                return cell
+            }
             
         case 3:
             let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
@@ -228,7 +239,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             cell.countFrame.hidden = true
             
             return cell
-
+            
         case 5:
             let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
             
@@ -237,7 +248,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             cell.countFrame.hidden = true
             
             return cell
-
+            
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
             
@@ -245,9 +256,20 @@ class BuildingViewController: JPBFloatingTextViewController {
             cell.detailText.text = ""
             
             return cell
-
+            
         }
         
+    }
+    
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (indexPath.row == 1 && (eventCount == "o" || eventCount == "0")) {
+            return 0
+        } else if (indexPath.row == 2 && !Reachability.isConnectedToNetwork()){
+            return 0
+        } else {
+            return UITableViewAutomaticDimension
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -269,7 +291,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             
             
         }
-        else  if segue.identifier == "buildingtoNavigation"{
+        else if segue.identifier == "buildingtoNavigation"{
             var navigationScene = segue.destinationViewController as! TCMapViewController
             navigationScene.staticimage = UIImage(named: currentAlphabet)
             navigationScene.location = location

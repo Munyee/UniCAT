@@ -1,25 +1,34 @@
 PODS:
   - AFNetworking (1.3.4)
+  - Bolts/Tasks (1.6.0)
   - ColorArt (0.1.1)
-  - GoogleMaps (1.11.1)
+  - EBPhotoPages (0.9.1)
+  - GoogleMaps (1.10.5)
   - MBCircularProgressBar (0.3.2)
   - MBProgressHUD (0.9.1)
+  - Parse (1.12.0):
+    - Bolts/Tasks (~> 1.5)
   - RSKImageCropper (1.4.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.2)
   - ColorArt (~> 0.1)
-  - GoogleMaps
+  - EBPhotoPages (~> 0.9)
+  - GoogleMaps (~> 1.10.5)
   - MBCircularProgressBar
   - MBProgressHUD
+  - Parse
   - RSKImageCropper (~> 1.4)
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
   ColorArt: de0ffb63da4acdde8e234ded62e200236ca3e7e4
-  GoogleMaps: c947160008f414c66707a5ea60f35e92055c7670
+  EBPhotoPages: 57ad7f10c6fc92b734954e00cd98e8eea6feae82
+  GoogleMaps: da51c62c338c2d9c47cdad470a0d1e0e4b8544e4
   MBCircularProgressBar: da24e75aa8a231564f10eb8d6d942fa78343486c
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   RSKImageCropper: 98ae426eb4eb11b733ff87f8e2542a480f4fa8e6
 
 COCOAPODS: 0.39.0

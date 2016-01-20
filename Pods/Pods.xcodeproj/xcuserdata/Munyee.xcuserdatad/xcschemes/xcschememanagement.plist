@@ -9,7 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ColorArt.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>EBPhotoPages.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -25,6 +35,11 @@
 			<false/>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,12 +62,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>160A31E3204FAC90398102BFADEE78F4</key>
+		<key>2C6066B2BF44CE7CE8E43514ABE04556</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>3137C19372080F6F08C7D824B3F418B9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F9EDF6A622070E1E1F8141B54E76BAB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4CD92797A96766670A60AE5197C5FB82</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,7 +92,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E9A60FBCFB97123A2635B741C95E28DD</key>
+		<key>9B916844F33E8D3CF7BC18CE424E9721</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CE3B463B8901B5045989EE7E37D8DA0B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

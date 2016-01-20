@@ -215,27 +215,27 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     */
     
     override func viewDidAppear(animated: Bool) {
-//        if(PFUser.currentUser() == nil){
-//            if let tabBarController = self.tabBarController {
-//                let indexToRemove = 2
-//                if indexToRemove < tabBarController.viewControllers?.count {
-//                    var viewControllers = tabBarController.viewControllers
-//                    viewControllers?.removeAtIndex(indexToRemove)
-//                    tabBarController.viewControllers = viewControllers
-//                }
-//            }
-//            
-//        }
+        //        if(PFUser.currentUser() == nil){
+        //            if let tabBarController = self.tabBarController {
+        //                let indexToRemove = 2
+        //                if indexToRemove < tabBarController.viewControllers?.count {
+        //                    var viewControllers = tabBarController.viewControllers
+        //                    viewControllers?.removeAtIndex(indexToRemove)
+        //                    tabBarController.viewControllers = viewControllers
+        //                }
+        //            }
+        //
+        //        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-//        if(PFUser.currentUser() == nil && !NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
-//            self.presentViewController(vc, animated: true, completion: nil)
-//        }
+        //        if(PFUser.currentUser() == nil && !NSUserDefaults.standardUserDefaults().boolForKey("firstStartup")){
+        //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+        //            self.presentViewController(vc, animated: true, completion: nil)
+        //        }
         
         
         
@@ -280,24 +280,19 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         Name.floor = 0
         Name.gallery = 0
         
-//        if Reachability.isConnectedToNetwork(){
+        if Reachability.isConnectedToNetwork(){
             print("Internet connection ok")
             checkconnection()
-//        }
-//        else
-//        {
-//            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-//            self.menuButton.enabled = false;
-//            let alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
-//            alert.show()
-//            NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showpoi"), userInfo: nil, repeats: false)
-//            poihidden()
-//            var timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("addAnnotations"), userInfo: nil, repeats: false)
-//            
-//            
-//            
-//        }
-    
+        }
+        else
+        {
+            let alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+            NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showpoi"), userInfo: nil, repeats: false)
+            poihidden()
+            var timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("addAnnotations"), userInfo: nil, repeats: false)
+        }
+        
         
         
         first = true
@@ -430,9 +425,9 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         //image1.userInteractionEnabled = true
         //annot.userInteractionEnabled = true
         image1.frame = size
-        image1.animation = "slideDown"
-        image1.curve = "easeInSine"
-        image1.duration = 1.0
+        image1.animation = "fadeIn"
+        image1.curve = "easeIn"
+        image1.duration = 2.5
         image1.animate()
         event.frame = CGRect(x: 1, y: -2, width: 30, height: 50)
         event.text = eventnum
@@ -670,13 +665,13 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             
             for item in items{
                 item.hidden = true
-                item.animation = "slideDown"
-                item.curve = "easeInSine"
-                item.duration = 1.0
+                item.animation = "fadeIn"
+                item.curve = "easeIn"
+                item.duration = 2.5
                 item.animate()
                 
             }
-           
+            
             butb.hidden = true
             butd.hidden = true
             bute.hidden = true
@@ -715,7 +710,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             
             for item in itemsVisible{
                 item.hidden = false
-             }
+            }
             
             let buttonVisible : [UIButton] = [buta,butc,butg,butj,butk,butm,butn,buto]
             
@@ -729,6 +724,10 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             
             for item in items{
                 item.hidden = false
+                item.animation = "fadeIn"
+                item.curve = "easeIn"
+                item.duration = 2.5
+                item.animate()
             }
             buta.hidden = false
             butb.hidden = false
@@ -1243,7 +1242,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         print("\(buttonIndex)")
         switch (buttonIndex){
             
-        
+            
         case 0:
             hidden()
             poihidden()

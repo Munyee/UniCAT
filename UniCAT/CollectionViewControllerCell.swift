@@ -8,7 +8,6 @@
 
 import UIKit
 import ParseUI
-import Parse
 
 class CollectionViewControllerCell: PFCollectionViewCell{
     

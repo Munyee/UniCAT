@@ -18,3 +18,9 @@
 #import "MBCircularProgressBarView.h"
 #import "SLColorArt.h"
 #import <ColorArt/UIImage+ColorArt.h>
+
+#import "DemoPhoto.h"
+#import <QuartzCore/QuartzCore.h>
+#import "EBPhotoPagesController.h"
+#import "EBPhotoPagesFactory.h"
+#import "EBTagPopover.h"

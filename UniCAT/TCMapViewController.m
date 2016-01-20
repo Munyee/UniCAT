@@ -99,7 +99,7 @@
 {
     [super viewDidLoad];
     
-    _counter = 0;
+    _counter = 1;
     self.images = [[NSMutableArray alloc] initWithCapacity:500];
     pfFile = [[NSMutableArray alloc]init];
     
@@ -253,7 +253,8 @@
     self.mapView.delegate = self;
     marker.infoWindowAnchor = CGPointMake(0.50f, 0.37f);
     marker.map = mapView;
-    marker.zIndex = self.mapView.markers.count;
+    marker.zIndex = _counter;
+    _counter++;
     return marker;
 }
 
@@ -264,7 +265,7 @@
     
     
     CustomInfoWindow *infoWindow = [[[NSBundle mainBundle] loadNibNamed:@"InfoView" owner:self options:nil]objectAtIndex:0];
-    infoWindow.label.text = ways[marker.zIndex-1];
+    infoWindow.label.text = ways[marker.zIndex];
     
 //    PFFile *image = [pfFile[marker.zIndex-2] valueForKey:@"Image"];
     

@@ -56,9 +56,9 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
         checkconnection()
     }
     
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, info: [NSObject : PFObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
         photo.image = chosenImage
         newImage = true
         
@@ -125,8 +125,8 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
     @IBAction func savePhoto(sender: AnyObject) {
         if (newImage && textField.text != ""){
             print("Save")
-            var chosenImage = photo.image
-            let imageData = UIImageJPEGRepresentation(chosenImage!,1)
+            let chosenImage = photo.image
+            let imageData = UIImageJPEGRepresentation(chosenImage!,0.4)
             let imageFile = PFFile(name:"image.jpeg", data:imageData!)
             
             var imageobject = PFObject(className: "Gallery")

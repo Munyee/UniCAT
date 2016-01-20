@@ -31,7 +31,7 @@
 #import "JCTiledLayer.h"
 #import "math.h"
 
-static const CGFloat kDefaultTileSize = 256.0f;
+static const CGFloat kDefaultTileSize = 128.0f;
 
 @interface JCTiledView ()
 - (JCTiledLayer *)tiledLayer;
