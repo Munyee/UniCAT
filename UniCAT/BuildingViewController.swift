@@ -15,13 +15,11 @@ class BuildingViewController: JPBFloatingTextViewController {
     var currentAlphabet = ""
     var eventCount = ""
     var type = 0
+    var archive = 0
     var location:CLLocation = CLLocation(latitude: 0, longitude: 0)
     var colorArt = SLColorArt()
     
     let building = Building()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,8 +128,8 @@ class BuildingViewController: JPBFloatingTextViewController {
     */
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return 7
-        return 6
+        return 7
+//        return 6
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -147,8 +145,12 @@ class BuildingViewController: JPBFloatingTextViewController {
             self.navigationController?.popViewControllerAnimated(true)
             
         case 4: //Photo Gallery
+            archive = 0
             self.performSegueWithIdentifier("buildingToPhoto", sender: nil)
-        case 5: //Past Events
+        case 5:
+            archive = 1
+            self.performSegueWithIdentifier("buildingToPhoto", sender: nil)
+        case 6: //Past Events
             type = 1
             self.performSegueWithIdentifier("buildingToEvent", sender: nil)
         default:
@@ -243,6 +245,14 @@ class BuildingViewController: JPBFloatingTextViewController {
         case 5:
             let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
             
+            cell.icon.image = UIImage(named: "gallery")
+            cell.titleLabel.text = "Reported Image"
+            cell.countFrame.hidden = true
+            
+            return cell
+        case 6:
+            let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+            
             cell.icon.image = UIImage(named: "timetable")
             cell.titleLabel.text = "Past Events"
             cell.countFrame.hidden = true
@@ -288,6 +298,13 @@ class BuildingViewController: JPBFloatingTextViewController {
         else if segue.identifier == "buildingToPhoto" {
             let photoScene = segue.destinationViewController as! PhotoView
             photoScene.selectedBuilding = currentBuilding
+            
+            if archive == 1{
+                photoScene.archive = true
+            }
+            else{
+                photoScene.archive = false
+            }
             
             
         }

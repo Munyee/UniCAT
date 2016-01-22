@@ -99,7 +99,7 @@
 {
     [super viewDidLoad];
     
-    _counter = 1;
+    _counter = 0;
     self.images = [[NSMutableArray alloc] initWithCapacity:500];
     pfFile = [[NSMutableArray alloc]init];
     
@@ -280,12 +280,12 @@
 
                 [MBProgressHUD hideAllHUDsForView:self.view animated:true];
 
-    if(marker.zIndex == 1){
+    if(marker.zIndex == 0){
         infoWindow.customImage.image = self.staticimage;
     }
     else
     {
-        infoWindow.customImage.image = [self.images objectAtIndex:marker.zIndex-2];
+        infoWindow.customImage.image = [self.images objectAtIndex:marker.zIndex-1];
         
 //        MBProgressHUD *loadingNotification = [MBProgressHUD showHUDAddedTo:self.view animated:true];
 //        loadingNotification.labelText = @"Loading";
@@ -399,8 +399,8 @@
             
             
             // With a valid route, we can now allow user to view the step-by-step instructions.
-            self.navigationItem.rightBarButtonItem = self.stepsBarButtonItem;
-            self.stepsBarButtonItem.title = @"Path";
+//            self.navigationItem.rightBarButtonItem = self.stepsBarButtonItem;
+//            self.stepsBarButtonItem.title = @"Path";
         } else {
             NSLog(@"[Google Directions API] - Error: %@", [error localizedDescription]);
         }

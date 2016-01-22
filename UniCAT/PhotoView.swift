@@ -17,6 +17,8 @@ let reuseIdentifier = "photocell"
         
     }
     
+    var archive = Bool!()
+    var count = 0
     var firstTime = true
     
     var selectedBuilding = ""
@@ -110,10 +112,23 @@ let reuseIdentifier = "photocell"
         print(selectedBuilding)
         let query = PFQuery(className: "Gallery")
         query.whereKey("venue", equalTo: selectedBuilding)
-        query.whereKey("report", notEqualTo: "archived")
+        if archive == false{
+            query.whereKey("report", notEqualTo: "archived")
+        }else{
+            query.whereKey("report", equalTo: "reported")
+        }
         return query
     }
     
+    override func objectAtIndexPath(indexPath: NSIndexPath!) -> PFObject? {
+        var obj : PFObject? = nil
+        if(indexPath.row < self.objects.count){
+            obj = self.objects[indexPath.row] as? PFObject
+        }
+        
+        return obj
+    }
+
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -124,18 +139,75 @@ let reuseIdentifier = "photocell"
         text = []
         objectid = []
         photos = []
+        count = 0
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(objectid, forKey: key)
         defaults.synchronize()
+        
+        if archive == true{
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(true , forKey: "archive")
+            defaults.synchronize()
+        }
+        else{
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(false , forKey: "archive")
+            defaults.synchronize()
+        }
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         if(queryForCollection().countObjects(nil) != 0){
             nomedia.hidden = true
+            print(objects)
+            
+            var tempCount = 0
+            
+            for object in objects{
+                
+                pfFile.append(object["image"] as! PFFile)
+                
+                let userImageFile = object["image"] as? PFFile
+                
+                if let textlabel = object["description"] as? String{
+                    text.append(textlabel)
+                    
+                }
+                
+                if let id = object.objectId!{
+                    objectid.append(id)
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(objectid, forKey: key)
+                    defaults.synchronize()
+                }
+                
+                let image = UIImage(named: "loading")
+                let imageData = NSData(data: UIImagePNGRepresentation(image!)!)
+                
+                let imageDict = ["imageFile" : imageData,"caption" : self.text[self.count]]
+                let data = DEMOPhoto(properties: imageDict)
+                self.photos.insert(data, atIndex: tempCount)
+                tempCount++
+                
+                userImageFile!.getDataInBackgroundWithBlock {
+                    (imageData: NSData?, error: NSError?) -> Void in
+                    if error == nil {
+                        if let imageData = imageData {
+                            //                            let image = UIImage(data:imageData)
+                            let imageDict = ["imageFile" : imageData,"caption" : self.text[self.count]]
+                            let data = DEMOPhoto(properties: imageDict)
+                            self.photos[self.count] = data
+                            self.count++
+                        }
+                    }
+                }
+            }
         }
         else
         {
             nomedia.hidden = false
         }
     }
+    
+    
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFCollectionViewCell? {
         
@@ -147,42 +219,10 @@ let reuseIdentifier = "photocell"
         
         if let thumbnail = object?["image"] as? PFFile {
             cell.a.file = thumbnail
-            pfFile.append(thumbnail)
-            
             cell.a.loadInBackground()
         }
         
-        if let textlabel = object?["description"] as? String{
-            text.append(textlabel)
-            
-        }
         
-        let userImageFile = object?["image"] as? PFFile
-        
-        userImageFile!.getDataInBackgroundWithBlock {
-            (imageData: NSData?, error: NSError?) -> Void in
-            if error == nil {
-                if let imageData = imageData {
-                    //                            let image = UIImage(data:imageData)
-                    let imageDict = ["imageFile" : imageData,"caption" : self.text[indexPath.row]]
-                    let data = DEMOPhoto(properties: imageDict)
-                    self.photos.append(data)
-                }
-            }
-        }
-        
-        
-        if let id = object?.objectId{
-            objectid.append(id)
-            
-        }
-        
-        if(queryForCollection().countObjects(nil)-1 == indexPath.row){
-            //save
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(objectid, forKey: key)
-            defaults.synchronize()
-        }
         
         return cell
     }
@@ -455,7 +495,7 @@ let reuseIdentifier = "photocell"
     //
     //
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(((UIScreen.mainScreen().bounds.size.width-20)/3), ((UIScreen.mainScreen().bounds.size.width-20)/3))
+        return CGSizeMake(((UIScreen.mainScreen().bounds.size.width-20)), ((UIScreen.mainScreen().bounds.size.width-20)))
     }
     
     @IBAction func addImage(sender: AnyObject) {

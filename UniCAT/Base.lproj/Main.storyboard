@@ -2423,7 +2423,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="26B4BA7E-7143-48EF-9F60-3C5F0FA51F92" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="8EA0E6B5-2F27-435F-AD11-3BA54AA12349" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -6258,7 +6258,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="26B4BA7E-7143-48EF-9F60-3C5F0FA51F92" width="36" height="32">
+        <image name="8EA0E6B5-2F27-435F-AD11-3BA54AA12349" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -6416,11 +6416,11 @@ AgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAHEw
         <image name="time" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FHJ-VZ-evC"/>
+        <segue reference="aKk-bD-gyd"/>
+        <segue reference="TYt-2a-cTY"/>
+        <segue reference="evS-H6-bVb"/>
+        <segue reference="aNJ-3L-ZjD"/>
         <segue reference="z4y-Jg-Vfd"/>
-        <segue reference="sMM-hE-bqj"/>
         <segue reference="yOJ-9P-WOf"/>
-        <segue reference="Hb0-6T-pGs"/>
-        <segue reference="c5b-gD-jS6"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -14,7 +14,7 @@
  */
 
 #import "DEMOPhoto.h"
-
+#import <Parse/Parse.h>
 @implementation DEMOPhoto
 
 

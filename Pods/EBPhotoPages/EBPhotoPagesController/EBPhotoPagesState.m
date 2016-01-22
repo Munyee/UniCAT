@@ -131,25 +131,43 @@
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSArray *arrDef = [def objectForKey:@"keySave"];
+    BOOL archive = [def objectForKey:@"archive"];
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Report" message:@"Reporting this image\nAre you sure?" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        PFQuery *query = [PFQuery queryWithClassName:@"Gallery"];
-        [query getObjectInBackgroundWithId:arrDef[photoIndex]
-                                     block:^(PFObject *report, NSError *error) {
-                                         report[@"report"] = @"reported";
-                                         [report saveInBackground];
-                                     }];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Reported" message:@"Thank you for your reporting.." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alert show];
-        
-        
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
-        
-    }]];
-    [controller presentViewController:alertController animated:YES completion:nil];
-    
+    if (archive){
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Archive" message:@"Archiving this image\nAre you sure?" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            PFQuery *query = [PFQuery queryWithClassName:@"Gallery"];
+            [query getObjectInBackgroundWithId:arrDef[photoIndex]
+                                         block:^(PFObject *report, NSError *error) {
+                                             report[@"report"] = @"archived";
+                                             [report saveInBackground];
+                                         }];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+            
+        }]];
+        [controller presentViewController:alertController animated:YES completion:nil];
+    }
+    else{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Report" message:@"Reporting this image\nAre you sure?" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            PFQuery *query = [PFQuery queryWithClassName:@"Gallery"];
+            [query getObjectInBackgroundWithId:arrDef[photoIndex]
+                                         block:^(PFObject *report, NSError *error) {
+                                             report[@"report"] = @"reported";
+                                             [report saveInBackground];
+                                         }];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Reported" message:@"Thank you for your reporting.." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            
+            
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+            
+        }]];
+        [controller presentViewController:alertController animated:YES completion:nil];
+
+    }
 }
 
 

@@ -224,7 +224,7 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate 
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! EventsTableViewCell
         
         // Favourite tab
-        if selection == 1 {
+        if selection == 2 {
             if let pfObject = object {
                 let eventObj = pfObject["eventId"] as? PFObject
                 
@@ -427,7 +427,7 @@ class EventsTableViewController: PFQueryTableViewController,RefreshViewDelegate 
             
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let row = Int(indexPath.row)
-                if selection == 1 {
+                if selection == 2 {
                     let favObj = (objects?[row] as! PFObject)
                     let eventObj = favObj["eventId"] as? PFObject
                     detailScene.currentObject = eventObj
