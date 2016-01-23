@@ -131,7 +131,7 @@
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSArray *arrDef = [def objectForKey:@"keySave"];
-    BOOL archive = [def objectForKey:@"archive"];
+    BOOL archive = [def boolForKey:@"archive"];
     
     if (archive){
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Archive" message:@"Archiving this image\nAre you sure?" preferredStyle:UIAlertControllerStyleAlert];

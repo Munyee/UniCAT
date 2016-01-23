@@ -137,7 +137,14 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
             imageobject["num"] = num+1
             if(Reachability.isConnectedToNetwork())
             {
-                imageobject.saveInBackground()
+                imageobject.saveInBackgroundWithBlock{
+                    (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        
+                    } else {
+                        // There was a problem, check error.description
+                    }
+                }
                 
             }else
             {

@@ -142,16 +142,13 @@ let reuseIdentifier = "photocell"
         count = 0
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(objectid, forKey: key)
-        defaults.synchronize()
         
         if archive == true{
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(true , forKey: "archive")
+            defaults.setBool(true , forKey: "archive")
             defaults.synchronize()
         }
         else{
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(false , forKey: "archive")
+            defaults.setBool(false , forKey: "archive")
             defaults.synchronize()
         }
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
@@ -495,7 +492,7 @@ let reuseIdentifier = "photocell"
     //
     //
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(((UIScreen.mainScreen().bounds.size.width-20)), ((UIScreen.mainScreen().bounds.size.width-20)))
+        return CGSizeMake(((UIScreen.mainScreen().bounds.size.width-20)/3), ((UIScreen.mainScreen().bounds.size.width-20)/3))
     }
     
     @IBAction func addImage(sender: AnyObject) {

@@ -20,6 +20,7 @@ class BuildingViewController: JPBFloatingTextViewController {
     var colorArt = SLColorArt()
     
     let building = Building()
+    let currentUser = PFUser.currentUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,13 +244,22 @@ class BuildingViewController: JPBFloatingTextViewController {
             return cell
             
         case 5:
-            let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
-            
-            cell.icon.image = UIImage(named: "gallery")
-            cell.titleLabel.text = "Reported Image"
-            cell.countFrame.hidden = true
-            
-            return cell
+            if (currentUser?["approve"] as? String != "yes"){
+                let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
+                
+                cell.selectionStyle = .None
+                cell.detailText.text = ""
+                
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+                
+                cell.icon.image = UIImage(named: "gallery")
+                cell.titleLabel.text = "Reported Image"
+                cell.countFrame.hidden = true
+                
+                return cell
+            }
         case 6:
             let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
             
@@ -276,6 +286,8 @@ class BuildingViewController: JPBFloatingTextViewController {
         if (indexPath.row == 1 && (eventCount == "o" || eventCount == "0")) {
             return 0
         } else if (indexPath.row == 2 && !Reachability.isConnectedToNetwork()){
+            return 0
+        } else  if indexPath.row == 5 && currentUser?["approve"] as? String != "yes"{
             return 0
         } else {
             return UITableViewAutomaticDimension
