@@ -13,15 +13,26 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
-    
+    var table = ""
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var messageLabel:UILabel!
     
     struct QRname{
         static var name = "";
+        static var timetableArr = [String]()
+        static var image = UIImage()
+        static var cap = ""
     }
     
+    override func viewDidAppear(animated: Bool) {
+        qrCodeFrameView?.removeFromSuperview()
+        captureSession?.startRunning()
+        table = ""
+        QRCodeViewController.QRname.name = ""
+        QRCodeViewController.QRname.timetableArr.removeAll()
+        QRCodeViewController.QRname.image = UIImage()
+    }
     
     override func shouldAutorotate() -> Bool {
         return false
@@ -112,9 +123,102 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                 //send to parse
                 QRname.name = metadataObj.stringValue
                 //perform segue
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewControllerWithIdentifier("QRdetails") 
-                self.presentViewController(vc, animated: true, completion: nil)
+//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                let vc = storyboard.instantiateViewControllerWithIdentifier("QRdetails") 
+//                self.presentViewController(vc, animated: true, completion: nil)
+
+                captureSession?.stopRunning()
+                
+                let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                loadingNotification.mode = MBProgressHUDMode.Indeterminate
+                loadingNotification.labelText = "Fetching data"
+                
+                
+                let code = QRCodeViewController.QRname.name
+                
+                //split html link
+                let temptype = code.characters.split{$0 == "/"}.map(String.init)
+                let type = temptype[2].characters.split{$0 == "="}.map(String.init)
+                
+                
+                if(type[0] == "room?"){
+                    let query = PFQuery(className:"QRCode")
+                    query.whereKey("name", equalTo: type[1])
+                    query.findObjectsInBackgroundWithBlock {
+                        (objects: [PFObject]?, error: NSError?) -> Void in
+                        
+                        if error == nil {
+                            
+                            
+                            
+                            
+                            // The find succeeded.
+                            print("Successfully retrieved \(objects!.count) scores.")
+                            // Do something with the found objects
+                            if let objects = objects {
+                                for object in objects {
+                                    
+                                    if(object["Timetable"] != nil){
+                                        
+                                    
+                                        self.table = object["Timetable"] as! String
+                                    }
+                                    
+                                    
+                                    QRCodeViewController.QRname.name = object["roomName"] as! String
+                                    
+                                    QRCodeViewController.QRname.timetableArr = self.table.characters.split{$0 == "\n"}.map(String.init)
+                                    
+                                    
+                                    QRCodeViewController.QRname.cap = object["details"] as! String
+                                    
+                                    let image = object["image"] as! PFFile
+                                    image.getDataInBackgroundWithBlock {
+                                        (imageData: NSData?, error: NSError?) -> Void in
+                                        if error == nil {
+                                            if let imageData = imageData {
+                                                
+                                      QRCodeViewController.QRname.image = UIImage(data:imageData)!
+                                                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+
+                                                self.performSegueWithIdentifier("qrToDetails", sender: nil)
+                                                
+                                                
+                                            }
+                                        }
+                                    }
+                                    
+                                    
+                                    
+                                }
+                                
+                                
+                                if(objects.count == 0){
+                                    let alert = UIAlertController(title: "Error", message: "No data found", preferredStyle: UIAlertControllerStyle.Alert)
+                                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
+                                        switch action.style{
+                                        case .Default:
+                                            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                            self.captureSession?.startRunning()
+                                            
+                                        case .Cancel:
+                                            print("cancel")
+                                            
+                                        case .Destructive:
+                                            print("destructive")
+                                        }
+                                    }))
+                                    self.presentViewController(alert, animated: true, completion: nil)
+                                }
+                            }
+                            
+                        } else {
+                            // Log details of the failure
+                            print("Error: \(error!) \(error!.userInfo)")
+                        }
+                        
+                    }
+                }
                 
             }
         }
