@@ -14,7 +14,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     var table = ""
-    
+    var object = Set<PFObject>()
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var messageLabel:UILabel!
     
@@ -26,6 +26,8 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.navigationController?.setToolbarHidden(true, animated: true)
+        object.removeAll()
         qrCodeFrameView?.removeFromSuperview()
         captureSession?.startRunning()
         table = ""
@@ -187,9 +189,6 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                                             }
                                         }
                                     }
-                                    
-                                    
-                                    
                                 }
                                 
                                 
@@ -219,14 +218,48 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                         
                     }
                 }
+                else if type[0] == "event?"{
+                    let newString = type[1].stringByReplacingOccurrencesOfString("&", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                    let query = PFQuery(className:"Event")
+                    query.whereKey("name", equalTo: newString)
+                    query.findObjectsInBackgroundWithBlock {
+                        (objects: [PFObject]?, error: NSError?) -> Void in
+                        
+                        if error == nil {
+                            if let objects = objects {
+                                for item in objects {
+                                    self.object.insert(item)
+                                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                    self.performSegueWithIdentifier("eventListToEventDetail", sender: nil)
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
                 
             }
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "eventListToEventDetail" {
+            let detailScene = segue.destinationViewController as! DetailTableViewController
+            for item in object{
+                detailScene.currentObject = item
+            }
+            
+            
+        }
+        
+    }
+    
     @IBAction func cancel(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
     
     
 }
