@@ -35,7 +35,7 @@
 @end
 
 //static const CGFloat kDefaultTileSize = 256.;
-static const CGFloat kDefaultTileSize = 512.;
+static const CGFloat kDefaultTileSize = 256.;
 
 @implementation JCPDFTiledView
 

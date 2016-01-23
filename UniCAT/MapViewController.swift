@@ -264,18 +264,18 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         self.navigationItem.rightBarButtonItems = array
         
         
-        // Enable swipe back when no navigation bar
-        //navigationController?.interactivePopGestureRecognizer.delegate = self
+        let qrbutton: UIButton = UIButton()
+        qrbutton.setImage(UIImage(named: "QR"), forState: .Normal)
+        qrbutton.frame = CGRectMake(0, 0, 45, 45)
+        qrbutton.targetForAction("actioncall", withSender: nil)
+        qrbutton.addTarget(self, action: "activeQR:", forControlEvents: .TouchUpInside)
         
-        /*
-        var currentUser = PFUser.currentUser()
-        if currentUser == nil {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController") as! UIViewController
-        self.presentViewController(vc, animated: true, completion: nil)
-        } else {
+        let qrItem:UIBarButtonItem = UIBarButtonItem()
+        qrItem.customView = qrbutton
         
-        }*/
+        self.navigationItem.leftBarButtonItem = qrItem
+        
+        
         
         Name.floor = 0
         Name.gallery = 0
@@ -327,6 +327,10 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         }
     }
     
+    func activeQR(sender:UIButton!){
+        
+        self.performSegueWithIdentifier("MapToQR", sender: nil)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -550,14 +554,14 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
     }
     
     func tiledScrollView(scrollView: JCTiledScrollView!, didReceiveSingleTap gestureRecognizer: UIGestureRecognizer!) {
-        var tapPoint:CGPoint = gestureRecognizer.locationInView(scrollView.tiledView)
+        let tapPoint:CGPoint = gestureRecognizer.locationInView(scrollView.tiledView)
         
     }
     
     func tiledScrollView(scrollView: JCTiledScrollView!, viewForAnnotation annotation: JCAnnotation!) -> JCAnnotationView! {
         
         let view:AnnotationView? = scrollView.dequeueReusableAnnotationViewWithReuseIdentifier(nil) as? AnnotationView;
-        var view1:AnnotationView? = scrollView.dequeueReusableAnnotationViewWithReuseIdentifier(annotationReuseIdentifier) as? AnnotationView;
+        let view1:AnnotationView? = scrollView.dequeueReusableAnnotationViewWithReuseIdentifier(annotationReuseIdentifier) as? AnnotationView;
         
         
         if ( (view) == nil )

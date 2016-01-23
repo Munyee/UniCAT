@@ -28,7 +28,6 @@ class BuildingViewController: JPBFloatingTextViewController {
         tableView.delegate = self
         tableView.dataSource = self
         let image = UIImage(named: currentAlphabet)
-        colorArt = (image?.colorArt())!
         
         self.setHeaderImage(image)
         
