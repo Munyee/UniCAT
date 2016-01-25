@@ -21,7 +21,11 @@
 @interface TCMapViewController (){
     CLLocationCoordinate2D currentLocation;
     NSMutableArray *pfFile;
-    NSArray *ways;
+    NSMutableArray *ways;
+    NSMutableArray *tempWay;
+    int count;
+    BOOL markerClick;
+    NSString *type;
 }
 
 @property int counter;
@@ -98,12 +102,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    count = 0;
     _counter = 0;
+    markerClick = false;
     self.images = [[NSMutableArray alloc] initWithCapacity:500];
     pfFile = [[NSMutableArray alloc]init];
-    
-    ways = @[@"Destination",@"Turn Right",@"Straight"];
+    ways = [[NSMutableArray alloc] init];
+    [ways addObject:@"Destination"];
+    tempWay = [[NSMutableArray alloc] init];
     
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
@@ -220,10 +226,11 @@
     [[TCPlacesService sharedService] placeDetailsWithReference:reference completion:^(TCPlace *place, NSError *error) {
         if (place) {
             self.place = place;
-            
+            markerClick = true;
             // Create marker for the destination on the map view.
             self.destinationMarker = [self createMarkerForPlace:self.place onMap:self.mapView];
-
+            
+            
             
             
             
@@ -249,12 +256,17 @@
     GMSMarker *marker = [[GMSMarker alloc] init];
     marker.position = place.location;
     marker.title = place.name;
-    marker.icon = [UIImage imageNamed:@"marker"];
-    self.mapView.delegate = self;
-    marker.infoWindowAnchor = CGPointMake(0.50f, 0.37f);
-    marker.map = mapView;
-    marker.zIndex = _counter;
-    _counter++;
+    
+    if (markerClick == true){
+        marker.icon = [UIImage imageNamed:@"marker"];
+        self.mapView.delegate = self;
+        marker.infoWindowAnchor = CGPointMake(0.50f, 0.37f);
+        marker.map = mapView;
+        marker.zIndex = _counter;
+        _counter++;
+        markerClick = false;
+    }
+    
     return marker;
 }
 
@@ -265,7 +277,12 @@
     
     
     CustomInfoWindow *infoWindow = [[[NSBundle mainBundle] loadNibNamed:@"InfoView" owner:self options:nil]objectAtIndex:0];
-    infoWindow.label.text = ways[marker.zIndex];
+    
+    if ([ways[marker.zIndex]  isEqual: @"turn-left"]){
+        infoWindow.label.text = @"Turn Left";
+    }else if ([ways[marker.zIndex]  isEqual: @"turn-right"]){
+        infoWindow.label.text = @"Turn Right";
+    }
     
 //    PFFile *image = [pfFile[marker.zIndex-2] valueForKey:@"Image"];
     
@@ -339,35 +356,10 @@
                 // Store a reference to the TCDirectionsStep object, so that we
                 // can retrieve it later.
                 cellModel.userData = step;
-                
+                [tempWay addObject:step];
                 [myCellModels addObject:cellModel];
                 
                 
-                PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:step.endLocation.latitude longitude:step.endLocation.longitude];
-                
-                PFQuery *query = [PFQuery queryWithClassName:@"Location"];
-                [query whereKey:@"Coordinate" equalTo:geoPoint];
-                
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (error) {
-                        // There was an error
-                    } else {
-                        
-                        for(PFObject *object in objects){
-                            [pfFile addObject:object];
-                            PFFile *image = [object valueForKey:@"Image"];
-                            [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                                if (!error) {
-                                    [self.images addObject:[UIImage imageWithData:data]];
-                                }
-                            }];
-                            TCPlace *placeExtra = [[TCPlace alloc]init];
-                            placeExtra.location = step.endLocation;
-                            [self createMarkerForPlace:placeExtra onMap:self.mapView];
-                            NSLog(@"%@",object);
-                        }
-                    }
-                }];
             }
             
             TCCellModel *model = self.cellModels[0];
@@ -376,6 +368,40 @@
             
             
             
+            for (int x = 0 ; x < tempWay.count-2 ; x++){
+                TCDirectionsStep *step = tempWay[x+1];
+                PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:step.startLocation.latitude longitude:step.startLocation.longitude];
+                
+                PFQuery *query = [PFQuery queryWithClassName:@"Location"];
+                [query whereKey:@"Coordinate" equalTo:geoPoint];
+                [query whereKey:@"turn" equalTo:step.image];
+                
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (error) {
+                        // There was an error
+                    } else {
+                        
+                        for(PFObject *object in objects){
+                            
+                            [pfFile addObject:object];
+                            PFFile *image = [object valueForKey:@"Image"];
+                            [ways addObject:step.image];
+                            [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                                if (!error) {
+                                    [self.images addObject:[UIImage imageWithData:data]];
+                                    
+                                }
+                            }];
+                            TCPlace *placeExtra = [[TCPlace alloc]init];
+                            placeExtra.location = step.startLocation;
+                            markerClick = true;
+                            [self createMarkerForPlace:placeExtra onMap:self.mapView];
+                            
+                            NSLog(@"%@",object);
+                        }
+                    }
+                }];
+            }
             
 
 //            if (model.image ==  nil){
@@ -535,8 +561,8 @@
             [progressHUD hide:YES];
             [self getDirectionsFromMyLocation:self.myLocation
                                       toPlace:self.location.coordinate];
+            markerClick = true;
             [self createMarkerForPlace:self.place onMap:self.mapView];
-            
             
             progressHUD.labelText = @"Fetching Data";
             progressHUD.hidden = NO;

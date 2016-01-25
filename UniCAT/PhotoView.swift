@@ -491,6 +491,38 @@ let reuseIdentifier = "photocell"
     //
     //
     //
+    
+    func photoPagesController(photoPagesController: EBPhotoPagesController!, shouldHandleLongPressGesture recognizer: UILongPressGestureRecognizer!, forPhotoAtIndex index: Int) -> Bool {
+        return true
+    }
+    
+    func photoPagesController(photoPagesController: EBPhotoPagesController!, didReceiveLongPress recognizer: UILongPressGestureRecognizer!, forPhotoAtIndex index: Int) {
+        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
+        
+        
+        let saveAction = UIAlertAction(title: "Save", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("File Saved")
+        })
+        
+        //
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancelled")
+        })
+        
+        
+        optionMenu.addAction(saveAction)
+        optionMenu.addAction(cancelAction)
+
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+        
+        
+        
+        
+        
+    }
+    
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(((UIScreen.mainScreen().bounds.size.width-20)/3), ((UIScreen.mainScreen().bounds.size.width-20)/3))
     }

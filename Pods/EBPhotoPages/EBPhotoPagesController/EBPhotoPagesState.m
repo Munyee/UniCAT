@@ -202,19 +202,66 @@
          didReceiveLongPress:(UILongPressGestureRecognizer *)longPressGesture
             withNotification:(NSNotification *)aNotification
 {
-    if(longPressGesture.state == UIGestureRecognizerStateBegan){
-        NSNumber *photoIndex = aNotification.userInfo[@"currentPhotoIndex"];
-        
-        if([controller.photosDataSource respondsToSelector:@selector(photoPagesController:didReceiveLongPress:forPhotoAtIndex:)])
-        {
-            [controller.photosDataSource photoPagesController:controller
-                                          didReceiveLongPress:longPressGesture
-                                              forPhotoAtIndex:[photoIndex integerValue]];
-            
-        } else {
-            [controller showActionSheetForPhotoAtIndex:[photoIndex integerValue]];
-        }
-    }
+//    if(longPressGesture.state == UIGestureRecognizerStateBegan){
+//        NSNumber *photoIndex = aNotification.userInfo[@"currentPhotoIndex"];
+//        
+//        if([controller.photosDataSource respondsToSelector:@selector(photoPagesController:didReceiveLongPress:forPhotoAtIndex:)])
+//        {
+//            [controller.photosDataSource photoPagesController:controller
+//                                          didReceiveLongPress:longPressGesture
+//                                              forPhotoAtIndex:[photoIndex integerValue]];
+//            
+//        } else {
+//            [controller showActionSheetForPhotoAtIndex:[photoIndex integerValue]];
+//        }
+//    }
+    NSInteger photoIndex = [controller currentPhotoIndex];
+    
+    EBPhotoViewController *photoViewController = [controller currentPhotoViewController];
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSArray *arrDef = [def objectForKey:@"keySave"];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleActionSheet]; // 1
+    UIAlertAction *firstAction = [UIAlertAction actionWithTitle:@"Save Image"
+                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                              
+                                                              UIImageWriteToSavedPhotosAlbum(photoViewController.photoView.image, nil, nil, nil);
+                                                          }]; // 2
+    UIAlertAction *report = [UIAlertAction actionWithTitle:@"Report Image"
+                                                          style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+                                                              UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Report" message:@"Reporting this image\nAre you sure?" preferredStyle:UIAlertControllerStyleAlert];
+                                                              [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                                                                  PFQuery *query = [PFQuery queryWithClassName:@"Gallery"];
+                                                                  [query getObjectInBackgroundWithId:arrDef[photoIndex]
+                                                                                               block:^(PFObject *report, NSError *error) {
+                                                                                                   report[@"report"] = @"reported";
+                                                                                                   [report saveInBackground];
+                                                                                               }];
+                                                                  UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Reported" message:@"Thank you for your reporting.." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                                                                  [alert show];
+                                                                  
+                                                                  
+                                                              }]];
+                                                              [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+                                                                  
+                                                              }]];
+                                                              [controller presentViewController:alertController animated:YES completion:nil];
+
+                                                          }]; // 2
+    
+    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+                                                               NSLog(@"You pressed button two");
+                                                           }]; // 3
+    
+    [alert addAction:firstAction]; // 4
+    [alert addAction:report];
+    [alert addAction:secondAction]; // 5
+    
+    [controller presentViewController:alert animated:YES completion:nil];
 }
 
 

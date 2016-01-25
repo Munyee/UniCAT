@@ -14,7 +14,7 @@
 #import "EBPhotoPagesStateDelegate.h"
 
 #pragma mark - Abstract State
-@interface EBPhotoPagesState : NSObject <EBPhotoPagesStateDelegate>
+@interface EBPhotoPagesState : NSObject <EBPhotoPagesStateDelegate,UIActionSheetDelegate>
 @end
 
 #pragma mark - Concrete States
