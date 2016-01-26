@@ -21,7 +21,7 @@ class QRDetailViewController:JPBFloatingTextViewController {
         
         
         
-        tableView.estimatedRowHeight = 60.0;
+        tableView.estimatedRowHeight = 70.0;
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         self.navigationController?.setToolbarHidden(true, animated: true)
         

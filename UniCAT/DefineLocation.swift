@@ -35,12 +35,12 @@ public class DefineLocation{
         }
         
         if(lon != 0 && lon >= longmin && lon <= longmax){
-            newlon = (((101.142407 - longmin)/(longmax - longmin))-0.0135)*1000
+            newlon = (((self.lon - longmin)/(longmax - longmin))-0.0135)*1000
             
         }
         
         if(lat != 0 && lat >= latmin && lat <= latmax){
-            newlat = ((((latmax - 4.337223)/(latmax-latmin))-0.05)*1000)+4
+            newlat = ((((latmax - self.lat)/(latmax-latmin))-0.05)*1000)+4
             
         }
         

@@ -26,10 +26,17 @@
     int count;
     BOOL markerClick;
     NSString *type;
+    CLLocationDistance tempDis;
+    BOOL updateTemp;
+    MBProgressHUD *recal;
+    int navigatecount;
 }
 
 @property int counter;
 @property (nonatomic,strong) TCDirectionsLeg *leg;
+
+//holding the marker
+@property (strong, nonatomic) NSMutableArray *allMarkers;
 
 @property (nonatomic,strong) NSString *buildingName;
 /** Google Maps view. */
@@ -102,15 +109,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    navigatecount = 0;
     count = 0;
     _counter = 0;
+    updateTemp = true;
     markerClick = false;
     self.images = [[NSMutableArray alloc] initWithCapacity:500];
     pfFile = [[NSMutableArray alloc]init];
     ways = [[NSMutableArray alloc] init];
     [ways addObject:@"Destination"];
     tempWay = [[NSMutableArray alloc] init];
-    
+    self.allMarkers = [[NSMutableArray alloc] init];
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
@@ -178,12 +187,49 @@
     
     NSLog(@"%@",_leg);
     
-    TCDirectionsStep *step = _leg.steps[_counter];
+    TCDirectionsStep *step = _leg.steps[navigatecount];
     CLLocation *end = [[CLLocation alloc]initWithLatitude:step.endLocation.latitude longitude:step.endLocation.longitude];
+//    CLLocation *end = [[CLLocation alloc]initWithLatitude:4.3356484 longitude:101.1350859];
+
+//    CLLocation *start = [[CLLocation alloc]initWithLatitude:step.startLocation.latitude longitude:step.startLocation.longitude];
+//    CLLocation *start = [[CLLocation alloc]initWithLatitude:4.334001499999999 longitude:101.1406238];
     
-    PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:step.endLocation.latitude longitude:step.endLocation.longitude];
     //Edit here ===
     CLLocationDistance distance = [end distanceFromLocation:[object myLocation]];
+    NSLog(@"Distance is %f",distance);
+ 
+    for (GMSMarker *marker in self.allMarkers) {
+        if (marker.position.latitude == end.coordinate.latitude && marker.position.longitude == end.coordinate.longitude){
+            [self.mapView setSelectedMarker:marker];
+            break;
+        }
+    }
+    
+    
+    if (updateTemp && _leg != nil){
+        tempDis = distance;
+        updateTemp = false;
+    }
+    
+    if(distance <= 0.05 && updateTemp==false){
+        navigatecount++;
+        updateTemp = true;
+    }
+    
+    else if (distance > (tempDis) && !updateTemp){
+        recal = [MBProgressHUD showHUDAddedTo:self.view animated:true];
+        recal.labelText = @"Recalculating";
+        _counter = 0;
+        [self.allMarkers removeAllObjects];
+        self.destinationMarker = [self createMarkerForPlace:self.place onMap:self.mapView];
+        updateTemp = true;
+        [tempWay removeAllObjects];
+        [self getDirectionsFromMyLocation:self.myLocation
+                                  toPlace:self.location.coordinate];
+        
+       
+        
+    }
     
 
 }
@@ -263,17 +309,18 @@
         marker.infoWindowAnchor = CGPointMake(0.50f, 0.37f);
         marker.map = mapView;
         marker.zIndex = _counter;
+        [self.allMarkers insertObject:marker atIndex:_counter];
         _counter++;
         markerClick = false;
+        
+        
     }
     
     return marker;
 }
 
+
 -(UIView*) mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker{
-    
-    MBProgressHUD *loadingNotification = [MBProgressHUD showHUDAddedTo:self.view animated:true];
-    loadingNotification.labelText = @"Loading";
     
     
     CustomInfoWindow *infoWindow = [[[NSBundle mainBundle] loadNibNamed:@"InfoView" owner:self options:nil]objectAtIndex:0];
@@ -284,18 +331,6 @@
         infoWindow.label.text = @"Turn Right";
     }
     
-//    PFFile *image = [pfFile[marker.zIndex-2] valueForKey:@"Image"];
-    
-//    infoWindow.customImage.file = image;
-//    [infoWindow.customImage loadInBackground];
-//    [infoWindow.customImage loadInBackground:^(UIImage *image, NSError *error) {
-//        if (!error) {
-//            mapView.
-//            [MBProgressHUD hideAllHUDsForView:self.view animated:true];
-//        }
-//    }];
-
-                [MBProgressHUD hideAllHUDsForView:self.view animated:true];
 
     if(marker.zIndex == 0){
         infoWindow.customImage.image = self.staticimage;
@@ -345,6 +380,10 @@
             // There should only be one route since we did not ask for alternative routes.
             self.route = routes[0];
             
+            
+            
+            
+            [recal hide:YES];
             _leg = self.route.legs[0];
             _cellModels = [self createCellModelsWithSteps:_leg.steps];
             
@@ -368,9 +407,11 @@
             
             
             
-            for (int x = 0 ; x < tempWay.count-2 ; x++){
+            for (int x = 0 ; x < tempWay.count-1 ; x++){
                 TCDirectionsStep *step = tempWay[x+1];
                 PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:step.startLocation.latitude longitude:step.startLocation.longitude];
+                
+                //Add in endLocatiion here
                 
                 PFQuery *query = [PFQuery queryWithClassName:@"Location"];
                 [query whereKey:@"Coordinate" equalTo:geoPoint];
@@ -560,7 +601,7 @@
             
             [progressHUD hide:YES];
             [self getDirectionsFromMyLocation:self.myLocation
-                                      toPlace:self.location.coordinate];
+                                      toPlace:self.endPoint];
             markerClick = true;
             [self createMarkerForPlace:self.place onMap:self.mapView];
             

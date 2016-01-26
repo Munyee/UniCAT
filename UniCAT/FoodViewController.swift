@@ -464,6 +464,11 @@ class FoodViewController: PFQueryCollectionViewController {
         }
     }
 
+    @IBAction func skipAction(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("friendToCategory", sender: nil)
+        
+    }
     
     
 }

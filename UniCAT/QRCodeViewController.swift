@@ -236,6 +236,24 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                                         self.performSegueWithIdentifier("eventListToEventDetail", sender: nil)
                                         
                                     }
+                                    
+                                    if objects.count == 0{
+                                        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                        let alert = UIAlertController(title: "Error", message: "No data found", preferredStyle: UIAlertControllerStyle.Alert)
+                                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
+                                            switch action.style{
+                                            case .Default:
+                                                self.captureSession?.startRunning()
+                                                
+                                            case .Cancel:
+                                                print("cancel")
+                                                
+                                            case .Destructive:
+                                                print("destructive")
+                                            }
+                                        }))
+                                        self.presentViewController(alert, animated: true, completion: nil)
+                                    }
                                 }
                             }
                         }
