@@ -343,7 +343,6 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
         
         
         buta = setButton( a, label: names[0], eventnum: eventcount[0], size: CGRect(x: 638, y: 772, width: 150, height: 50))
-        
         butb = setButton( b, label: names[1], eventnum: eventcount[1], size: CGRect(x: 635, y: 670, width: 150, height: 50))
         butc = setButton( c, label: names[2], eventnum: eventcount[2], size: CGRect(x: 735, y: 618, width: 150, height: 50))
         butd = setButton( d, label: names[3], eventnum: eventcount[3], size: CGRect(x: 835, y: 550, width: 150, height: 50))
@@ -590,42 +589,6 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             if(sender.tag == x+1){
                 
                 Name.nameof = names[x]
-                
-                /*
-                var query = PFQuery(className:"Building")
-                query.whereKey("name", equalTo:Name.nameof)
-                query.findObjectsInBackgroundWithBlock({(objects:[PFQuery]?, error:NSError?) -> Void in
-                
-                if error == nil {
-                
-                
-                // Looping through the objects to get the names of the workers in each object
-                for object in objects! {
-                
-                Name.floor = object["floor"] as! Int
-                
-                
-                }
-                NSLog("Done Load Data")
-                }
-                
-                
-                })
-                
-                var gallery = PFQuery(className:"Gallery")
-                gallery.whereKey("venue", equalTo:Name.nameof)
-                gallery.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                // The find succeeded.
-                Name.gallery = objects!.count
-                
-                }
-                
-                }
-                */
-                
                 selectedBuilding = names[x]
                 selectedAlphabet = alphabet[x]
                 selectedEventCount = eventcount[x]

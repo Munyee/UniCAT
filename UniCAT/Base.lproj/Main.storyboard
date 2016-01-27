@@ -2423,7 +2423,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="0E6CAF24-48FE-46CF-9BDF-C4E0D11D6AAC" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="DA5D6038-BCA4-42FF-ABCC-3320C6D47D33" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2475,7 +2475,7 @@
         <!--UniCAT-->
         <scene sceneID="xax-Rc-kQN">
             <objects>
-                <viewController storyboardIdentifier="MapViewController" id="zV6-63-U3V" customClass="MapViewController" customModule="UniCAT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="zV6-63-U3V" customClass="GoogleMapViewController" customModule="UniCAT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="feD-qa-3mH"/>
                         <viewControllerLayoutGuide type="bottom" id="fo8-Rd-QgX"/>
@@ -6471,7 +6471,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="0E6CAF24-48FE-46CF-9BDF-C4E0D11D6AAC" width="36" height="32">
+        <image name="Add Cover" width="70" height="92"/>
+        <image name="DA5D6038-BCA4-42FF-ABCC-3320C6D47D33" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -6599,7 +6600,6 @@ G48bmBurG68buhvDG8gb0BvTG9gb5xvrG/Ib+hwHHAwcDhwQHBUcHRwgHCUcLRwwHEIcRRxKAAAAAAAA
 AgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAHEw
 </mutableData>
         </image>
-        <image name="Add Cover" width="70" height="92"/>
         <image name="Dropdown" width="15" height="9"/>
         <image name="Interest" width="24" height="24"/>
         <image name="Logo" width="512" height="512"/>
