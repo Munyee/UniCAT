@@ -216,7 +216,7 @@
         updateTemp = true;
     }
     
-    else if (distance > (tempDis) && !updateTemp){
+    else if (distance > (tempDis+5) && !updateTemp){
         recal = [MBProgressHUD showHUDAddedTo:self.view animated:true];
         recal.labelText = @"Recalculating";
         _counter = 0;

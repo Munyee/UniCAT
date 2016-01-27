@@ -33,7 +33,6 @@
 		844566441B3AAB350086B8D4 /* JCTiledView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8445663A1B3AAB350086B8D4 /* JCTiledView.m */; };
 		844566451B3AAB350086B8D4 /* JCVisibleAnnotationTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = 8445663C1B3AAB350086B8D4 /* JCVisibleAnnotationTuple.m */; };
 		8445664A1B3AAC430086B8D4 /* Map.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 844566491B3AAC430086B8D4 /* Map.pdf */; };
-		8445664C1B3AACB30086B8D4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445664B1B3AACB30086B8D4 /* MapViewController.swift */; };
 		8445664E1B3AB1D20086B8D4 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445664D1B3AB1D20086B8D4 /* AnnotationView.swift */; };
 		844566501B3AB3B90086B8D4 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445664F1B3AB3B90086B8D4 /* Reachability.swift */; };
 		844566571B3AE1490086B8D4 /* JPBFloatingTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844566521B3AE1490086B8D4 /* JPBFloatingTextViewController.m */; };
@@ -115,6 +114,8 @@
 		FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */; };
 		FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */; };
 		FE1455D21C1ECCB10091B03C /* FoodViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */; };
+		FE1DE4F61C58826D0093A43F /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1DE4F51C58826D0093A43F /* GoogleMapViewController.swift */; };
+		FE1DE4F81C58848E0093A43F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1DE4F71C58848E0093A43F /* MapViewController.swift */; };
 		FE55A4981C316D9A00B97CEE /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE55A4971C316D9A00B97CEE /* AddPhotoViewController.swift */; };
 		FE58005F1C254B900010DB1F /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE58005E1C254B900010DB1F /* ImageView.swift */; };
 		FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */; };
@@ -216,7 +217,6 @@
 		8445663B1B3AAB350086B8D4 /* JCVisibleAnnotationTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCVisibleAnnotationTuple.h; sourceTree = "<group>"; };
 		8445663C1B3AAB350086B8D4 /* JCVisibleAnnotationTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCVisibleAnnotationTuple.m; sourceTree = "<group>"; };
 		844566491B3AAC430086B8D4 /* Map.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Map.pdf; sourceTree = "<group>"; };
-		8445664B1B3AACB30086B8D4 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		8445664D1B3AB1D20086B8D4 /* AnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		8445664F1B3AB3B90086B8D4 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		844566511B3AE1490086B8D4 /* JPBFloatingTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPBFloatingTextViewController.h; sourceTree = "<group>"; };
@@ -309,6 +309,8 @@
 		FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_park@2x.png"; sourceTree = "<group>"; };
 		FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewCell.swift; sourceTree = "<group>"; };
+		FE1DE4F51C58826D0093A43F /* GoogleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
+		FE1DE4F71C58848E0093A43F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FE55A4971C316D9A00B97CEE /* AddPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPhotoViewController.swift; sourceTree = "<group>"; };
 		FE58005E1C254B900010DB1F /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewController.swift; sourceTree = "<group>"; };
@@ -514,14 +516,15 @@
 		844566471B3AAB640086B8D4 /* Map Module */ = {
 			isa = PBXGroup;
 			children = (
+				FE1DE4F71C58848E0093A43F /* MapViewController.swift */,
 				844566491B3AAC430086B8D4 /* Map.pdf */,
-				8445664B1B3AACB30086B8D4 /* MapViewController.swift */,
 				8445664D1B3AB1D20086B8D4 /* AnnotationView.swift */,
 				FEED415C1C1E8D24002A8049 /* DefineLocation.swift */,
 				8445664F1B3AB3B90086B8D4 /* Reachability.swift */,
 				8445665B1B3AE26D0086B8D4 /* BuildingViewController.swift */,
 				FE1455CA1C1EBFBC0091B03C /* overlay_park.png */,
 				FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */,
+				FE1DE4F51C58826D0093A43F /* GoogleMapViewController.swift */,
 				8440AE061B4020440012A31E /* Cell */,
 				8445665A1B3AE14E0086B8D4 /* JPBParallax */,
 				844566461B3AAB420086B8D4 /* JCTiledScrollView */,
@@ -1130,6 +1133,7 @@
 				84CB2CEB1B39453900E8B569 /* MainTableViewCell.swift in Sources */,
 				CB42E80E1C293C2500302D6B /* DesignableTextField.swift in Sources */,
 				FEED41821C1EA4EF002A8049 /* TCDirectionsStep.m in Sources */,
+				FE1DE4F61C58826D0093A43F /* GoogleMapViewController.swift in Sources */,
 				CB42E8121C293C2500302D6B /* ImageLoader.swift in Sources */,
 				844566271B3A9A4C0086B8D4 /* LoginTableViewCell.swift in Sources */,
 				CB42E80C1C293C2500302D6B /* DesignableImageView.swift in Sources */,
@@ -1176,6 +1180,7 @@
 				CB42E8051C293C2500302D6B /* AsyncButton.swift in Sources */,
 				FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */,
 				84CB2CEF1B39457800E8B569 /* ProfileTableViewCell.swift in Sources */,
+				FE1DE4F81C58848E0093A43F /* MapViewController.swift in Sources */,
 				FE9BE37E1C567B0900BCC4BE /* SortFoodTableViewController.swift in Sources */,
 				CB42E81A1C293C2500302D6B /* SpringLabel.swift in Sources */,
 				CB42E8151C293C2500302D6B /* SoundPlayer.swift in Sources */,
@@ -1201,7 +1206,6 @@
 				84A30BD31B466A3C00EC95B4 /* AttendTableViewCell.swift in Sources */,
 				FEED41801C1EA4EF002A8049 /* TCDirectionsRoute.m in Sources */,
 				FEED417F1C1EA4EF002A8049 /* TCDirectionsStatus.m in Sources */,
-				8445664C1B3AACB30086B8D4 /* MapViewController.swift in Sources */,
 				FE9BE3681C53559000BCC4BE /* QRCodeViewController.swift in Sources */,
 				FEED41961C1EA556002A8049 /* TCPlace.m in Sources */,
 				CB42E80A1C293C2500302D6B /* BlurView.swift in Sources */,
