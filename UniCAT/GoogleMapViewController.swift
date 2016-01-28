@@ -102,7 +102,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
                     for (var y = 0 ; y < arrImage[numtype].count-1 ; y++){
                             getButton(arrImage[numtype][y])
-                            setButtonLocation(arrButton[numtype][y])
+                            setButtonLocation(arrButton[numtype][y+1])
                         
                         
                     }
@@ -636,15 +636,15 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 
                 if( c == buttonIndex){
                     arrImage[c][y].hidden = false
-                    arrButton[c][y].hidden = false
+                    arrButton[c][y+1].hidden = false
                     getButton(arrImage[c][y])
-                    setButtonLocation(arrButton[c][y])
+                    setButtonLocation(arrButton[c][y+1])
                     
                 }
                 
                 else if(arrButton[c].count > 1){
                     arrImage[c][y].hidden = true
-                    arrButton[c][y].hidden = true
+                    arrButton[c][y+1].hidden = true
                 }
                 
                 
