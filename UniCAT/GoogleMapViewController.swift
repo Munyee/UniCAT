@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTileSource {
+class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTileSource,UIActionSheetDelegate {
 
     
     struct Name{
@@ -24,7 +24,18 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var scale:CGFloat = 1
     
     let building = Building()
-    var a = [SpringImageView()]
+    
+    var buildingImage = [SpringImageView()]
+    var atmImage = [SpringImageView()]
+    
+    var button = [UIButton()]
+    var atmButton = [UIButton()]
+    var arrButton = [[UIButton()]]
+    var arrObject = [Set<PFObject>()]
+    var arrImage = [[SpringImageView()]]
+    
+    var numtype = 0
+    
     let icon = UIImage(named: "overlay_park.png")
     let latmin = 4.332435;
     let latmax = 4.345159;
@@ -33,49 +44,78 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var scrollView: JCTiledScrollView!
     var textlabel = UILabel()
     var tag:Int = 0
-    var buildingObject = Set<PFObject>()
-    var button = [UIButton()]
+    var busTag :Int = 0
+    var atmTag :Int = 0
+    var foodTag :Int = 0
+    var clinicTag :Int = 0
+    var washTag :Int = 0
     
+    var initView = true
+    var buildingObject = Set<PFObject>()
+    var atmObject = Set<PFObject>()
+    
+    var count = [Int]()
+    let allPOI = ["building", "bus", "atm", "food", "clinic","washroom"]
     var selectedBuilding = ""
     var selectedAlphabet = ""
     var selectedEventCount = ""
-    var names:[String] = ["Heritage Hall","Learning Complex I","Student Pavilion I","Faculty of Science","FEGT","Administration Block","Library","FBF","Lecture Complex I","Engineering Workshop","Student Pavilion II","Lecture Complex II","Grand Hall","FICT & IPSR Lab","Sports Complex","FAS & ICS"]
+    var names:[String] = []
     var alphabet:[String] = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"]
-    var eventcount: [String] = ["o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o"]
+    var eventcount: [String] = []
     var eventname : [String] = []
     
     func tiledScrollViewDidZoom(scrollView: JCTiledScrollView!) {
         scale = CGFloat(scrollView.zoomScale)
         
-        for (var x = 0 ; x < names.count; x++){
-            let object = self.buildingObject
-            
+        if (numtype == 0){
+            for (var x = 0 ; x < names.count; x++){
+                let object = self.buildingObject
+                
                 for item in object{
                     let building = item["name"] as! String
                     
                     if (building == self.names[x]){
                         let layer = item["layer"] as! String
                         if(Float(layer) > scrollView.zoomScale) {
-                            self.a[x].hidden = true
+                            self.buildingImage[x].hidden = true
                             self.button[x+1].hidden = true
                             
                         }
                         else {
-                            self.a[x].hidden = false
+                            self.buildingImage[x].hidden = false
                             self.button[x+1].hidden = false
+                            self.buildingImage[x].animation = "fadeIn"
+                            self.buildingImage[x].curve = "easeIn"
+                            self.buildingImage[x].duration = 2.5
+                            self.buildingImage[x].animate()
                         }
                         break
                     }
                     
-                
+                    
+                }
+                getButton(buildingImage[x])
+                setButtonLocation(button[x+1])
             }
-            getButton(a[x])
-            setButtonLocation(button[x+1])
         }
+        else{
+            
+                    for (var y = 0 ; y < arrImage[numtype].count-1 ; y++){
+                            getButton(arrImage[numtype][y])
+                            setButtonLocation(arrButton[numtype][y])
+                        
+                        
+                    }
+                    
+            
+        }
+        
         first = false
         thelastone = scale
 
     }
+    
+
     
     
     func tiledScrollView(scrollView: JCTiledScrollView!, didReceiveSingleTap gestureRecognizer: UIGestureRecognizer!) {
@@ -107,20 +147,39 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if(initView){
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Fetching data"
+            initView = false
+        }
+        
+
+    }
     
     override func viewDidLoad() {
-        a = []
+       
+        buildingImage = []
         first = true
         tag = 0
         super.viewDidLoad()
         
+        for (var x = 0 ; x < 6 ; x++){
+            let tempButton = [UIButton()]
+            let tempObject = Set<PFObject>()
+            let tempImage = [SpringImageView()]
+            arrButton.insert(tempButton, atIndex: x)
+            arrObject.insert(tempObject, atIndex: x)
+            arrImage.insert(tempImage, atIndex: x)
+            count.insert(0, atIndex: x)
+        }
         
-
         let button: UIButton = UIButton()
         button.setImage(UIImage(named: "gps"), forState: .Normal)
         button.frame = CGRectMake(0, 0, 45, 45)
         button.targetForAction("actioncall", withSender: nil)
-        button.addTarget(self, action: "buttonPressed:", forControlEvents: .TouchUpInside)
+//        button.addTarget(self, action: "buttonPressed:", forControlEvents: .TouchUpInside)
         
         let rightItem:UIBarButtonItem = UIBarButtonItem()
         rightItem.customView = button
@@ -152,35 +211,92 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
         
         //get data
-        let query = PFQuery(className:"Annotations")
-        query.whereKey("type", equalTo:"building")
-        query.findObjectsInBackgroundWithBlock {
-            (objects: [PFObject]?, error: NSError?) -> Void in
-            
-            if error == nil {
-                // The find succeeded.
-                print("Successfully retrieved \(objects!.count) scores.")
-                // Do something with the found objects
-                if let objects = objects {
-                    for object in objects {
-                        let image = SpringImageView()
-                        self.a.append(image)
-                        self.buildingObject.insert(object)
-                        if self.buildingObject.count == objects.count{
-                            self.checkconnection()
+        for (var a = 0 ; a < allPOI.count ; a++){
+            let query = PFQuery(className:"Annotations")
+            query.whereKey("type", equalTo:self.allPOI[a])
+            query.findObjectsInBackgroundWithBlock {
+                (objects: [PFObject]?, error: NSError?) -> Void in
+                
+                if error == nil {
+                    // The find succeeded.
+                    print("Successfully retrieved \(objects!.count) scores.")
+                    
+                    // Do something with the found objects
+                    if let objects = objects {
+                        
+                        for object in objects {
+                            let type = object["type"] as! String
+                            
+                            
+                            switch(type){
+                            case "building":
+                                let image = SpringImageView()
+                                self.buildingImage.append(image)
+                                self.eventcount.append("o")
+                                let building = object["name"] as! String
+                                self.names.append(building)
+                                self.buildingObject.insert(object)
+                                if self.buildingObject.count == objects.count{
+                                    self.checkconnection()
+                                }
+                            case "bus":
+                                let index = 1
+                                let tempButton = [UIButton()]
+                                self.arrButton.insert(tempButton, atIndex: index)
+                                let image = SpringImageView()
+                                self.arrImage[index].append(image)
+                                self.arrObject[index].insert(object)
+                                
+                            case "atm":
+                                let index = 2
+                                let tempButton = [UIButton()]
+                                self.arrButton.insert(tempButton, atIndex: index)
+                                let image = SpringImageView()
+                                self.arrImage[index].append(image)
+                                self.arrObject[index].insert(object)
+                                
+
+                            case "food":
+                                let index = 3
+                                let tempButton = [UIButton()]
+                                self.arrButton.insert(tempButton, atIndex: index)
+                                let image = SpringImageView()
+                                self.arrImage[index].append(image)
+                                self.arrObject[index].insert(object)
+                               
+
+                            case "clinic":
+                                let index = 4
+                                let tempButton = [UIButton()]
+                                self.arrButton.insert(tempButton, atIndex: index)
+                                let image = SpringImageView()
+                                self.arrImage[index].append(image)
+                                self.arrObject[index].insert(object)
+                                
+                            case "washroom":
+                                let index = 5
+                                let tempButton = [UIButton()]
+                                self.arrButton.insert(tempButton, atIndex: index)
+                                let image = SpringImageView()
+                                self.arrImage[index].append(image)
+                                self.arrObject[index].insert(object)
+                               
+                            default:
+                                break
+                            }
+                            
                         }
+                        
                     }
                     
+                    
+                } else {
+                    // Log details of the failure
+                    print("Error: \(error!) \(error!.userInfo)")
                 }
-            } else {
-                // Log details of the failure
-                print("Error: \(error!) \(error!.userInfo)")
             }
+            
         }
-        
-       
-        
-        
         
         scrollView = JCTiledPDFScrollView(frame: self.view.bounds, URL: NSBundle.mainBundle().URLForResource("Map", withExtension: "pdf"))
         
@@ -201,94 +317,46 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         // Dispose of any resources that can be recreated.
     }
     
-    func checkconnection(){
-        
-        
-        
-        var temp : [String] = []
-        var counter:Int = 0
-        var check : Int = 0
-        
-        let query = PFQuery(className:"Event")
-        let today = NSDate()
-        query.whereKey("endDate", greaterThanOrEqualTo: today)
-        query.findObjectsInBackgroundWithBlock({(objects: [PFObject]?, error:NSError?) -> Void in
-            
-            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.Indeterminate
-            loadingNotification.labelText = "Fetching data"
-            
-            // Looping through the objects to get the names of the workers in each object
-            
-            for object in objects! {
-                
-                //here to increase count if event++
-                temp.append(object["venue"] as! String)
-                
-            }
-            
-            print(temp)
-            
-            NSLog("Done Load Data")
-            self.eventname = temp
-            counter++
-            check++
-            
-            for(var y = 0 ; y < self.names.count; y++){
-                
-                var eventcounter:Int = 0
-                for(var z = 0 ; z < self.eventname.count; z++){
-                    let c : String = self.building.buildingName(room: self.eventname[z])
-                    if(self.eventname[z] == self.names[y] || c == self.names[y]){
-                        
-                        eventcounter++
-                        
-                    }
-                    self.eventcount[y] = String(eventcounter)
-                    
-                }
-                if(y == self.names.count-1){
-                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                    let object = self.buildingObject
-                        
-                        for (var y = 0 ; y < self.names.count ; y++){
-                            for item in object{
-                                let building = item["name"] as! String
-                                let coor = item["coordinate"] as! PFGeoPoint
-                                
-                                if (building == self.names[y]){
-                                    
-                                    let layer = item["layer"] as! String
 
-                                    self.button.append(self.setButton(self.a[y], label: self.names[y], eventnum: self.eventcount[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 150, height: 50)))
-                                
-                                    if(Float(layer) > self.scrollView.zoomScale) {
-                                        self.a[y].hidden = true
-                                        self.button[y+1].hidden = true
-                                        
-                                    }
-                                    else {
-                                        self.a[y].hidden = false
-                                        self.button[y+1].hidden = false
-                                    }
-                                    break
-                                
-                                }
-                        
-                        
-                        }
-                        
-                       
-                        
-                    }
-//                    var timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("addAnnotations"), userInfo: nil, repeats: false)
-                }
-            }
-            
-            
-        })
+    func setpoi(imageview :SpringImageView,size:CGRect,item:String,tag:Int) -> UIButton{
+        
+        let button :UIButton = UIButton()
+        button.frame = CGRect(x: size.origin.x-size.width/2, y: size.origin.y-size.height, width: size.width, height: size.height)
+        button.tag = tag
+//        button.backgroundColor = UIColor.blackColor()
+        var annot : UIImageView = UIImageView()
+        annot.frame = CGRectMake(0, 0, size.width, size.height)
+        var image : UIImage = UIImage()
+        var image1 : UIImageView = UIImageView()
+        image1 = imageview
+        image1.frame = size
+        
+        switch(item){
+        case "bus":
+            image = UIImage(named: "Bus")!
+        case "atm":
+            image = UIImage(named: "atm")!
+        case "food":
+            image = UIImage(named: "Food")!
+        case "clinic":
+            image = UIImage(named: "Clinic")!
+        case "washroom":
+            image = UIImage(named: "washroom")!
+        default:
+            break
+        }
+        
+        image1.bounds = CGRect(x: size.width/2, y: size.height, width: size.width, height: size.height)
+        annot = UIImageView(image:image)
+        
+        image1.addSubview(annot)
+        scrollView.scrollView.addSubview(image1)
+        scrollView.scrollView.addSubview(button)
+        
+        
+        return button
     }
-
+    
     
     func setButton( imageview : SpringImageView,label:String,eventnum:String,size:CGRect)->UIButton{
         
@@ -369,41 +437,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             if(sender.tag%names.count == x+1){
                 
                 Name.nameof = names[x]
-                
-                /*
-                var query = PFQuery(className:"Building")
-                query.whereKey("name", equalTo:Name.nameof)
-                query.findObjectsInBackgroundWithBlock({(objects:[PFQuery]?, error:NSError?) -> Void in
-                
-                if error == nil {
-                
-                
-                // Looping through the objects to get the names of the workers in each object
-                for object in objects! {
-                
-                Name.floor = object["floor"] as! Int
-                
-                
-                }
-                NSLog("Done Load Data")
-                }
-                
-                
-                })
-                
-                var gallery = PFQuery(className:"Gallery")
-                gallery.whereKey("venue", equalTo:Name.nameof)
-                gallery.findObjectsInBackgroundWithBlock {
-                (objects: [AnyObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                // The find succeeded.
-                Name.gallery = objects!.count
-                
-                }
-                
-                }
-                */
+               
                 
                 selectedBuilding = names[x]
                 selectedAlphabet = alphabet[x]
@@ -454,14 +488,14 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
 //        {
             if(first == true){
                 
-                image.frame = CGRect(x:image.frame.origin.x/lastscale, y: image.frame.origin.y/lastscale,width: 150, height: 50)
-                image.frame = CGRect(x:image.frame.origin.x*scale, y: image.frame.origin.y*scale,width: 150, height: 50)
+                image.frame = CGRect(x:image.frame.origin.x/lastscale, y: image.frame.origin.y/lastscale,width: image.frame.width, height: image.frame.height)
+                image.frame = CGRect(x:image.frame.origin.x*scale, y: image.frame.origin.y*scale,width: image.frame.width, height: image.frame.height)
                 
             }
             else if(first == false)
             {
-                image.frame = CGRect(x:image.frame.origin.x/thelastone, y: image.frame.origin.y/thelastone,width: 150, height: 50)
-                image.frame = CGRect(x:image.frame.origin.x*scale, y: image.frame.origin.y*scale,width: 150, height: 50)
+                image.frame = CGRect(x:image.frame.origin.x/thelastone, y: image.frame.origin.y/thelastone,width: image.frame.width, height: image.frame.height)
+                image.frame = CGRect(x:image.frame.origin.x*scale, y: image.frame.origin.y*scale,width: image.frame.width, height: image.frame.height)
                 
                 
             }
@@ -482,14 +516,14 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         scale = CGFloat(scrollView.zoomScale)
         
         if(first == true){
-            image.frame = CGRect(x:(image.frame.origin.x+75)/lastscale, y: (image.frame.origin.y+50)/lastscale,width: 170, height: 50)
-            image.frame = CGRect(x:(image.frame.origin.x*scale)-75, y: (image.frame.origin.y*scale)-50,width: 170, height: 50)
+            image.frame = CGRect(x:(image.frame.origin.x+image.frame.width/2)/lastscale, y: (image.frame.origin.y+image.frame.height)/lastscale,width: image.frame.width, height: image.frame.height)
+            image.frame = CGRect(x:(image.frame.origin.x*scale)-image.frame.width/2, y: (image.frame.origin.y*scale)-image.frame.height,width: image.frame.width, height: image.frame.height)
             
         }
         if(first == false)
         {
-            image.frame = CGRect(x:(image.frame.origin.x+75)/thelastone, y: (image.frame.origin.y+50)/thelastone,width: 170, height: 50)
-            image.frame = CGRect(x:(image.frame.origin.x*scale)-75, y: (image.frame.origin.y*scale)-50,width: 170, height: 50)
+            image.frame = CGRect(x:(image.frame.origin.x+image.frame.width/2)/thelastone, y: (image.frame.origin.y+image.frame.height)/thelastone,width: image.frame.width, height: image.frame.height)
+            image.frame = CGRect(x:(image.frame.origin.x*scale)-image.frame.width/2, y: (image.frame.origin.y*scale)-image.frame.height,width: image.frame.width, height: image.frame.height)
             
             
         }
@@ -497,6 +531,215 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
         
         return image.frame
+    }
+    
+    
+    func setpoiLocation(image:UIButton)->CGRect{
+        var scale:CGFloat;
+        
+        lastscale = 1
+        scale = CGFloat(scrollView.zoomScale)
+        
+        if(first == true){
+            NSLog("First is true")
+            image.frame = CGRect(x:(image.frame.origin.x+image.frame.width/2)/lastscale, y: (image.frame.origin.y+image.frame.height/2)/lastscale,width: image.frame.width, height: image.frame.height)
+            image.frame = CGRect(x:(image.frame.origin.x*scale)-image.frame.width/2, y: (image.frame.origin.y*scale)-image.frame.height,width: image.frame.width, height: image.frame.height)
+            
+            NSLog("LastScale:%f",thelastone)
+        }
+        if(first == false)
+        {
+            NSLog("First is false")
+            image.frame = CGRect(x:(image.frame.origin.x+image.frame.width/2)/thelastone, y: (image.frame.origin.y+image.frame.height/2)/thelastone,width: image.frame.width, height: image.frame.height)
+            image.frame = CGRect(x:(image.frame.origin.x*scale)-image.frame.width/2, y: (image.frame.origin.y*scale)-image.frame.height,width: image.frame.width, height: image.frame.height)
+            NSLog("LastScale:%f",thelastone)
+        }
+        
+        
+        
+        return image.frame
+    }
+    
+    
+    func downloadSheet(sender: AnyObject)
+    {
+        scrollView.setZoomScale(1, animated: true)
+        let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: nil , destructiveButtonTitle: nil, otherButtonTitles: "Building Details", "Bus Stop", "ATM", "Food", "Clinic","Wash Room")
+        
+        actionSheet.showInView(self.view)
+    }
+    
+    
+    func activeQR(sender:UIButton!){
+        
+        self.performSegueWithIdentifier("MapToQR", sender: nil)
+    }
+    
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int)
+    {
+    
+        numtype = buttonIndex
+        
+        if (buttonIndex == 0){
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                let object = self.buildingObject
+                
+                for item in object{
+                    let building = item["name"] as! String
+                    
+                    if (building == self.names[actionx]){
+                        let layer = item["layer"] as! String
+                        if(Float(layer) > scrollView.zoomScale) {
+                            self.buildingImage[actionx].hidden = true
+                            self.button[actionx+1].hidden = true
+                            
+                        }
+                        else {
+                            self.buildingImage[actionx].hidden = false
+                            self.button[actionx+1].hidden = false
+                            self.buildingImage[actionx].animation = "fadeIn"
+                            self.buildingImage[actionx].curve = "easeIn"
+                            self.buildingImage[actionx].duration = 2.5
+                            self.buildingImage[actionx].animate()
+                        }
+                        break
+                    }
+                    
+                    
+                }
+                getButton(buildingImage[actionx])
+                setButtonLocation(button[actionx+1])
+            }
+        }
+        else{
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                buildingImage[actionx].hidden = true
+                button[actionx].hidden = true
+            }
+        }
+        
+        
+        
+        if(count[buttonIndex] == 0){
+            for item in self.arrObject[buttonIndex]{
+                let type = item["type"] as! String
+                let coor = item["coordinate"] as! PFGeoPoint
+                self.arrButton[buttonIndex].append(self.setpoi(self.arrImage[buttonIndex][self.count[buttonIndex]], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: type, tag: self.count[buttonIndex]))
+                self.count[buttonIndex]++
+            }
+        }
+        
+        for (var c = 0 ; c < allPOI.count ; c++){
+            
+            for (var y = 0 ; y < arrImage[c].count-1 ; y++){
+                
+                if( c == buttonIndex){
+                    arrImage[c][y].hidden = false
+                    arrButton[c][y].hidden = false
+                    getButton(arrImage[c][y])
+                    setButtonLocation(arrButton[c][y])
+                    
+                }
+                
+                else if(arrButton[c].count > 1){
+                    arrImage[c][y].hidden = true
+                    arrButton[c][y].hidden = true
+                }
+                
+                
+            }
+
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
+    func checkconnection(){
+        
+        var temp : [String] = []
+        var counter:Int = 0
+        var check : Int = 0
+        
+        let query = PFQuery(className:"Event")
+        let today = NSDate()
+        query.whereKey("endDate", greaterThanOrEqualTo: today)
+        query.findObjectsInBackgroundWithBlock({(objects: [PFObject]?, error:NSError?) -> Void in
+            
+            
+            
+            // Looping through the objects to get the names of the workers in each object
+            
+            for object in objects! {
+                
+                //here to increase count if event++
+                temp.append(object["venue"] as! String)
+                
+            }
+            
+            print(temp)
+            
+            NSLog("Done Load Data")
+            self.eventname = temp
+            counter++
+            check++
+            
+            for(var y = 0 ; y < self.names.count; y++){
+                
+                var eventcounter:Int = 0
+                for(var z = 0 ; z < self.eventname.count; z++){
+                    let c : String = self.building.buildingName(room: self.eventname[z])
+                    if(self.eventname[z] == self.names[y] || c == self.names[y]){
+                        
+                        eventcounter++
+                        
+                    }
+                    self.eventcount[y] = String(eventcounter)
+                    
+                }
+                if(y == self.names.count-1){
+                   MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                    let object = self.buildingObject
+                    
+                    for (var y = 0 ; y < self.names.count ; y++){
+                        for item in object{
+                            let building = item["name"] as! String
+                            let coor = item["coordinate"] as! PFGeoPoint
+                            
+                            if (building == self.names[y]){
+                                
+                                let layer = item["layer"] as! String
+                                
+                                self.button.append(self.setButton(self.buildingImage[y], label: self.names[y], eventnum: self.eventcount[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 150, height: 50)))
+                                
+                                if(Float(layer) > self.scrollView.zoomScale) {
+                                    self.buildingImage[y].hidden = true
+                                    self.button[y+1].hidden = true
+                                    
+                                }
+                                else {
+                                    self.buildingImage[y].hidden = false
+                                    self.button[y+1].hidden = false
+                                }
+                                break
+                                
+                            }
+                            
+                            
+                        }
+                        
+                        
+                        
+                    }
+                }
+            }
+            
+            
+        })
     }
     /*
     // MARK: - Navigation
