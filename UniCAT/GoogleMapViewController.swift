@@ -22,6 +22,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var thelastone = CGFloat()
     var lastscale = CGFloat()
     var scale:CGFloat = 1
+    var lon = Double()
+    var lat = Double()
     
     let building = Building()
     
@@ -209,6 +211,16 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
         self.navigationItem.leftBarButtonItem = qrItem
         
+        
+        PFGeoPoint.geoPointForCurrentLocationInBackground {
+            (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+            if error == nil {
+                self.lon = geoPoint!.longitude as Double
+                self.lat = geoPoint!.latitude as Double
+                print(self.lat)
+                print(self.lon)
+            }
+        }
         
         //get data
         for (var a = 0 ; a < allPOI.count ; a++){
@@ -625,6 +637,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             for item in self.arrObject[buttonIndex]{
                 let type = item["type"] as! String
                 let coor = item["coordinate"] as! PFGeoPoint
+                
                 self.arrButton[buttonIndex].append(self.setpoi(self.arrImage[buttonIndex][self.count[buttonIndex]], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: type, tag: self.count[buttonIndex]))
                 self.count[buttonIndex]++
             }
@@ -632,9 +645,31 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
         for (var c = 0 ; c < allPOI.count ; c++){
             
+            if (c == buttonIndex){
+                print(arrObject[c])
+                
+                for item in arrObject[c]{
+                    let coor = item["coordinate"] as! PFGeoPoint
+                    let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
+                    let distance = coor.distanceInKilometersTo(userpoint)
+                    print(distance)
+                    
+                    let long = (CGFloat)((coor.longitude - longmin) / (longmax - longmin) * 1000)
+                    let lat = (CGFloat)((latmax - coor.latitude) / (latmax - latmin) * 1000)
+                    
+                    scrollView.scrollView.setContentOffset(CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
+                    
+                }
+                
+                
+                
+               
+                
+            }
             for (var y = 0 ; y < arrImage[c].count-1 ; y++){
                 
                 if( c == buttonIndex){
+                    
                     arrImage[c][y].hidden = false
                     arrButton[c][y+1].hidden = false
                     getButton(arrImage[c][y])
