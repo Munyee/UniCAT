@@ -638,10 +638,15 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 let type = item["type"] as! String
                 let coor = item["coordinate"] as! PFGeoPoint
                 
+                
                 self.arrButton[buttonIndex].append(self.setpoi(self.arrImage[buttonIndex][self.count[buttonIndex]], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: type, tag: self.count[buttonIndex]))
                 self.count[buttonIndex]++
             }
         }
+        
+        var check = 0
+        var short = 0.0
+        var point = PFGeoPoint()
         
         for (var c = 0 ; c < allPOI.count ; c++){
             
@@ -649,15 +654,41 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 print(arrObject[c])
                 
                 for item in arrObject[c]{
+                    
                     let coor = item["coordinate"] as! PFGeoPoint
                     let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
                     let distance = coor.distanceInKilometersTo(userpoint)
                     print(distance)
                     
-                    let long = (CGFloat)((coor.longitude - longmin) / (longmax - longmin) * 1000)
-                    let lat = (CGFloat)((latmax - coor.latitude) / (latmax - latmin) * 1000)
                     
-                    scrollView.scrollView.setContentOffset(CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
+                    if(short == 0){
+                        short = distance
+                        point = coor
+                        check++
+                    }
+                    else{
+                        if(distance < short){
+                            short = distance
+                            point = coor
+                            check++
+
+                        }
+                        else{
+                            check++
+                        }
+                    }
+                    
+                    
+                    
+                    if(check == arrObject[c].count){
+                        let long = (CGFloat)((point.longitude - longmin) / (longmax - longmin) * 1000)
+                        let lat = (CGFloat)((latmax - point.latitude) / (latmax - latmin) * 1000)
+                        
+                        scrollView.scrollView.setContentOffset(CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
+                    }
+                    
+                    
+                    
                     
                 }
                 
