@@ -2423,7 +2423,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="C0731503-0D79-4069-A4E3-6C0891CD32F0" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="5FD0ACCF-DB9A-475F-992D-20EA064C08F5" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -6434,7 +6434,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Common Food" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNv-44-UrT">
                                             <rect key="frame" x="98" y="17" width="125" height="25"/>
                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -6471,8 +6471,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Add Cover" width="70" height="92"/>
-        <image name="C0731503-0D79-4069-A4E3-6C0891CD32F0" width="36" height="32">
+        <image name="5FD0ACCF-DB9A-475F-992D-20EA064C08F5" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -6600,6 +6599,7 @@ G48bmBurG68buhvDG8gb0BvTG9gb5xvrG/Ib+hwHHAwcDhwQHBUcHRwgHCUcLRwwHEIcRRxKAAAAAAAA
 AgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAHEw
 </mutableData>
         </image>
+        <image name="Add Cover" width="70" height="92"/>
         <image name="Dropdown" width="15" height="9"/>
         <image name="Interest" width="24" height="24"/>
         <image name="Logo" width="512" height="512"/>

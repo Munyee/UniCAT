@@ -333,7 +333,8 @@
     
 
     if(marker.zIndex == 0){
-        infoWindow.customImage.image = self.staticimage;
+        infoWindow = [[[NSBundle mainBundle] loadNibNamed:@"InfoViewEmpty" owner:self options:nil]objectAtIndex:0];
+        infoWindow.label.text = @"Destination";
     }
     else
     {
@@ -426,17 +427,18 @@
                             
                             [pfFile addObject:object];
                             PFFile *image = [object valueForKey:@"Image"];
-                            [ways addObject:step.image];
                             [image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                                 if (!error) {
                                     [self.images addObject:[UIImage imageWithData:data]];
+                                    [ways addObject:step.image];
+                                    TCPlace *placeExtra = [[TCPlace alloc]init];
+                                    placeExtra.location = step.startLocation;
+                                    markerClick = true;
+                                    [self createMarkerForPlace:placeExtra onMap:self.mapView];
                                     
                                 }
                             }];
-                            TCPlace *placeExtra = [[TCPlace alloc]init];
-                            placeExtra.location = step.startLocation;
-                            markerClick = true;
-                            [self createMarkerForPlace:placeExtra onMap:self.mapView];
+                            
                             
                             NSLog(@"%@",object);
                         }

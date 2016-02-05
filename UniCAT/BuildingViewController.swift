@@ -18,6 +18,7 @@ class BuildingViewController: JPBFloatingTextViewController {
     var archive = 0
     var location:CLLocation = CLLocation(latitude: 0, longitude: 0)
     var colorArt = SLColorArt()
+    var buildingtype = ""
     
     let building = Building()
     let currentUser = PFUser.currentUser()
@@ -39,7 +40,7 @@ class BuildingViewController: JPBFloatingTextViewController {
         
         if currentBuilding == "Grand Hall" {
             self.setSubtitleText("Dewan Tun Ling Liong Sik")
-        } else if currentAlphabet == "U" {
+        } else if buildingtype != "building" {
             self.setSubtitleText("Kampar, Perak")
         } else {
             self.setSubtitleText("Block " + currentAlphabet)
@@ -128,7 +129,15 @@ class BuildingViewController: JPBFloatingTextViewController {
     */
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        if(buildingtype == "building"){
+            return 7
+        }
+        else if(buildingtype == "bus"){
+            return 6
+        }
+        else{
+            return 3
+        }
 //        return 6
     }
     
@@ -234,39 +243,71 @@ class BuildingViewController: JPBFloatingTextViewController {
             return cell
             
         case 4:
-            let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
-            
-            cell.icon.image = UIImage(named: "gallery")
-            cell.titleLabel.text = "Photo Gallery"
-            cell.countFrame.hidden = true
-            
-            return cell
-            
-        case 5:
-            if (currentUser?["approve"] as? String != "yes"){
+            if(buildingtype == "building"){
+                let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+                
+                cell.icon.image = UIImage(named: "gallery")
+                cell.titleLabel.text = "Photo Gallery"
+                cell.countFrame.hidden = true
+                
+                return cell
+            }
+            else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
                 
                 cell.selectionStyle = .None
                 cell.detailText.text = ""
                 
                 return cell
-            }else{
+            }
+            
+        case 5:
+            if(buildingtype == "building"){
+                if (currentUser?["approve"] as? String != "yes"){
+                    let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
+                    
+                    cell.selectionStyle = .None
+                    cell.detailText.text = ""
+                    
+                    return cell
+                }else{
+                    let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+                    
+                    cell.icon.image = UIImage(named: "gallery")
+                    cell.titleLabel.text = "Reported Image"
+                    cell.countFrame.hidden = true
+                    
+                    return cell
+                }
+            }
+            else{
+                let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
+                
+                cell.selectionStyle = .None
+                cell.detailText.text = ""
+                
+                return cell
+            }
+            
+        case 6:
+            if(buildingtype == "building"){
                 let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
                 
-                cell.icon.image = UIImage(named: "gallery")
-                cell.titleLabel.text = "Reported Image"
+                cell.icon.image = UIImage(named: "timetable")
+                cell.titleLabel.text = "Past Events"
                 cell.countFrame.hidden = true
                 
                 return cell
             }
-        case 6:
-            let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+            else{
+                let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
+                
+                cell.selectionStyle = .None
+                cell.detailText.text = ""
+                
+                return cell
+            }
             
-            cell.icon.image = UIImage(named: "timetable")
-            cell.titleLabel.text = "Past Events"
-            cell.countFrame.hidden = true
-            
-            return cell
             
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
@@ -286,9 +327,13 @@ class BuildingViewController: JPBFloatingTextViewController {
             return 0
         } else if (indexPath.row == 2 && !Reachability.isConnectedToNetwork()){
             return 0
-        } else  if indexPath.row == 5 && currentUser?["approve"] as? String != "yes"{
+        }else if indexPath.row == 4 && buildingtype != "building" {
             return 0
-        } else {
+        }else if indexPath.row == 5 && currentUser?["approve"] as? String != "yes" && buildingtype != "building"{
+            return 0
+        }else if indexPath.row == 6 && buildingtype != "building" {
+            return 0
+        }else {
             return UITableViewAutomaticDimension
         }
     }
@@ -320,8 +365,8 @@ class BuildingViewController: JPBFloatingTextViewController {
             
         }
         else if segue.identifier == "buildingtoNavigation"{
-            var navigationScene = segue.destinationViewController as! TCMapViewController
-            navigationScene.staticimage = UIImage(named: currentAlphabet)
+            let navigationScene = segue.destinationViewController as! TCMapViewController
+//            navigationScene.staticimage = UIImage(named: currentAlphabet)
             navigationScene.location = location
             
         }

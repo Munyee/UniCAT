@@ -110,6 +110,7 @@
 		CB42E8201C293C2500302D6B /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB42E8041C293C2500302D6B /* UnwindSegue.swift */; };
 		CB6D93651C27D1F1001A1ED9 /* UserFavFoodTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6D93641C27D1F1001A1ED9 /* UserFavFoodTableView.swift */; };
 		CB6D93671C27D534001A1ED9 /* UserFavFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6D93661C27D534001A1ED9 /* UserFavFoodTableViewCell.swift */; };
+		FE04002C1C637797005D6418 /* InfoViewEmpty.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE04002B1C637797005D6418 /* InfoViewEmpty.xib */; };
 		FE1455CC1C1EBFBC0091B03C /* overlay_park.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CA1C1EBFBC0091B03C /* overlay_park.png */; };
 		FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */; };
 		FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */; };
@@ -132,7 +133,6 @@
 		FE9BE37C1C53BD2C00BCC4BE /* NoDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9BE37A1C53BD2C00BCC4BE /* NoDataTableViewCell.xib */; };
 		FE9BE37E1C567B0900BCC4BE /* SortFoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE37D1C567B0900BCC4BE /* SortFoodTableViewController.swift */; };
 		FE9BE3801C56852400BCC4BE /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */; };
-		FE9BE3821C568DBE00BCC4BE /* backgroundImage.png in Resources */ = {isa = PBXBuildFile; fileRef = FE9BE3811C568DBE00BCC4BE /* backgroundImage.png */; };
 		FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */; };
 		FEE1DA731C4F30FB002B8E19 /* DEMOPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */; };
 		FEED415D1C1E8D24002A8049 /* DefineLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415C1C1E8D24002A8049 /* DefineLocation.swift */; };
@@ -305,6 +305,7 @@
 		CB42E8041C293C2500302D6B /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		CB6D93641C27D1F1001A1ED9 /* UserFavFoodTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFavFoodTableView.swift; sourceTree = "<group>"; };
 		CB6D93661C27D534001A1ED9 /* UserFavFoodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFavFoodTableViewCell.swift; sourceTree = "<group>"; };
+		FE04002B1C637797005D6418 /* InfoViewEmpty.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoViewEmpty.xib; sourceTree = "<group>"; };
 		FE1455CA1C1EBFBC0091B03C /* overlay_park.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_park.png; sourceTree = "<group>"; };
 		FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "overlay_park@2x.png"; sourceTree = "<group>"; };
 		FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
@@ -327,7 +328,6 @@
 		FE9BE37A1C53BD2C00BCC4BE /* NoDataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoDataTableViewCell.xib; sourceTree = "<group>"; };
 		FE9BE37D1C567B0900BCC4BE /* SortFoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortFoodTableViewController.swift; sourceTree = "<group>"; };
 		FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
-		FE9BE3811C568DBE00BCC4BE /* backgroundImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundImage.png; sourceTree = "<group>"; };
 		FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FEE1DA711C4F30FB002B8E19 /* DEMOPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOPhoto.h; sourceTree = "<group>"; };
 		FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOPhoto.m; sourceTree = "<group>"; };
@@ -734,7 +734,6 @@
 		FE1455CE1C1ECC980091B03C /* Food Module */ = {
 			isa = PBXGroup;
 			children = (
-				FE9BE3811C568DBE00BCC4BE /* backgroundImage.png */,
 				FE58005E1C254B900010DB1F /* ImageView.swift */,
 				FE1455CF1C1ECCB10091B03C /* FoodViewController.swift */,
 				FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */,
@@ -914,6 +913,7 @@
 				FEED41BE1C1EA6A2002A8049 /* TCStepsViewController.m */,
 				FEED41BF1C1EA6A2002A8049 /* TCMapViewController.h */,
 				FEED41C01C1EA6A2002A8049 /* TCMapViewController.m */,
+				FE04002B1C637797005D6418 /* InfoViewEmpty.xib */,
 			);
 			name = "Navigation Module";
 			sourceTree = "<group>";
@@ -1007,7 +1007,7 @@
 				84B4ADCF1B044280007F1404 /* Main.storyboard in Resources */,
 				FE9BE3741C538AD500BCC4BE /* TimeTableTableViewCell.xib in Resources */,
 				8445664A1B3AAC430086B8D4 /* Map.pdf in Resources */,
-				FE9BE3821C568DBE00BCC4BE /* backgroundImage.png in Resources */,
+				FE04002C1C637797005D6418 /* InfoViewEmpty.xib in Resources */,
 				FE1455CC1C1EBFBC0091B03C /* overlay_park.png in Resources */,
 				84B4ADD41B044280007F1404 /* LaunchScreen.xib in Resources */,
 				FEED41C61C1EA767002A8049 /* InfoView.xib in Resources */,
