@@ -11,15 +11,23 @@ import Foundation
 
 class BuildingViewController: JPBFloatingTextViewController {
     
+    struct timeTable{
+        static var name = "";
+        static var timetableArr = [String]()
+        static var image = UIImage()
+        static var cap = ""
+    }
+    
     var currentBuilding = ""
     var currentAlphabet = ""
+    var details = ""
     var eventCount = ""
     var type = 0
     var archive = 0
     var location:CLLocation = CLLocation(latitude: 0, longitude: 0)
     var colorArt = SLColorArt()
     var buildingtype = ""
-    
+    var table = ""
     let building = Building()
     let currentUser = PFUser.currentUser()
     
@@ -40,6 +48,8 @@ class BuildingViewController: JPBFloatingTextViewController {
         
         if currentBuilding == "Grand Hall" {
             self.setSubtitleText("Dewan Tun Ling Liong Sik")
+        } else if buildingtype == "washroom"{
+            self.setSubtitleText("Washroom")
         } else if buildingtype != "building" {
             self.setSubtitleText("Kampar, Perak")
         } else {
@@ -133,10 +143,10 @@ class BuildingViewController: JPBFloatingTextViewController {
             return 7
         }
         else if(buildingtype == "bus"){
-            return 6
+            return 5
         }
         else{
-            return 3
+            return 4
         }
 //        return 6
     }
@@ -154,8 +164,73 @@ class BuildingViewController: JPBFloatingTextViewController {
             self.navigationController?.popViewControllerAnimated(true)
             
         case 4: //Photo Gallery
-            archive = 0
-            self.performSegueWithIdentifier("buildingToPhoto", sender: nil)
+            if buildingtype == "bus" {
+                
+                let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                loadingNotification.yOffset = Float(tableView.contentSize.height) - Float((UIScreen.mainScreen().bounds.height/2.5))
+                loadingNotification.mode = MBProgressHUDMode.Indeterminate
+                loadingNotification.labelText = "Fetching data"
+                let query = PFQuery(className:"QRCode")
+                query.whereKey("name", equalTo: currentAlphabet)
+                query.findObjectsInBackgroundWithBlock {
+                    (objects: [PFObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        
+                        
+                        
+                        
+                        // The find succeeded.
+                        print("Successfully retrieved \(objects!.count) scores.")
+                        // Do something with the found objects
+                        if let objects = objects {
+                            for object in objects {
+                                
+                                if(object["Timetable"] != nil){
+                                    
+                                    
+                                    self.table = object["Timetable"] as! String
+                                }
+                                
+                                
+                                BuildingViewController.timeTable.name = object["roomName"] as! String
+                                
+                                BuildingViewController.timeTable.timetableArr = self.table.characters.split{$0 == "\n"}.map(String.init)
+                                
+                                
+                                BuildingViewController.timeTable.cap = object["details"] as! String
+                                
+                                let image = object["image"] as! PFFile
+                                image.getDataInBackgroundWithBlock {
+                                    (imageData: NSData?, error: NSError?) -> Void in
+                                    if error == nil {
+                                        if let imageData = imageData {
+                                            
+                                            BuildingViewController.timeTable.image = UIImage(data:imageData)!
+                                            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                            
+                                            self.performSegueWithIdentifier("buildingToTimetable", sender: nil)
+                                            
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        }
+                        
+                    } else {
+                        // Log details of the failure
+                        print("Error: \(error!) \(error!.userInfo)")
+                    }
+                    
+                }
+                
+                
+            } else {
+                archive = 0
+                self.performSegueWithIdentifier("buildingToPhoto", sender: nil)
+            }
         case 5:
             archive = 1
             self.performSegueWithIdentifier("buildingToPhoto", sender: nil)
@@ -174,7 +249,13 @@ class BuildingViewController: JPBFloatingTextViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
             
             cell.selectionStyle = .None
-            cell.detailText.text = building.buildingDetail(room: currentAlphabet)
+            
+            if details == "" {
+                cell.detailText.text = building.buildingDetail(room: self.currentAlphabet)
+            }
+            else {
+                cell.detailText.text = details
+            }
             
             return cell
             
@@ -243,7 +324,18 @@ class BuildingViewController: JPBFloatingTextViewController {
             return cell
             
         case 4:
-            if(buildingtype == "building"){
+            if(buildingtype == "bus"){
+                let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+                
+                cell.selectionStyle = .None
+                cell.icon.image = UIImage(named: "timetable")
+                cell.titleLabel.text = "Timetable"
+                cell.countFrame.hidden = true
+                
+                return cell
+                
+            }
+            else if(buildingtype == "building"){
                 let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
                 
                 cell.icon.image = UIImage(named: "gallery")
@@ -327,7 +419,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             return 0
         } else if (indexPath.row == 2 && !Reachability.isConnectedToNetwork()){
             return 0
-        }else if indexPath.row == 4 && buildingtype != "building" {
+        }else if indexPath.row == 4 && buildingtype != "building" && buildingtype != "bus"{
             return 0
         }else if indexPath.row == 5 && currentUser?["approve"] as? String != "yes" && buildingtype != "building"{
             return 0

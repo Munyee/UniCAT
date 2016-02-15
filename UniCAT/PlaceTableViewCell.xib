@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="65" id="Suy-pd-iYv" userLabel="Place Table View Cell" customClass="PlaceTableViewCell" customModule="UniCAT" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Suy-pd-iYv" id="413-Ez-6PX">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHT-iY-vsM">
+                        <rect key="frame" x="20" y="14" width="280" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="AvZ-gE-prk"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgY-zI-Ms0">
+                        <rect key="frame" x="20" y="51" width="280" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="iOk-Qw-1u0"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vd6-03-Rci">
+                        <rect key="frame" x="20" y="12" width="280" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="gRo-bw-7eI"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vgY-zI-Ms0" firstAttribute="top" secondItem="BHT-iY-vsM" secondAttribute="bottom" constant="1" id="6Uq-jo-PfZ"/>
+                    <constraint firstItem="BHT-iY-vsM" firstAttribute="top" secondItem="Vd6-03-Rci" secondAttribute="bottom" constant="1" id="76Y-sd-7O2"/>
+                    <constraint firstItem="Vd6-03-Rci" firstAttribute="top" secondItem="413-Ez-6PX" secondAttribute="top" constant="12" id="KaB-RY-zzZ"/>
+                    <constraint firstItem="Vd6-03-Rci" firstAttribute="leading" secondItem="413-Ez-6PX" secondAttribute="leading" constant="20" id="QaZ-VY-Xaz"/>
+                    <constraint firstItem="vgY-zI-Ms0" firstAttribute="leading" secondItem="413-Ez-6PX" secondAttribute="leading" constant="20" id="Ugr-Es-jqN"/>
+                    <constraint firstAttribute="trailing" secondItem="vgY-zI-Ms0" secondAttribute="trailing" constant="20" id="WbZ-BX-YaM"/>
+                    <constraint firstAttribute="trailing" secondItem="Vd6-03-Rci" secondAttribute="trailing" constant="20" id="dt9-3F-xpH"/>
+                    <constraint firstItem="BHT-iY-vsM" firstAttribute="leading" secondItem="413-Ez-6PX" secondAttribute="leading" constant="20" id="eXY-gj-026"/>
+                    <constraint firstAttribute="trailing" secondItem="BHT-iY-vsM" secondAttribute="trailing" constant="20" id="iIA-0C-omR"/>
+                    <constraint firstAttribute="bottom" secondItem="vgY-zI-Ms0" secondAttribute="bottom" constant="12" id="rHP-k0-aVE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="place" destination="BHT-iY-vsM" id="OGm-S8-MfE"/>
+            </connections>
+            <point key="canvasLocation" x="269" y="295"/>
+        </tableViewCell>
+    </objects>
+</document>

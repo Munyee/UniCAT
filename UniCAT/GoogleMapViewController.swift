@@ -38,6 +38,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var arrObject = [Set<PFObject>()]
     var arrAlphabet = [[String()]]
     var arrNames = [[String()]]
+    var arrDetails = [[String()]]
     var arrImage = [[SpringImageView()]]
     
     var numtype = 0
@@ -66,6 +67,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var selectedBuilding = ""
     var selectedAlphabet = ""
     var selectedEventCount = ""
+    var selectedDetails = ""
     var names:[String] = []
     var alphabet:[String] = []
     var eventcount: [String] = []
@@ -182,6 +184,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             arrImage.insert(tempImage, atIndex: x)
             arrAlphabet.insert(tempAlphabet, atIndex: x)
             arrNames.insert(tempAlphabet, atIndex: x)
+            arrDetails.insert(tempAlphabet, atIndex: x)
             count.insert(0, atIndex: x)
         }
         
@@ -250,6 +253,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                             let mode = object["mode"] as! String
                             let building = object["name"] as! String
                             let alp = object["alphabet"] as! String
+                            let details = object["details"] as! String
                             
                             switch(mode){
                             case "normal":
@@ -260,6 +264,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                     self.eventcount.append("o")
                                     
                                     self.names.append(building)
+                                    
                                     self.alphabet.append(alp)
                                     self.buildingObject.insert(object)
                                     if self.buildingObject.count == 16{
@@ -536,6 +541,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             detailScene.currentAlphabet = selectedAlphabet
             detailScene.eventCount = selectedEventCount
             detailScene.buildingtype = buildingType
+            detailScene.details = selectedDetails
         }
     }
     
@@ -644,6 +650,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         if (actionSheet.tag == 1){
             if (buttonIndex > 0){
                 numtype = buttonIndex-1
+                self.buildingType = allPOI[numtype]
             }
             
             if (buttonIndex == 0){
@@ -655,9 +662,6 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                     
                     for item in object{
                         let building = item["name"] as! String
-                        let type = item["type"] as! String
-                        
-                        self.buildingType = type
 
                     
                         if (building == self.names[actionx]){
@@ -708,11 +712,12 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                         let coor = item["coordinate"] as! PFGeoPoint
                         let name = item["name"] as! String
                         let alp = item["alphabet"] as! String
+                        let details = item["details"] as! String
                         self.buildingType = type
                         
                         self.arrAlphabet[numtype].append(alp)
                         self.arrNames[numtype].append(name)
-                        
+                        self.arrDetails[numtype].append(details)
                         for(var x = 0 ; x < alphabet.count ; x++){
                             if(alphabet[x] == alp){
                                 self.arrButton[buttonIndex-1].append(self.setpoi(self.arrImage[buttonIndex-1][self.count[buttonIndex-1]], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: type, block: name,tag:self.count[buttonIndex-1]))
@@ -900,9 +905,14 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     
     
     func busPress(sender: UIButton!){
-        print("Pressed", arrAlphabet[numtype][sender.tag+1])
-        print(arrNames[numtype][sender.tag+1])
-        
+//        print("Pressed", arrAlphabet[numtype][sender.tag+1])
+//        print(arrNames[numtype][sender.tag+1])
+
+        selectedBuilding = arrNames[numtype][sender.tag+1]
+        selectedAlphabet = arrAlphabet[numtype][sender.tag+1]
+        selectedEventCount = "0"
+        selectedDetails = arrDetails[numtype][sender.tag+1]
+        self.performSegueWithIdentifier("mapToBuilding", sender: nil)
     }
     /*
     // MARK: - Navigation

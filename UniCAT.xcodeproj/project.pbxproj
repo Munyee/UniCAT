@@ -121,6 +121,11 @@
 		FE58005F1C254B900010DB1F /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE58005E1C254B900010DB1F /* ImageView.swift */; };
 		FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */; };
 		FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */; };
+		FE8C534F1C70931500A07D6E /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8C534D1C70931500A07D6E /* PlaceTableViewCell.swift */; };
+		FE8C53501C70931500A07D6E /* PlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE8C534E1C70931500A07D6E /* PlaceTableViewCell.xib */; };
+		FE8C53531C70B24A00A07D6E /* BusTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8C53511C70B24A00A07D6E /* BusTimeTableViewCell.swift */; };
+		FE8C53541C70B24A00A07D6E /* BusTimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE8C53521C70B24A00A07D6E /* BusTimeTableViewCell.xib */; };
+		FE8C53561C70C33700A07D6E /* TimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8C53551C70C33700A07D6E /* TimeTableViewController.swift */; };
 		FE9BE3681C53559000BCC4BE /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE3651C53559000BCC4BE /* QRCodeViewController.swift */; };
 		FE9BE3691C53559000BCC4BE /* QRScanTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE3661C53559000BCC4BE /* QRScanTableViewController.swift */; };
 		FE9BE36A1C53559000BCC4BE /* QRCodeTableViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE3671C53559000BCC4BE /* QRCodeTableViewControllerCell.swift */; };
@@ -316,6 +321,11 @@
 		FE58005E1C254B900010DB1F /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewController.swift; sourceTree = "<group>"; };
 		FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewCell.swift; sourceTree = "<group>"; };
+		FE8C534D1C70931500A07D6E /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
+		FE8C534E1C70931500A07D6E /* PlaceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceTableViewCell.xib; sourceTree = "<group>"; };
+		FE8C53511C70B24A00A07D6E /* BusTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusTimeTableViewCell.swift; sourceTree = "<group>"; };
+		FE8C53521C70B24A00A07D6E /* BusTimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusTimeTableViewCell.xib; sourceTree = "<group>"; };
+		FE8C53551C70C33700A07D6E /* TimeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableViewController.swift; sourceTree = "<group>"; };
 		FE9BE3651C53559000BCC4BE /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		FE9BE3661C53559000BCC4BE /* QRScanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScanTableViewController.swift; sourceTree = "<group>"; };
 		FE9BE3671C53559000BCC4BE /* QRCodeTableViewControllerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeTableViewControllerCell.swift; sourceTree = "<group>"; };
@@ -525,6 +535,7 @@
 				FE1455CA1C1EBFBC0091B03C /* overlay_park.png */,
 				FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */,
 				FE1DE4F51C58826D0093A43F /* GoogleMapViewController.swift */,
+				FE8C53551C70C33700A07D6E /* TimeTableViewController.swift */,
 				8440AE061B4020440012A31E /* Cell */,
 				8445665A1B3AE14E0086B8D4 /* JPBParallax */,
 				844566461B3AAB420086B8D4 /* JCTiledScrollView */,
@@ -629,13 +640,9 @@
 		84B4ADC71B04427F007F1404 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FE8C53481C7092A800A07D6E /* BusTimeTable */,
 				84B4ADC81B044280007F1404 /* Info.plist */,
-				FE9BE3711C538AD500BCC4BE /* TimeTableTableViewCell.swift */,
-				FE9BE3721C538AD500BCC4BE /* TimeTableTableViewCell.xib */,
-				FE9BE3751C538D3600BCC4BE /* DayTableViewCell.swift */,
-				FE9BE3761C538D3600BCC4BE /* DayTableViewCell.xib */,
-				FE9BE3791C53BD2C00BCC4BE /* NoDataTableViewCell.swift */,
-				FE9BE37A1C53BD2C00BCC4BE /* NoDataTableViewCell.xib */,
+				FE8C53471C70929E00A07D6E /* QRCodeTimeTable */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -745,6 +752,30 @@
 				FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */,
 			);
 			name = "Food Module";
+			sourceTree = "<group>";
+		};
+		FE8C53471C70929E00A07D6E /* QRCodeTimeTable */ = {
+			isa = PBXGroup;
+			children = (
+				FE9BE3711C538AD500BCC4BE /* TimeTableTableViewCell.swift */,
+				FE9BE3721C538AD500BCC4BE /* TimeTableTableViewCell.xib */,
+				FE9BE3751C538D3600BCC4BE /* DayTableViewCell.swift */,
+				FE9BE3761C538D3600BCC4BE /* DayTableViewCell.xib */,
+				FE9BE3791C53BD2C00BCC4BE /* NoDataTableViewCell.swift */,
+				FE9BE37A1C53BD2C00BCC4BE /* NoDataTableViewCell.xib */,
+			);
+			name = QRCodeTimeTable;
+			sourceTree = "<group>";
+		};
+		FE8C53481C7092A800A07D6E /* BusTimeTable */ = {
+			isa = PBXGroup;
+			children = (
+				FE8C534D1C70931500A07D6E /* PlaceTableViewCell.swift */,
+				FE8C534E1C70931500A07D6E /* PlaceTableViewCell.xib */,
+				FE8C53511C70B24A00A07D6E /* BusTimeTableViewCell.swift */,
+				FE8C53521C70B24A00A07D6E /* BusTimeTableViewCell.xib */,
+			);
+			name = BusTimeTable;
 			sourceTree = "<group>";
 		};
 		FE9BE3641C53555F00BCC4BE /* QRCodeModule */ = {
@@ -1009,9 +1040,11 @@
 				8445664A1B3AAC430086B8D4 /* Map.pdf in Resources */,
 				FE04002C1C637797005D6418 /* InfoViewEmpty.xib in Resources */,
 				FE1455CC1C1EBFBC0091B03C /* overlay_park.png in Resources */,
+				FE8C53541C70B24A00A07D6E /* BusTimeTableViewCell.xib in Resources */,
 				84B4ADD41B044280007F1404 /* LaunchScreen.xib in Resources */,
 				FEED41C61C1EA767002A8049 /* InfoView.xib in Resources */,
 				847C70C81B3B093300953B54 /* DetailTableViewCell.xib in Resources */,
+				FE8C53501C70931500A07D6E /* PlaceTableViewCell.xib in Resources */,
 				FE9BE37C1C53BD2C00BCC4BE /* NoDataTableViewCell.xib in Resources */,
 				FE1455CD1C1EBFBC0091B03C /* overlay_park@2x.png in Resources */,
 				8403A3AF1B3C57DC00EF6C84 /* SelectionTableViewCell.xib in Resources */,
@@ -1128,6 +1161,7 @@
 				844566501B3AB3B90086B8D4 /* Reachability.swift in Sources */,
 				FEED41831C1EA4EF002A8049 /* TCDistance.m in Sources */,
 				844566571B3AE1490086B8D4 /* JPBFloatingTextViewController.m in Sources */,
+				FE8C53531C70B24A00A07D6E /* BusTimeTableViewCell.swift in Sources */,
 				FEED41C71C1EA767002A8049 /* CustomInfoWindow.m in Sources */,
 				FEED41BA1C1EA5BB002A8049 /* TCPlacesServiceStatusCode.m in Sources */,
 				84CB2CEB1B39453900E8B569 /* MainTableViewCell.swift in Sources */,
@@ -1152,9 +1186,11 @@
 				FEED41B71C1EA5BB002A8049 /* TCPlacesService.m in Sources */,
 				FEED41811C1EA4EF002A8049 /* TCDirectionsLeg.m in Sources */,
 				1862BFD31B84BD6C00F481D0 /* IntroViewController.swift in Sources */,
+				FE8C534F1C70931500A07D6E /* PlaceTableViewCell.swift in Sources */,
 				FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */,
 				844566431B3AAB350086B8D4 /* JCTiledScrollView.m in Sources */,
 				FEED417E1C1EA4EF002A8049 /* TCDirectionsParameters.m in Sources */,
+				FE8C53561C70C33700A07D6E /* TimeTableViewController.swift in Sources */,
 				FEED41951C1EA556002A8049 /* TCPlaceDetailsService.m in Sources */,
 				847315D91B37E5240037D750 /* MenuController.swift in Sources */,
 				CB42E8111C293C2500302D6B /* DesignableTabBarController.swift in Sources */,
