@@ -62,7 +62,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var atmObject = Set<PFObject>()
     
     var count = [Int]()
-    let allPOI = ["building", "department", "bus", "atm","bank", "food", "clinic","book","washroom","sport","gym"]
+    let allPOI = ["building", "departments", "bus", "atm","bank", "food", "clinic","book","washroom","sport","gym"]
     let departments = ["DACE", "DPP", "ITISC", "CEE", "IPSR", "DCCPR", "DISS", "DGS", "DEF", "DSS", "DARP", "DSSC", "DSA", "DFN", "DEAS"]
     var selectedBuilding = ""
     var selectedAlphabet = ""
@@ -278,7 +278,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                     self.arrImage[index].append(image)
                                     self.arrObject[index].insert(object)
                                     
-                                case "department":
+                                case "departments":
                                    let index = 1
                                     let tempButton = [UIButton()]
                                     self.arrButton.insert(tempButton, atIndex: index)
@@ -408,6 +408,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         switch(item){
         case "bus":
             image = UIImage(named: "Bus")!
+        case "departments":
+            image = UIImage(named: "dep")!
         case "atm":
             image = UIImage(named: "atm")!
         case "bank":
@@ -649,14 +651,22 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
         if (actionSheet.tag == 1){
             if (buttonIndex > 0){
-                numtype = buttonIndex-1
+                numtype = buttonIndex - 1
                 self.buildingType = allPOI[numtype]
             }
             
-            if (buttonIndex == 0){
+            if (buttonIndex == 2){
+                let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: nil , destructiveButtonTitle: nil, otherButtonTitles: "Department of Admissions and Credit Evaluation", "Division of Programme Promotion", "IT Infrastructure and Support Centre", "Centre for Extension Education",  "Institute of Postgraduate Studies and Research", "Division of Corporate Communication and Public Relation", "Department of International Student Service", "Department of General Services", "Department of Estate and Facilities", "Department of Safety and Security", "Deparment of Alumni Relations and Placement", "Department of Soft Skills Competency", "Department of Student Affairs", "Division of Finance", "Division of Examination, Awards and Scholarship")
+                actionSheet.tag = 2
+                actionSheet.showInView(self.view)
+            }
+            
+            
+            else if (buttonIndex == 0){
                 actionSheet.dismissWithClickedButtonIndex(0, animated: true)
             }
-            else if (buttonIndex == 1){
+            
+            if (buttonIndex == 1 && buttonIndex != 2){
                 for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
                     let object = self.buildingObject
                     
@@ -688,12 +698,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                     setButtonLocation(button[actionx+1])
                 }
             }
-            else if (buttonIndex == 2){
-                let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel" , destructiveButtonTitle: nil, otherButtonTitles: "Department of Admissions and Credit Evaluation", "Division of Programme Promotion", "IT Infrastructure and Support Centre", "Centre for Extension Education",  "Institute of Postgraduate Studies and Research", "Division of Corporate Communication and Public Relation", "Department of International Student Service", "Department of General Services", "Department of Estate and Facilities", "Department of Safety and Security", "Deparment of Alumni Relations and Placement", "Department of Soft Skills Competency", "Department of Student Affairs", "Division of Finance", "Division of Examination, Awards and Scholarship")
-                actionSheet.tag = 2
-                actionSheet.showInView(self.view)
-            }
-            else{
+            
+            else if(buttonIndex > 1){
                 for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
                     buildingImage[actionx].hidden = true
                     button[actionx].hidden = true
@@ -703,9 +709,10 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
             if (buttonIndex > 0){
                 
+                
                 if(count[buttonIndex-1] == 0){
                     
-                        
+                    
                             
                     for item in self.arrObject[buttonIndex-1]{
                         let type = item["type"] as! String
@@ -735,7 +742,10 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 
                 for (var c = 0 ; c < allPOI.count ; c++){
                     
-                    if (c == buttonIndex-1){
+                    if (buttonIndex == 2){
+                        
+                    }
+                    else if (c == buttonIndex-1){
                         print(arrObject[c])
                         
                         for item in arrObject[c]{
@@ -783,9 +793,10 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                         
                         
                     }
+                    
                     for (var y = 0 ; y < arrImage[c].count-1 ; y++){
                         
-                        if( c == buttonIndex-1){
+                        if( c == buttonIndex-1 && buttonIndex != 2){
                             
                             arrImage[c][y].hidden = false
                             arrButton[c][y+1].hidden = false
@@ -798,7 +809,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                             
                         }
                             
-                        else if(arrButton[c].count > 1){
+                        else if(arrButton[c].count > 1 && buttonIndex != 2){
                             arrImage[c][y].hidden = true
                             arrButton[c][y+1].hidden = true
                         }
@@ -807,11 +818,109 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                     }
                     
                     
+                    
                 }
             }
         }
         else if (actionSheet.tag == 2){
+
+            for (var y = 0 ; y < arrImage[1].count-1 ; y++){
+                
+               if(arrButton[1].count > 1){
+                    arrImage[1][y].hidden = true
+                    arrButton[1][y+1].hidden = true
+                }
+                
+                
+            }
             
+            if(buttonIndex > 0){
+                var x = 0
+               var t = 0
+                for item in arrObject[1]{
+                    let type = item["type"] as! String
+                    let coor = item["coordinate"] as! PFGeoPoint
+                    let name = item["name"] as! String
+                    let alp = item["alphabet"] as! String
+                    let details = item["details"] as! String
+                    
+                    if name == departments[buttonIndex]{
+                        arrImage[1][x].hidden = false
+                        arrButton[1][x+1].hidden = false
+                        self.arrImage[1][x].animation = "fadeIn"
+                        self.arrImage[1][x].curve = "easeIn"
+                        self.arrImage[1][x].duration = 2.5
+                        self.arrImage[1][x].animate()
+                        getButton(arrImage[1][x])
+                        setButtonLocation(arrButton[1][x+1])
+                        let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
+                        let distance = coor.distanceInKilometersTo(userpoint)
+                       
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                            let long = (CGFloat)((coor.longitude - longmin) / (longmax - longmin) * 1000)
+                            let lat = (CGFloat)((latmax - coor.latitude) / (latmax - latmin) * 1000)
+                            scrollView.scrollView.setContentOffset (CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
+                        
+
+                        x++
+                    }
+                    else{
+                        x++
+                    }
+                }
+                
+            }
+//                    for item in arrObject[c]{
+//                        
+//                        let coor = item["coordinate"] as! PFGeoPoint
+//                        let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
+//                        let distance = coor.distanceInKilometersTo(userpoint)
+//                        print(distance)
+//                        
+//                        
+//                        if(short == 0){
+//                            short = distance
+//                            point = coor
+//                            select = c
+//                            check++
+//                        }
+//                        else{
+//                            if(distance < short){
+//                                short = distance
+//                                point = coor
+//                                select = c
+//                                check++
+//                                
+//                            }
+//                            else{
+//                                check++
+//                            }
+//                        }
+//                        
+//                        
+//                        
+//                        if(check == arrObject[c].count){
+//                            let long = (CGFloat)((point.longitude - longmin) / (longmax - longmin) * 1000)
+//                            let lat = (CGFloat)((latmax - point.latitude) / (latmax - latmin) * 1000)
+//                            scrollView.scrollView.setContentOffset (CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
+//                        }
+//                        
+//                        
+//                        
+//                        
+//                    }
+//                    
+//                    
+//                    
+//                    
+//                    
+//                }
         }
         
         

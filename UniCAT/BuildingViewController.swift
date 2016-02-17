@@ -17,7 +17,7 @@ class BuildingViewController: JPBFloatingTextViewController {
         static var image = UIImage()
         static var cap = ""
     }
-    
+    var telephone = ""
     var currentBuilding = ""
     var currentAlphabet = ""
     var details = ""
@@ -96,6 +96,14 @@ class BuildingViewController: JPBFloatingTextViewController {
             
         }
         
+        switch(currentBuilding){
+        case "DACE" :
+            telephone = "054688888"
+        case "DPP" :
+            telephone = "0162233557"
+        default:
+            telephone = "054688888"
+        }
         
         
         //Self-sizing Cells
@@ -142,7 +150,7 @@ class BuildingViewController: JPBFloatingTextViewController {
         if(buildingtype == "building"){
             return 7
         }
-        else if(buildingtype == "bus"){
+        else if(buildingtype == "bus" || buildingtype == "departments"){
             return 5
         }
         else{
@@ -227,7 +235,15 @@ class BuildingViewController: JPBFloatingTextViewController {
                 }
                 
                 
-            } else {
+            } else if buildingtype == "departments"{
+                let phone = Int(telephone)
+                
+                    if let url = NSURL(string: "telprompt://+60\(phone!)") {
+                        UIApplication.sharedApplication().openURL(url)
+                    }
+                
+            
+            }else {
                 archive = 0
                 self.performSegueWithIdentifier("buildingToPhoto", sender: nil)
             }
@@ -344,6 +360,15 @@ class BuildingViewController: JPBFloatingTextViewController {
                 
                 return cell
             }
+            else if (buildingtype == "departments"){
+                let cell = tableView.dequeueReusableCellWithIdentifier("SelectionTableViewCell", forIndexPath: indexPath) as! SelectionTableViewCell
+                
+                cell.icon.image = UIImage(named: "phone")
+                cell.titleLabel.text = "Call"
+                cell.countFrame.hidden = true
+                
+                return cell
+            }
             else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("DetailTableViewCell", forIndexPath: indexPath) as! DetailTableViewCell
                 
@@ -419,7 +444,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             return 0
         } else if (indexPath.row == 2 && !Reachability.isConnectedToNetwork()){
             return 0
-        }else if indexPath.row == 4 && buildingtype != "building" && buildingtype != "bus"{
+        }else if indexPath.row == 4 && buildingtype != "building" && buildingtype != "bus" && buildingtype != "departments" {
             return 0
         }else if indexPath.row == 5 && currentUser?["approve"] as? String != "yes" && buildingtype != "building"{
             return 0
