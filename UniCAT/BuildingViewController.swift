@@ -446,7 +446,7 @@ class BuildingViewController: JPBFloatingTextViewController {
             return 0
         }else if indexPath.row == 4 && buildingtype != "building" && buildingtype != "bus" && buildingtype != "departments" {
             return 0
-        }else if indexPath.row == 5 && currentUser?["approve"] as? String != "yes" && buildingtype != "building"{
+        }else if indexPath.row == 5 && currentUser?["approve"] as? String != "yes" {
             return 0
         }else if indexPath.row == 6 && buildingtype != "building" {
             return 0
