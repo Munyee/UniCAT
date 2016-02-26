@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTileSource,UIActionSheetDelegate {
+class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTileSource,UIActionSheetDelegate, MapRefreshViewDelegate {
 
     
     struct Name{
@@ -17,6 +17,11 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         static var floor : Int = 0
         static var gallery : Int = 0
     }
+    
+    @IBOutlet weak var cap: SpringImageView!
+    @IBOutlet weak var typeButton: UIButton!
+    var typeName = ["UniCAT", "Convocation"]
+    var selection = 0
     
     var first = Bool()
     var thelastone = CGFloat()
@@ -76,7 +81,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     func tiledScrollViewDidZoom(scrollView: JCTiledScrollView!) {
         scale = CGFloat(scrollView.zoomScale)
         
-        if (numtype == 0){
+        if (numtype == 0 && typeButton.titleLabel!.text == "UniCAT"){
             for (var x = 0 ; x < names.count; x++){
                 let object = self.buildingObject
                 
@@ -107,7 +112,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 setButtonLocation(button[x+1])
             }
         }
-        else{
+        else if(typeButton.titleLabel!.text == "UniCAT"){
             
                     for (var y = 0 ; y < arrImage[numtype].count-1 ; y++){
                             getButton(arrImage[numtype][y])
@@ -174,6 +179,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         tag = 0
         super.viewDidLoad()
         
+        cap.transform = CGAffineTransformMakeRotation(-0.28);
+        cap.hidden = true
+        
         for (var x = 0 ; x < allPOI.count ; x++){
             let tempButton = [UIButton()]
             let tempObject = Set<PFObject>()
@@ -189,14 +197,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         }
         
         self.buildingType = "building"
-        let button: UIButton = UIButton()
-        button.setImage(UIImage(named: "gps"), forState: .Normal)
-        button.frame = CGRectMake(0, 0, 45, 45)
-        button.targetForAction("actioncall", withSender: nil)
-//        button.addTarget(self, action: "buttonPressed:", forControlEvents: .TouchUpInside)
         
-        let rightItem:UIBarButtonItem = UIBarButtonItem()
-        rightItem.customView = button
         
         let button1: UIButton = UIButton()
         
@@ -208,7 +209,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         let rightItem1:UIBarButtonItem = UIBarButtonItem()
         rightItem1.customView = button1
         
-        let array : Array = [rightItem1,rightItem];
+        let array : Array = [rightItem1];
         self.navigationItem.rightBarButtonItems = array
         
         
@@ -534,18 +535,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "mapToBuilding" {
-            let detailScene = segue.destinationViewController as! BuildingViewController
-            
-            detailScene.currentBuilding = selectedBuilding
-            detailScene.currentAlphabet = selectedAlphabet
-            detailScene.eventCount = selectedEventCount
-            detailScene.buildingtype = buildingType
-            detailScene.details = selectedDetails
-        }
-    }
+  
     
     //Set the Annotation location
     func getButton(image:SpringImageView)->CGRect{
@@ -666,7 +656,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 actionSheet.dismissWithClickedButtonIndex(0, animated: true)
             }
             
-            if (buttonIndex == 1 && buttonIndex != 2){
+            if (buttonIndex == 1 && buttonIndex != 2 ){
                 for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
                     let object = self.buildingObject
                     
@@ -679,6 +669,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                             if(Float(layer) > scrollView.zoomScale) {
                                 self.buildingImage[actionx].hidden = true
                                 self.button[actionx+1].hidden = true
+                                
                                 
                             }
                             else {
@@ -824,17 +815,20 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         }
         else if (actionSheet.tag == 2){
 
-            for (var y = 0 ; y < arrImage[1].count-1 ; y++){
-                
-               if(arrButton[1].count > 1){
-                    arrImage[1][y].hidden = true
-                    arrButton[1][y+1].hidden = true
+            for (var c = 0 ; c < allPOI.count ; c++){
+                for (var y = 0 ; y < arrImage[c].count-1 ; y++){
+                    
+                    if(arrButton[c].count > 1){
+                        arrImage[c][y].hidden = true
+                        arrButton[c][y+1].hidden = true
+                    }
+                    
+                    
                 }
-                
-                
             }
             
-            if(buttonIndex > 0){
+            
+            if(buttonIndex >= 0){
                 var x = 0
                var t = 0
                 for item in arrObject[1]{
@@ -876,51 +870,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 }
                 
             }
-//                    for item in arrObject[c]{
-//                        
-//                        let coor = item["coordinate"] as! PFGeoPoint
-//                        let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
-//                        let distance = coor.distanceInKilometersTo(userpoint)
-//                        print(distance)
-//                        
-//                        
-//                        if(short == 0){
-//                            short = distance
-//                            point = coor
-//                            select = c
-//                            check++
-//                        }
-//                        else{
-//                            if(distance < short){
-//                                short = distance
-//                                point = coor
-//                                select = c
-//                                check++
-//                                
-//                            }
-//                            else{
-//                                check++
-//                            }
-//                        }
-//                        
-//                        
-//                        
-//                        if(check == arrObject[c].count){
-//                            let long = (CGFloat)((point.longitude - longmin) / (longmax - longmin) * 1000)
-//                            let lat = (CGFloat)((latmax - point.latitude) / (latmax - latmin) * 1000)
-//                            scrollView.scrollView.setContentOffset (CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
-//                        }
-//                        
-//                        
-//                        
-//                        
-//                    }
-//                    
-//                    
-//                    
-//                    
-//                    
-//                }
+
         }
         
         
@@ -1012,10 +962,134 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         })
     }
     
+    @IBAction func chooseType(sender: AnyObject) {
+        self.performSegueWithIdentifier("pickerView", sender: self)
+    }
+    
+    func updateClass(classType: Int) {
+        selection = classType
+        
+        typeButton.setTitle(typeName[selection], forState: UIControlState.Normal)
+        
+        if(selection == 0){
+            cap.hidden = true
+            self.buildingType = "building"
+            
+            
+            let button1: UIButton = UIButton()
+            
+            button1.setImage(UIImage(named: "poi"), forState: .Normal)
+            button1.frame = CGRectMake(0, 0, 45, 45)
+            button1.targetForAction("actioncall", withSender: nil)
+            button1.addTarget(self, action: "downloadSheet:", forControlEvents: .TouchUpInside)
+            
+            let rightItem1:UIBarButtonItem = UIBarButtonItem()
+            rightItem1.customView = button1
+            
+            let array : Array = [rightItem1];
+            self.navigationItem.rightBarButtonItems = array
+            
+            
+            let qrbutton: UIButton = UIButton()
+            qrbutton.setImage(UIImage(named: "QR"), forState: .Normal)
+            qrbutton.frame = CGRectMake(0, 0, 45, 45)
+            qrbutton.targetForAction("actioncall", withSender: nil)
+            qrbutton.addTarget(self, action: "activeQR:", forControlEvents: .TouchUpInside)
+            
+            let qrItem:UIBarButtonItem = UIBarButtonItem()
+            qrItem.customView = qrbutton
+            
+            self.navigationItem.leftBarButtonItem = qrItem
+            
+            if(numtype == 0){
+                for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                    let object = self.buildingObject
+                    
+                    for item in object{
+                        let building = item["name"] as! String
+                        
+                        
+                        if (building == self.names[actionx]){
+                            let layer = item["layer"] as! String
+                            if(Float(layer) > scrollView.zoomScale) {
+                                self.buildingImage[actionx].hidden = true
+                                self.button[actionx+1].hidden = true
+                                
+                                
+                            }
+                            else {
+                                self.buildingImage[actionx].hidden = false
+                                self.button[actionx+1].hidden = false
+                                self.buildingImage[actionx].animation = "fadeIn"
+                                self.buildingImage[actionx].curve = "easeIn"
+                                self.buildingImage[actionx].duration = 2.5
+                                self.buildingImage[actionx].animate()
+                            }
+                            break
+                        }
+                        
+                        
+                    }
+                    getButton(buildingImage[actionx])
+                    setButtonLocation(button[actionx+1])
+                }
+            }
+            else{
+                for (var y = 0 ; y < arrImage[numtype].count-1 ; y++){
+                    
+                        
+                        arrImage[numtype][y].hidden = false
+                        arrButton[numtype][y+1].hidden = false
+                        self.arrImage[numtype][y].animation = "fadeIn"
+                        self.arrImage[numtype][y].curve = "easeIn"
+                        self.arrImage[numtype][y].duration = 2.5
+                        self.arrImage[numtype][y].animate()
+                        getButton(arrImage[numtype][y])
+                        setButtonLocation(arrButton[numtype][y+1])
+                        
+                    
+                
+                }
+            }
+        }
+        else{
+            cap.hidden = false
+            cap.animation = "fadeInDown"
+            cap.curve = "easeInOut"
+            cap.duration = 1.0
+            cap.force = 0.5
+            cap.animate()
+            self.navigationItem.rightBarButtonItems = nil
+            
+            self.navigationItem.leftBarButtonItem = nil
+            
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                buildingImage[actionx].hidden = true
+                button[actionx].hidden = true
+            }
+            
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                
+                self.buildingImage[actionx].hidden = true
+                self.button[actionx+1].hidden = true
+            }
+            
+            for (var c = 0 ; c < allPOI.count ; c++){
+                for (var y = 0 ; y < arrImage[c].count-1 ; y++){
+                    
+                    if(arrButton[c].count > 1){
+                        arrImage[c][y].hidden = true
+                        arrButton[c][y+1].hidden = true
+                    }
+                    
+                    
+                }
+            }
+        }
+        
+    }
     
     func busPress(sender: UIButton!){
-//        print("Pressed", arrAlphabet[numtype][sender.tag+1])
-//        print(arrNames[numtype][sender.tag+1])
 
         selectedBuilding = arrNames[numtype][sender.tag+1]
         selectedAlphabet = arrAlphabet[numtype][sender.tag+1]
@@ -1023,14 +1097,24 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         selectedDetails = arrDetails[numtype][sender.tag+1]
         self.performSegueWithIdentifier("mapToBuilding", sender: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "mapToBuilding" {
+            let detailScene = segue.destinationViewController as! BuildingViewController
+            
+            detailScene.currentBuilding = selectedBuilding
+            detailScene.currentAlphabet = selectedAlphabet
+            detailScene.eventCount = selectedEventCount
+            detailScene.buildingtype = buildingType
+            detailScene.details = selectedDetails
+        }
+        else if segue.identifier == "pickerView" {
+            let pickerScene = segue.destinationViewController as! MapPickerViewController
+            
+            pickerScene.type = selection
+            pickerScene.refreshDelegate = self
+        }
     }
-    */
+    
 
 }

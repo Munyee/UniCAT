@@ -117,6 +117,7 @@
 		FE1455D21C1ECCB10091B03C /* FoodViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */; };
 		FE1DE4F61C58826D0093A43F /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1DE4F51C58826D0093A43F /* GoogleMapViewController.swift */; };
 		FE1DE4F81C58848E0093A43F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1DE4F71C58848E0093A43F /* MapViewController.swift */; };
+		FE21F3E61C7F3D8E00407AC4 /* MapPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE21F3E51C7F3D8E00407AC4 /* MapPickerViewController.swift */; };
 		FE55A4981C316D9A00B97CEE /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE55A4971C316D9A00B97CEE /* AddPhotoViewController.swift */; };
 		FE58005F1C254B900010DB1F /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE58005E1C254B900010DB1F /* ImageView.swift */; };
 		FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */; };
@@ -317,6 +318,7 @@
 		FE1455D01C1ECCB10091B03C /* FoodViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewCell.swift; sourceTree = "<group>"; };
 		FE1DE4F51C58826D0093A43F /* GoogleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 		FE1DE4F71C58848E0093A43F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FE21F3E51C7F3D8E00407AC4 /* MapPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPickerViewController.swift; sourceTree = "<group>"; };
 		FE55A4971C316D9A00B97CEE /* AddPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPhotoViewController.swift; sourceTree = "<group>"; };
 		FE58005E1C254B900010DB1F /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		FE5800601C254D970010DB1F /* FoodCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewController.swift; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 				FE1455CB1C1EBFBC0091B03C /* overlay_park@2x.png */,
 				FE1DE4F51C58826D0093A43F /* GoogleMapViewController.swift */,
 				FE8C53551C70C33700A07D6E /* TimeTableViewController.swift */,
+				FE21F3E51C7F3D8E00407AC4 /* MapPickerViewController.swift */,
 				8440AE061B4020440012A31E /* Cell */,
 				8445665A1B3AE14E0086B8D4 /* JPBParallax */,
 				844566461B3AAB420086B8D4 /* JCTiledScrollView */,
@@ -1235,6 +1238,7 @@
 				844566591B3AE1490086B8D4 /* JPBParallaxTableViewController.m in Sources */,
 				8445663D1B3AAB350086B8D4 /* ADAnnotationTapGestureRecognizer.m in Sources */,
 				8403A3B11B3C594000EF6C84 /* SelectionTableViewCell.swift in Sources */,
+				FE21F3E61C7F3D8E00407AC4 /* MapPickerViewController.swift in Sources */,
 				186D4D8B1B78C2CB00A2D6F8 /* UserDetailViewController.swift in Sources */,
 				8440AE001B3FCCF70012A31E /* DetailTableViewController.swift in Sources */,
 				844566401B3AAB350086B8D4 /* JCPDFTiledView.m in Sources */,
