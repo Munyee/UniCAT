@@ -21,7 +21,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     @IBOutlet weak var cap: SpringImageView!
     @IBOutlet weak var typeButton: UIButton!
     var typeName = ["UniCAT", "Convocation"]
+    var mode = ["normal","convo"]
     var selection = 0
+    var depnum = [Int]()
     
     var first = Bool()
     var thelastone = CGFloat()
@@ -38,6 +40,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var atmImage = [SpringImageView()]
     
     var button = [UIButton()]
+    //arr of normal view
     var atmButton = [UIButton()]
     var arrButton = [[UIButton()]]
     var arrObject = [Set<PFObject>()]
@@ -45,6 +48,17 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var arrNames = [[String()]]
     var arrDetails = [[String()]]
     var arrImage = [[SpringImageView()]]
+    
+    
+    //arr of convo view
+    var arrConvoButton = [UIButton()]
+    var arrConvoObject = Set<PFObject>()
+    var arrConvoImage = [SpringImageView()]
+    var arrConvoAlphabet = [String()]
+    var arrConvoNames = [String()]
+    var arrConvoDetails = [String()]
+    var convoCount = 0
+    
     
     var numtype = 0
     
@@ -81,7 +95,17 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     func tiledScrollViewDidZoom(scrollView: JCTiledScrollView!) {
         scale = CGFloat(scrollView.zoomScale)
         
-        if (numtype == 0 && typeButton.titleLabel!.text == "UniCAT"){
+        if (typeButton.titleLabel!.text == "Convocation"){
+            for (var y = 0 ; y < arrConvoImage.count - 1 ; y++){
+                getButton(arrConvoImage[y])
+                setButtonLocation(arrConvoButton[y+1])
+            }
+        }
+        
+        else if (numtype == 0 && typeButton.titleLabel!.text == "UniCAT"){
+            
+            
+            
             for (var x = 0 ; x < names.count; x++){
                 let object = self.buildingObject
                 
@@ -179,8 +203,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         tag = 0
         super.viewDidLoad()
         
-        cap.transform = CGAffineTransformMakeRotation(-0.28);
         cap.hidden = true
+        convoCount = 0
         
         for (var x = 0 ; x < allPOI.count ; x++){
             let tempButton = [UIButton()]
@@ -352,6 +376,12 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                     break
                                 }
                                 
+                            case "convo" :
+                                let image = SpringImageView()
+                                self.arrConvoImage.append(image)
+                                
+                                self.arrConvoObject.insert(object)
+                                
                             default:
                                 break
                             }
@@ -406,6 +436,24 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         image1 = imageview
         image1.frame = size
         
+        var capimage : UIImage = UIImage()
+        var capImageView : UIImageView = UIImageView()
+        
+            //set the convo cap
+        
+            
+            
+            
+            capimage = UIImage(named:"Cap")!
+            capImageView = UIImageView(image: capimage)
+            
+            
+            capImageView.frame = CGRect(x: -12, y: -12, width: 45*1.42, height: 45.0)
+            
+            capImageView.transform = CGAffineTransformMakeRotation(-0.28);
+
+        
+        
         switch(item){
         case "bus":
             image = UIImage(named: "Bus")!
@@ -427,6 +475,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             image = UIImage(named: "Clinic")!
         case "washroom":
             image = UIImage(named: "washroom")!
+        
         default:
             break
         }
@@ -435,6 +484,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         annot = UIImageView(image:image)
         
         image1.addSubview(annot)
+        if (selection == 1){
+            image1.addSubview(capImageView)
+        }
         scrollView.scrollView.addSubview(image1)
         scrollView.scrollView.addSubview(button)
         
@@ -640,6 +692,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     
         
         if (actionSheet.tag == 1){
+            depnum = []
             if (buttonIndex > 0){
                 numtype = buttonIndex - 1
                 self.buildingType = allPOI[numtype]
@@ -815,6 +868,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         }
         else if (actionSheet.tag == 2){
 
+            depnum = []
+            
             for (var c = 0 ; c < allPOI.count ; c++){
                 for (var y = 0 ; y < arrImage[c].count-1 ; y++){
                     
@@ -830,15 +885,12 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
             if(buttonIndex >= 0){
                 var x = 0
-               var t = 0
                 for item in arrObject[1]{
-                    let type = item["type"] as! String
                     let coor = item["coordinate"] as! PFGeoPoint
                     let name = item["name"] as! String
-                    let alp = item["alphabet"] as! String
-                    let details = item["details"] as! String
                     
                     if name == departments[buttonIndex]{
+                        depnum.append(x)
                         arrImage[1][x].hidden = false
                         arrButton[1][x+1].hidden = false
                         self.arrImage[1][x].animation = "fadeIn"
@@ -863,6 +915,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                         
 
                         x++
+                        
                     }
                     else{
                         x++
@@ -963,6 +1016,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     }
     
     @IBAction func chooseType(sender: AnyObject) {
+        scrollView.setZoomScale(1, animated: true)
         self.performSegueWithIdentifier("pickerView", sender: self)
     }
     
@@ -972,9 +1026,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         typeButton.setTitle(typeName[selection], forState: UIControlState.Normal)
         
         if(selection == 0){
+            convoCount = 0
             cap.hidden = true
-            self.buildingType = "building"
-            
+            self.buildingType = allPOI[numtype]
             
             let button1: UIButton = UIButton()
             
@@ -1035,8 +1089,24 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 }
             }
             else{
-                for (var y = 0 ; y < arrImage[numtype].count-1 ; y++){
-                    
+                if (depnum.count != 0){
+                    for (var y = 0 ; y < depnum.count; y++){
+                        
+                        
+                        arrImage[numtype][depnum[y]].hidden = false
+                        arrButton[numtype][depnum[y]+1].hidden = false
+                        self.arrImage[numtype][depnum[y]].animation = "fadeIn"
+                        self.arrImage[numtype][depnum[y]].curve = "easeIn"
+                        self.arrImage[numtype][depnum[y]].duration = 2.5
+                        self.arrImage[numtype][depnum[y]].animate()
+                        getButton(arrImage[numtype][depnum[y]])
+                        setButtonLocation(arrButton[numtype][depnum[y]+1])
+                        
+                    }
+                }
+                else{
+                    for (var y = 0 ; y < arrImage[numtype].count-1 ; y++){
+                        
                         
                         arrImage[numtype][y].hidden = false
                         arrButton[numtype][y+1].hidden = false
@@ -1047,10 +1117,72 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                         getButton(arrImage[numtype][y])
                         setButtonLocation(arrButton[numtype][y+1])
                         
-                    
-                
+                        
+                        
+                    }
                 }
+                
             }
+            
+            for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
+                
+                
+                
+                arrConvoImage[y].hidden = true
+                arrConvoButton[y+1].hidden = true
+                
+                
+                
+                
+            }
+            
+//            for item in self.arrConvoObject{
+//                
+//                let coor = item["coordinate"] as! PFGeoPoint
+//                let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
+//                let distance = coor.distanceInKilometersTo(userpoint)
+//                print(distance)
+//                
+//                
+//                if(short == 0){
+//                    short = distance
+//                    point = coor
+//                    select = c
+//                    check++
+//                }
+//                else{
+//                    if(distance < short){
+//                        short = distance
+//                        point = coor
+//                        select = c
+//                        check++
+//                        
+//                    }
+//                    else{
+//                        check++
+//                    }
+//                }
+//                
+//                
+//                
+//                if(check == arrObject[c].count){
+//                    let long = (CGFloat)((point.longitude - longmin) / (longmax - longmin) * 1000)
+//                    let lat = (CGFloat)((latmax - point.latitude) / (latmax - latmin) * 1000)
+//                    scrollView.scrollView.setContentOffset (CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
+//                }
+//                
+//                
+//                
+//                
+//            }
+            
+            
+            
+        
+            
+    
+        
+        
         }
         else{
             cap.hidden = false
@@ -1059,21 +1191,23 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             cap.duration = 1.0
             cap.force = 0.5
             cap.animate()
+            self.cap.transform = CGAffineTransformMakeRotation(-0.28);
+
             self.navigationItem.rightBarButtonItems = nil
-            
+    
             self.navigationItem.leftBarButtonItem = nil
-            
+    
             for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
                 buildingImage[actionx].hidden = true
                 button[actionx].hidden = true
             }
-            
+    
             for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
-                
+    
                 self.buildingImage[actionx].hidden = true
                 self.button[actionx+1].hidden = true
             }
-            
+    
             for (var c = 0 ; c < allPOI.count ; c++){
                 for (var y = 0 ; y < arrImage[c].count-1 ; y++){
                     
@@ -1085,16 +1219,70 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                     
                 }
             }
+            
+            
+            if(arrConvoButton.count == 1){
+                for item in self.arrConvoObject{
+                    let type = item["type"] as! String
+                    let coor = item["coordinate"] as! PFGeoPoint
+                    let name = item["name"] as! String
+                    let alp = item["alphabet"] as! String
+                    let details = item["details"] as! String
+                    self.buildingType = type
+                    
+                    self.arrConvoAlphabet.append(alp)
+                    self.arrConvoNames.append(name)
+                    self.arrConvoDetails.append(details)
+                    for(var x = 0 ; x < alphabet.count ; x++){
+                        if(alphabet[x] == alp){
+                            self.arrConvoButton.append(self.setpoi(self.arrConvoImage[self.convoCount], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: type, block: name,tag:self.convoCount))
+                            self.convoCount++
+                        }
+                    }
+                    
+                }
+            }
+            
+                
+            for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
+                
+                
+                
+                arrConvoImage[y].hidden = false
+                arrConvoButton[y+1].hidden = false
+                self.arrConvoImage[y].animation = "fadeIn"
+                self.arrConvoImage[y].curve = "easeIn"
+                self.arrConvoImage[y].duration = 2.5
+                self.arrConvoImage[y].animate()
+                getButton(arrConvoImage[y])
+                setButtonLocation(arrConvoButton[y+1])
+                
+                
+                
+                
+            }
+            
+            
+            
         }
         
     }
     
     func busPress(sender: UIButton!){
 
-        selectedBuilding = arrNames[numtype][sender.tag+1]
-        selectedAlphabet = arrAlphabet[numtype][sender.tag+1]
-        selectedEventCount = "0"
-        selectedDetails = arrDetails[numtype][sender.tag+1]
+        if (selection == 0){
+            selectedBuilding = arrNames[numtype][sender.tag+1]
+            selectedAlphabet = arrAlphabet[numtype][sender.tag+1]
+            selectedEventCount = "0"
+            selectedDetails = arrDetails[numtype][sender.tag+1]
+        }
+        else if(selection == 1){
+            selectedBuilding = arrConvoNames[sender.tag+1]
+            selectedAlphabet = arrConvoAlphabet[sender.tag+1]
+            selectedEventCount = "0"
+            selectedDetails = arrConvoDetails[sender.tag+1]
+        }
+        
         self.performSegueWithIdentifier("mapToBuilding", sender: nil)
     }
     
