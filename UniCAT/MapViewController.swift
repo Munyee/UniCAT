@@ -592,6 +592,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
                 selectedBuilding = names[x]
                 selectedAlphabet = alphabet[x]
                 selectedEventCount = eventcount[x]
+                
                 self.performSegueWithIdentifier("mapToBuilding", sender: nil)
                 
             }

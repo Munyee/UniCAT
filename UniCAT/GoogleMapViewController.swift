@@ -292,9 +292,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                     
                                     self.alphabet.append(alp)
                                     self.buildingObject.insert(object)
-                                    if self.buildingObject.count == 16{
-                                        self.checkconnection()
-                                    }
+                                    
                                 case "bus":
                                     let index = 2
                                     let tempButton = [UIButton()]
@@ -388,6 +386,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                             
                             
                             
+                        }
+                        if self.buildingObject.count == 16{
+                            self.checkconnection()
                         }
                         
                     }
@@ -569,6 +570,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 selectedBuilding = names[names.count-1]
                 selectedAlphabet = alphabet[names.count-1]
                 selectedEventCount = eventcount[names.count-1]
+                selectedDetails = arrDetails[0][arrDetails[0].count-1]
                 self.performSegueWithIdentifier("mapToBuilding", sender: nil)
                 break
             }
@@ -580,6 +582,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 selectedBuilding = names[x]
                 selectedAlphabet = alphabet[x]
                 selectedEventCount = eventcount[x]
+                selectedDetails = arrDetails[0][x+1]
                 self.performSegueWithIdentifier("mapToBuilding", sender: nil)
                 break
             }
@@ -938,6 +941,12 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         var counter:Int = 0
         var check : Int = 0
         
+        
+        if(arrConvoObject.count == 0){
+            typeName = ["UniCAT"]
+        }
+        
+        //check event
         let query = PFQuery(className:"Event")
         let today = NSDate()
         query.whereKey("endDate", greaterThanOrEqualTo: today)
@@ -982,10 +991,14 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                         for item in object{
                             let building = item["name"] as! String
                             let coor = item["coordinate"] as! PFGeoPoint
+                            let details = item["details"] as! String
                             
                             if (building == self.names[y]){
+                            
                                 
                                 let layer = item["layer"] as! String
+                                
+                                self.arrDetails[0].append(details)
                                 
                                 self.button.append(self.setButton(self.buildingImage[y], label: self.names[y], eventnum: self.eventcount[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 150, height: 50)))
                                 
@@ -1220,9 +1233,13 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 }
             }
             
+            var check = 0
+            var short = 0.0
+            var point = PFGeoPoint()
             
             if(arrConvoButton.count == 1){
                 for item in self.arrConvoObject{
+                    
                     let type = item["type"] as! String
                     let coor = item["coordinate"] as! PFGeoPoint
                     let name = item["name"] as! String
@@ -1240,10 +1257,53 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                         }
                     }
                     
+                   
+                    
                 }
             }
             
+            for item in self.arrConvoObject{
                 
+
+                let coor = item["coordinate"] as! PFGeoPoint
+                
+                
+                let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
+                let distance = coor.distanceInKilometersTo(userpoint)
+                
+                
+                
+                
+                if(short == 0){
+                    short = distance
+                    point = coor
+                    check++
+                }
+                else{
+                    if(distance < short){
+                        short = distance
+                        point = coor
+                        check++
+                        
+                    }
+                    else{
+                        check++
+                    }
+                }
+                
+                
+                
+                if(check == arrConvoObject.count){
+                    let long = (CGFloat)((point.longitude - longmin) / (longmax - longmin) * 1000)
+                    let lat = (CGFloat)((latmax - point.latitude) / (latmax - latmin) * 1000)
+                    scrollView.scrollView.setContentOffset (CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
+                }
+                
+                
+                
+            }
+            
+            
             for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
                 
                 
@@ -1256,6 +1316,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 self.arrConvoImage[y].animate()
                 getButton(arrConvoImage[y])
                 setButtonLocation(arrConvoButton[y+1])
+                
                 
                 
                 
@@ -1300,6 +1361,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             let pickerScene = segue.destinationViewController as! MapPickerViewController
             
             pickerScene.type = selection
+            pickerScene.typeName = self.typeName
             pickerScene.refreshDelegate = self
         }
     }

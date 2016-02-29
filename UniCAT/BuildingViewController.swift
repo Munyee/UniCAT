@@ -266,12 +266,12 @@ class BuildingViewController: JPBFloatingTextViewController {
             
             cell.selectionStyle = .None
             
-            if details == "" {
-                cell.detailText.text = building.buildingDetail(room: self.currentAlphabet)
-            }
-            else {
+//            if details == "" {
+//                cell.detailText.text = building.buildingDetail(room: self.currentAlphabet)
+//            }
+//            else {
                 cell.detailText.text = details
-            }
+//            }
             
             return cell
             

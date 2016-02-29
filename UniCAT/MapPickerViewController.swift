@@ -18,7 +18,7 @@ class MapPickerViewController: UIViewController, UIPickerViewDelegate {
     
     var refreshDelegate: MapRefreshViewDelegate?
     var type: Int = 0
-    var typeName = ["UniCAT", "Convocation"]
+    var typeName = [String()]
     
     override func viewDidLoad() {
         
