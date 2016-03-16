@@ -1030,7 +1030,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     
     @IBAction func chooseType(sender: AnyObject) {
         scrollView.setZoomScale(1, animated: true)
-        self.performSegueWithIdentifier("pickerView", sender: self)
+    self.performSegueWithIdentifier("pickerView", sender: self)
     }
     
     func updateClass(classType: Int) {

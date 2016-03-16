@@ -140,6 +140,8 @@
 		FE9BE37E1C567B0900BCC4BE /* SortFoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE37D1C567B0900BCC4BE /* SortFoodTableViewController.swift */; };
 		FE9BE3801C56852400BCC4BE /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */; };
 		FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */; };
+		FEDE9C9D1C997A8F00CEEC38 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */; };
+		FEDE9C9F1C99835400CEEC38 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE9C9E1C99835400CEEC38 /* GroupTableViewCell.swift */; };
 		FEE1DA731C4F30FB002B8E19 /* DEMOPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */; };
 		FEED415D1C1E8D24002A8049 /* DefineLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415C1C1E8D24002A8049 /* DefineLocation.swift */; };
 		FEED41601C1E9857002A8049 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415F1C1E9857002A8049 /* PhotoView.swift */; };
@@ -341,6 +343,8 @@
 		FE9BE37D1C567B0900BCC4BE /* SortFoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortFoodTableViewController.swift; sourceTree = "<group>"; };
 		FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
 		FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
+		FEDE9C9E1C99835400CEEC38 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		FEE1DA711C4F30FB002B8E19 /* DEMOPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOPhoto.h; sourceTree = "<group>"; };
 		FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOPhoto.m; sourceTree = "<group>"; };
 		FEED415C1C1E8D24002A8049 /* DefineLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefineLocation.swift; sourceTree = "<group>"; };
@@ -619,6 +623,7 @@
 				84B4ADED1B0445F9007F1404 /* Frameworks */,
 				FEED41661C1EA46A002A8049 /* App */,
 				FEED41671C1EA475002A8049 /* TCGoogleMapsLib */,
+				FEDE9C9B1C997A6A00CEEC38 /* Group */,
 				847315DD1B37EAB10037D750 /* Side Menu */,
 				84B4ADC91B044280007F1404 /* AppDelegate.swift */,
 				FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */,
@@ -790,6 +795,15 @@
 				FE9BE36B1C53644300BCC4BE /* QRDetailViewController.swift */,
 			);
 			name = QRCodeModule;
+			sourceTree = "<group>";
+		};
+		FEDE9C9B1C997A6A00CEEC38 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */,
+				FEDE9C9E1C99835400CEEC38 /* GroupTableViewCell.swift */,
+			);
+			name = Group;
 			sourceTree = "<group>";
 		};
 		FEED415E1C1E9837002A8049 /* Photo Module */ = {
@@ -1198,6 +1212,7 @@
 				847315D91B37E5240037D750 /* MenuController.swift in Sources */,
 				CB42E8111C293C2500302D6B /* DesignableTabBarController.swift in Sources */,
 				FEED41AC1C1EA5AA002A8049 /* TCGooglePlacesAPIClient.m in Sources */,
+				FEDE9C9D1C997A8F00CEEC38 /* GroupTableViewController.swift in Sources */,
 				847C70CA1B3B095D00953B54 /* DetailTableViewCell.swift in Sources */,
 				84A054B11B079D2C004DC5AC /* EventsTableViewCell.swift in Sources */,
 				FE55A4981C316D9A00B97CEE /* AddPhotoViewController.swift in Sources */,
@@ -1217,6 +1232,7 @@
 				8445664E1B3AB1D20086B8D4 /* AnnotationView.swift in Sources */,
 				FEED418E1C1EA516002A8049 /* TCCellModel.m in Sources */,
 				CB42E8051C293C2500302D6B /* AsyncButton.swift in Sources */,
+				FEDE9C9F1C99835400CEEC38 /* GroupTableViewCell.swift in Sources */,
 				FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */,
 				84CB2CEF1B39457800E8B569 /* ProfileTableViewCell.swift in Sources */,
 				FE1DE4F81C58848E0093A43F /* MapViewController.swift in Sources */,

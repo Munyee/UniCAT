@@ -41,6 +41,7 @@
 @property (nonatomic, strong) UITapGestureRecognizer *singleTapGestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTapGestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer *twoFingerTapGestureRecognizer;
+@property (nonatomic,strong) UILongPressGestureRecognizer *lpgr;
 @property (nonatomic, assign) BOOL muteAnnotationUpdates;
 @end
 
@@ -123,6 +124,12 @@
     _twoFingerTapGestureRecognizer.numberOfTapsRequired = 1;
     [_tiledView addGestureRecognizer:_twoFingerTapGestureRecognizer];
     
+      
+      self.lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
+      self.lpgr.minimumPressDuration = 1.0f;
+      self.lpgr.allowableMovement = 100.0f;
+      [_tiledView addGestureRecognizer:self.lpgr];
+      
     _annotations = [[NSMutableSet alloc] init];
     _visibleAnnotations = [[NSMutableSet alloc] init];
     _recycledAnnotationViews = [[NSMutableSet alloc] init];
@@ -136,6 +143,18 @@
 
 
 #pragma mark - UIScrolViewDelegate
+
+
+- (void)handleLongPressGestures:(UILongPressGestureRecognizer *)sender
+{
+    if ([sender isEqual:self.lpgr]) {
+        if (sender.state == UIGestureRecognizerStateBegan)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gestures" message:@"Long Gesture Detected" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alertView show];
+        }
+    }
+}
 
 - (UIView *)viewForZoomingInScrollView:(__unused UIScrollView *)scrollView
 {
