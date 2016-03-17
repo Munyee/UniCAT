@@ -25,6 +25,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var selection = 0
     var depnum = [Int]()
     
+    var locationx = CGFloat()
+    var locationy = CGFloat()
+    
     var first = Bool()
     var thelastone = CGFloat()
     var lastscale = CGFloat()
@@ -452,6 +455,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     
     
     func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        self.locationx = gestureReconizer.locationInView(scrollView.scrollView).x
+        self.locationy = gestureReconizer.locationInView(scrollView.scrollView).y
         if gestureReconizer.state == UIGestureRecognizerState.Began {
             self.performSegueWithIdentifier("mapToGroup", sender: nil)
 
@@ -1408,6 +1413,12 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             pickerScene.type = selection
             pickerScene.typeName = self.typeName
             pickerScene.refreshDelegate = self
+        }
+        else if segue.identifier == "mapToGroup" {
+            let pickerScene = segue.destinationViewController as! EventTableViewController
+            
+            pickerScene.pointSelected = CLLocationCoordinate2D(latitude: Double(self.locationy), longitude: Double(self.locationx))
+            pickerScene.scale = self.scale
         }
     }
     

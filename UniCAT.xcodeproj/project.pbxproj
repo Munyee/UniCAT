@@ -140,6 +140,7 @@
 		FE9BE37E1C567B0900BCC4BE /* SortFoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE37D1C567B0900BCC4BE /* SortFoodTableViewController.swift */; };
 		FE9BE3801C56852400BCC4BE /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */; };
 		FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */; };
+		FED0AB791C9ACA980067CFF7 /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED0AB781C9ACA980067CFF7 /* EventTableViewController.swift */; };
 		FEDE9C9D1C997A8F00CEEC38 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */; };
 		FEDE9C9F1C99835400CEEC38 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE9C9E1C99835400CEEC38 /* GroupTableViewCell.swift */; };
 		FEE1DA731C4F30FB002B8E19 /* DEMOPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */; };
@@ -343,6 +344,7 @@
 		FE9BE37D1C567B0900BCC4BE /* SortFoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortFoodTableViewController.swift; sourceTree = "<group>"; };
 		FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
 		FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		FED0AB781C9ACA980067CFF7 /* EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
 		FEDE9C9E1C99835400CEEC38 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		FEE1DA711C4F30FB002B8E19 /* DEMOPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOPhoto.h; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 			children = (
 				FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */,
 				FEDE9C9E1C99835400CEEC38 /* GroupTableViewCell.swift */,
+				FED0AB781C9ACA980067CFF7 /* EventTableViewController.swift */,
 			);
 			name = Group;
 			sourceTree = "<group>";
@@ -1167,6 +1170,7 @@
 				84A6F5DA1B4521EC00C6A4C9 /* FbTableViewCell.swift in Sources */,
 				84CB2CE91B39447800E8B569 /* MenuTableViewCell.swift in Sources */,
 				FEED418D1C1EA516002A8049 /* TCUserLocationManager.m in Sources */,
+				FED0AB791C9ACA980067CFF7 /* EventTableViewController.swift in Sources */,
 				FEED417D1C1EA4EF002A8049 /* TCDirectionsService.m in Sources */,
 				CB42E8061C293C2500302D6B /* AsyncImageView.swift in Sources */,
 				FE1455D11C1ECCB10091B03C /* FoodViewController.swift in Sources */,
