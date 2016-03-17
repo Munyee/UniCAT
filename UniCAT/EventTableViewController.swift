@@ -8,19 +8,22 @@
 
 import UIKit
 
-class EventTableViewController: UITableViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class EventTableViewController: UITableViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate,MapRefreshViewDelegate{
 
     @IBOutlet weak var cover: UIImageView!
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var group: UITextField!
     @IBOutlet weak var venue: UITextField!
     @IBOutlet weak var details: UITextView!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     
+    @IBOutlet weak var groupbtn: UIButton!
     var pointSelected = CLLocationCoordinate2D()
     var newCover = false
     var removedCover = false
     let picker = UIImagePickerController()
-
+    var creategroup = [String()]
+    var selection = 0
     var scale = CGFloat()
     
     var pointx = Double()
@@ -31,9 +34,46 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     let longmin = 101.133013;
     let longmax = 101.145641;
     
+    override func viewDidAppear(animated: Bool) {
+        creategroup.removeAll()
+        
+        let query = PFQuery(className:"Group")
+        let currentUser = PFUser.currentUser()
+        query.whereKey("creator",equalTo:currentUser!)
+        query.findObjectsInBackgroundWithBlock {
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) groups.")
+                
+                var x = 0
+                // Do something with the found objects
+                for object in objects!{
+                    
+                    let item = object["name"] as? String
+                    self.creategroup.insert(item!, atIndex: x++)
+                    
+                }
+                
+                self.group.hidden = false
+                self.groupbtn.enabled = true
+                self.activity.hidden = true
+                
+            } else {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+        
     
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        groupbtn.enabled = false
+        group.hidden = true
+        activity.startAnimating()
 
         picker.delegate = self
         details.text = ""
@@ -61,6 +101,9 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func selectGroup(sender: AnyObject) {
+        self.performSegueWithIdentifier("pickerView", sender: self)
+    }
     @IBAction func showActionSheet(sender: AnyObject) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
@@ -69,7 +112,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
             
             self.newCover = false
             self.removedCover = true
-            self.cover.image = UIImage(named: "blank")
+            self.cover.image = UIImage(named: "Add Cover")
             
         })
         
@@ -125,6 +168,24 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
         dismissViewControllerAnimated(true, completion: nil)
     }
 
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "pickerView" {
+            let pickerScene = segue.destinationViewController as! MapPickerViewController
+            
+            pickerScene.type = selection
+            pickerScene.typeName = self.creategroup
+            pickerScene.refreshDelegate = self
+        }
+        
+    }
+    
+    func updateClass(classType: Int) {
+        group.placeholder = nil
+        selection = classType
+        groupbtn.setTitle(self.creategroup[selection], forState: UIControlState.Normal)
+        
+    }
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
