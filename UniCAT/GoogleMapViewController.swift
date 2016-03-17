@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTileSource,UIActionSheetDelegate, MapRefreshViewDelegate {
+class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTileSource,UIActionSheetDelegate, MapRefreshViewDelegate,UIGestureRecognizerDelegate {
 
     
     struct Name{
@@ -193,8 +193,24 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             initView = false
         }
         
+        
+        if(PFUser.currentUser() != nil){
+            let install = PFInstallation.currentInstallation()
+            install["user"] = PFUser.currentUser()
+            install.saveInBackgroundWithBlock {
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    print("User saved")
+                } else {
+                    // There was a problem, check error.description
+                }
+            }
+        }
 
     }
+    
+    
+    
     
     override func viewDidLoad() {
        
@@ -205,6 +221,16 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
         cap.hidden = true
         convoCount = 0
+        
+        
+        if(PFUser.currentUser() == nil){
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+            self.presentViewController(vc, animated: true, completion: nil)
+            self.tabBarController?.selectedIndex = 0
+        }
+        
         
         for (var x = 0 ; x < allPOI.count ; x++){
             let tempButton = [UIButton()]
@@ -412,9 +438,28 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         scrollView.tiledView.shouldAnnotateRect = true
         scrollView.levelsOfZoom = 1;
         scrollView.levelsOfDetail = 1;
+        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        scrollView.addGestureRecognizer(lpgr)
+        
+        
         view.addSubview(scrollView)
         
     }
+    
+    
+    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state == UIGestureRecognizerState.Began {
+            self.performSegueWithIdentifier("mapToGroup", sender: nil)
+
+        }
+        
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

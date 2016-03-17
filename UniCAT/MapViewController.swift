@@ -205,6 +205,7 @@ class MapViewController: UIViewController, JCTiledScrollViewDelegate, JCTileSour
             
         })
     }
+    
     /*
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
     if(navigationController!.viewControllers.count > 1){

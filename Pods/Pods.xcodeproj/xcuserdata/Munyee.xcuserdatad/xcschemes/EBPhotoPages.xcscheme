@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'ADFD7FD9FF384F6D07B2534C'
+               BlueprintIdentifier = 'B797EEE0F78FFF058A7B554E'
                BlueprintName = 'EBPhotoPages'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libEBPhotoPages.a'>

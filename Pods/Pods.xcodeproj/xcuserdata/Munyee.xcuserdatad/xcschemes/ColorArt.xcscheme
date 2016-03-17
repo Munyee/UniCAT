@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C3E8CD08557316ADE0D2BF4A'
+               BlueprintIdentifier = 'F7F46B6B7F10520E5DFA53EE'
                BlueprintName = 'ColorArt'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libColorArt.a'>

@@ -19,10 +19,21 @@ class GroupTableViewController: UITableViewController {
     var secondTextField: UITextField?
     
     
+    
+    
     override func viewDidAppear(animated: Bool) {
     
         super.viewDidAppear(true)
 
+        
+        if(PFUser.currentUser() == nil){
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("SignUpInViewController")
+            self.presentViewController(vc, animated: true, completion: nil)
+            self.tabBarController?.selectedIndex = 0
+        }else{
+        
         joinGroup.removeAllObjects()
         allGroup.removeAllObjects()
         let currentUser = PFUser.currentUser()
@@ -98,7 +109,7 @@ class GroupTableViewController: UITableViewController {
                 print("Error: \(error!) \(error!.userInfo)")
             }
         }
-        
+        }
         
         
     }

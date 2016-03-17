@@ -33,7 +33,7 @@
 #import "JCAnnotationView.h"
 #import "JCVisibleAnnotationTuple.h"
 #import "ADAnnotationTapGestureRecognizer.h"
-
+#import <Parse/Parse.h>
 #define kStandardUIScrollViewAnimationTime (int64_t)0.10
 
 @interface JCTiledScrollView () <JCTiledBitmapViewDelegate, UIGestureRecognizerDelegate>
@@ -125,10 +125,12 @@
     [_tiledView addGestureRecognizer:_twoFingerTapGestureRecognizer];
     
       
-      self.lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
-      self.lpgr.minimumPressDuration = 1.0f;
-      self.lpgr.allowableMovement = 100.0f;
-      [_tiledView addGestureRecognizer:self.lpgr];
+//          self.lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
+//          self.lpgr.minimumPressDuration = 0.5f;
+//          self.lpgr.allowableMovement = 100.0f;
+//          [_tiledView addGestureRecognizer:self.lpgr];
+      
+      
       
     _annotations = [[NSMutableSet alloc] init];
     _visibleAnnotations = [[NSMutableSet alloc] init];
@@ -144,17 +146,22 @@
 
 #pragma mark - UIScrolViewDelegate
 
-
-- (void)handleLongPressGestures:(UILongPressGestureRecognizer *)sender
-{
-    if ([sender isEqual:self.lpgr]) {
-        if (sender.state == UIGestureRecognizerStateBegan)
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Gestures" message:@"Long Gesture Detected" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
-        }
-    }
-}
+//
+//- (void)handleLongPressGestures:(UILongPressGestureRecognizer *)sender
+//{
+//    PFUser *currentUser = [PFUser currentUser];
+//
+//    if ([[currentUser valueForKey:@"approve"]  isEqual: @"yes"]){
+//
+//    if ([sender isEqual:self.lpgr]) {
+//        if (sender.state == UIGestureRecognizerStateBegan)
+//        {
+//            [ performSegueWithIdentifier:@"mapToGroup" sender:self];
+//
+//        }
+//    }
+//    }
+//}
 
 - (UIView *)viewForZoomingInScrollView:(__unused UIScrollView *)scrollView
 {
@@ -179,7 +186,12 @@
   }
 }
 
-#pragma mark - 
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//
+//}
+
+#pragma mark -
 
 //FIXME: Jesse C - I don't like overloading this here, but the logic is in one place
 - (void)setMuteAnnotationUpdates:(BOOL)muteAnnotationUpdates

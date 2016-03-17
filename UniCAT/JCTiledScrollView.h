@@ -53,6 +53,7 @@
 - (void)tiledScrollView:(JCTiledScrollView *)scrollView didDeselectAnnotationView:(JCAnnotationView *)view;
 
 - (void)tiledScrollView:(JCTiledScrollView *)scrollView didReceiveSingleTap:(UIGestureRecognizer *)gestureRecognizer;
+- (void)tiledScrollView:(JCTiledScrollView *)scrollView didReceiveLongTap:(UIGestureRecognizer *)gestureRecognizer;
 - (void)tiledScrollView:(JCTiledScrollView *)scrollView didReceiveDoubleTap:(UIGestureRecognizer *)gestureRecognizer;
 - (void)tiledScrollView:(JCTiledScrollView *)scrollView didReceiveTwoFingerTap:(UIGestureRecognizer *)gestureRecognizer;
 
