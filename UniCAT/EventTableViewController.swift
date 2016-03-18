@@ -16,13 +16,24 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     @IBOutlet weak var venue: UITextField!
     @IBOutlet weak var details: UITextView!
     @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var saveActivity: UIActivityIndicatorView!
     
+    @IBOutlet weak var saveLabel: UILabel!
     @IBOutlet weak var groupbtn: UIButton!
+   
+    
+    var today = NSDate()
+    var datePickerHidden = true
+    
     var pointSelected = CLLocationCoordinate2D()
     var newCover = false
-    var removedCover = false
+    var removedCover = true
     let picker = UIImagePickerController()
     var creategroup = [String()]
+    var groupobject = NSMutableArray()
+    var users = NSMutableArray()
     var selection = 0
     var scale = CGFloat()
     
@@ -36,7 +47,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     
     override func viewDidAppear(animated: Bool) {
         creategroup.removeAll()
-        
+        groupobject.removeAllObjects()
         let query = PFQuery(className:"Group")
         let currentUser = PFUser.currentUser()
         query.whereKey("creator",equalTo:currentUser!)
@@ -52,7 +63,8 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
                 for object in objects!{
                     
                     let item = object["name"] as? String
-                    self.creategroup.insert(item!, atIndex: x++)
+                    self.creategroup.insert(item!, atIndex: x)
+                    self.groupobject.insertObject(object, atIndex: x++)
                     
                 }
                 
@@ -70,6 +82,8 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     }
 
     override func viewDidLoad() {
+        saveActivity.hidden = true
+        
         super.viewDidLoad()
         groupbtn.enabled = false
         group.hidden = true
@@ -85,15 +99,179 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
         pointx = longmin + ((longmax - longmin) * (Double(pointSelected.longitude)/(1000*Double(scale))))
         print(pointy ,pointx)
         
+        datePickerChanged()
+
         
     }
-
-    @IBAction func coverChange(sender: AnyObject) {
+    
+    func datePickerChanged() {
+        
+        if datePicker.date.compare(today) == NSComparisonResult.OrderedAscending {
+            datePicker.date = today
+        }
+        
+        
+        date.text = NSDateFormatter.localizedStringFromDate(datePicker.date, dateStyle: NSDateFormatterStyle.MediumStyle, timeStyle: NSDateFormatterStyle.ShortStyle)
+        
     }
+    
+    func toggleStartDatepicker() {
+        
+        datePickerHidden = !datePickerHidden
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        if !datePickerHidden {
+            let indexPath = NSIndexPath(forRow: 5, inSection: 0)
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 && indexPath.row == 4 {
+            toggleStartDatepicker()
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if datePickerHidden && indexPath.section == 0 && indexPath.row == 5 {
+            return 0
+        }else {
+            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        }
+    }
+    
+    @IBAction func datePickerValue(sender: AnyObject) {
+        datePickerChanged()
+    }
+
     
     
     @IBAction func saveEvent(sender: AnyObject) {
     
+        let updateObject = PFObject(className:"GroupEvent")
+        
+        if name.text == "" || venue.text == "" || details.text == "" || groupbtn.currentTitle == nil {
+            let alertController = UIAlertController(title: "Warning", message:
+                "Mandatory Fields are not filled.", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Back", style: UIAlertActionStyle.Default,handler: {(alert: UIAlertAction) in
+                
+                let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
+                
+            }))
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            if name.text == "" {
+                name.backgroundColor = UIColor(red: 223/255.0, green: 72/255.0, blue: 61/255.0, alpha: 0.1)
+            }
+            else {
+                name.backgroundColor = UIColor.whiteColor()
+            }
+            
+            if venue.text == "" {
+                venue.backgroundColor = UIColor(red: 223/255.0, green: 72/255.0, blue: 61/255.0, alpha: 0.1)
+            }
+            else {
+                venue.backgroundColor = UIColor.whiteColor()
+            }
+            
+            if details.text == "" {
+                details.backgroundColor = UIColor(red: 223/255.0, green: 72/255.0, blue: 61/255.0, alpha: 0.1)
+            }
+            else{
+                details.backgroundColor = UIColor.whiteColor()
+            }
+            
+            if groupbtn.currentTitle == nil {
+                group.backgroundColor = UIColor(red: 223/255.0, green: 72/255.0, blue: 61/255.0, alpha: 0.1)
+            }
+            else {
+                group.backgroundColor = UIColor.whiteColor()
+            }
+        }
+        else{
+            saveLabel.hidden = true
+            saveActivity.hidden = false
+            saveActivity.startAnimating()
+            
+            var chosenImage = cover.image
+            
+            if removedCover {
+                chosenImage = UIImage(named: "placeholder")
+            }
+            
+            let imageData = UIImageJPEGRepresentation(chosenImage!, 0.5)
+            let imageFile = PFFile(name: "cover.jpg", data: imageData!)
+            
+            imageFile!.saveInBackgroundWithBlock({
+                (succeeded: Bool, error: NSError?) -> Void in
+                // Handle success or failure here ...
+                if succeeded {
+                    print("Success")
+                    updateObject["cover"] = imageFile
+                    updateObject["group"] = self.groupobject[self.selection]
+                    updateObject["date"] = self.datePicker.date
+                    updateObject["name"] = self.name.text
+                    updateObject["venue"] = self.venue.text
+                    updateObject["details"] = self.details.text
+                    updateObject.saveInBackgroundWithBlock {
+                        (success: Bool, error: NSError?) -> Void in
+                        if (success) {
+                            
+                            let query = PFQuery(className:"JoinGroup")
+                            query.whereKey("group",equalTo:self.groupobject[self.selection])
+                            query.findObjectsInBackgroundWithBlock {
+                                (objects: [PFObject]?, error: NSError?) -> Void in
+                                
+                                if error == nil {
+                                    // The find succeeded.
+                                    print("Successfully retrieved \(objects!.count) scores.")
+                                    // Do something with the found objects
+                                    if let objects = objects {
+                                        for object in objects {
+                                            let item = object["user"] as? PFObject
+                                            self.users.addObject(item!)
+                                        }
+                                    }
+                                    
+                                    for user in self.users{
+                                        let pushQuery = PFInstallation.query()
+                                        pushQuery!.whereKey("user", equalTo: user)
+                                        
+                                        // Send push notification to query
+                                        let push = PFPush()
+                                        push.setQuery(pushQuery) // Set our Installation query
+                                        push.setMessage(self.name.text)
+                                        push.sendPushInBackground()
+
+                                    }
+                                    
+                                } else {
+                                    // Log details of the failure
+                                    print("Error: \(error!) \(error!.userInfo)")
+                                }
+                            }
+
+                            
+                            self.navigationController?.popViewControllerAnimated(true)
+                            
+                            
+                            
+                        } else {
+                            // There was a problem, check error.description
+                        }
+                    }
+                }
+                }, progressBlock: {
+                    (percentDone: Int32) -> Void in
+                    print(percentDone)
+            })
+            
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -112,7 +290,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
             
             self.newCover = false
             self.removedCover = true
-            self.cover.image = UIImage(named: "Add Cover")
+            self.cover.image = UIImage(named: "blank")
             
         })
         
@@ -186,6 +364,9 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
         groupbtn.setTitle(self.creategroup[selection], forState: UIControlState.Normal)
         
     }
+    
+   
+    
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
