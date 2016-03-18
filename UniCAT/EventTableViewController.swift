@@ -45,6 +45,8 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     let longmin = 101.133013;
     let longmax = 101.145641;
     
+    var point = PFGeoPoint()
+    
     override func viewDidAppear(animated: Bool) {
         creategroup.removeAll()
         groupobject.removeAllObjects()
@@ -98,6 +100,8 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
         pointy = latmax - ((latmax - latmin) * (Double(pointSelected.latitude)/(1000*Double(scale))))
         pointx = longmin + ((longmax - longmin) * (Double(pointSelected.longitude)/(1000*Double(scale))))
         print(pointy ,pointx)
+        
+        point = PFGeoPoint(latitude : pointy, longitude : pointx)
         
         datePickerChanged()
 
@@ -217,6 +221,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
                     updateObject["name"] = self.name.text
                     updateObject["venue"] = self.venue.text
                     updateObject["details"] = self.details.text
+                    updateObject["location"] = self.point
                     updateObject.saveInBackgroundWithBlock {
                         (success: Bool, error: NSError?) -> Void in
                         if (success) {
@@ -244,7 +249,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
                                         // Send push notification to query
                                         let push = PFPush()
                                         push.setQuery(pushQuery) // Set our Installation query
-                                        push.setMessage(self.name.text)
+                                        push.setMessage(self.creategroup[self.selection] + " created an event: " + self.name.text!)
                                         push.sendPushInBackground()
 
                                     }

@@ -457,10 +457,21 @@ class GroupTableViewController: UITableViewController {
                 jgroup.saveInBackgroundWithBlock {
                     (success: Bool, error: NSError?) -> Void in
                     if (success) {
-                        self.passwordTextField?.text = ""
-                        self.secondTextField?.text = ""
-                        self.nameTextField?.text = ""
-                        self.viewDidAppear(true)
+                        jgroup["group"] = jgroup
+                        jgroup.saveInBackgroundWithBlock {
+                            (success: Bool, error: NSError?) -> Void in
+                            if (success) {
+                                
+                                self.secondTextField?.text = ""
+                                self.nameTextField?.text = ""
+                                self.viewDidAppear(true)
+                            } else {
+                                // There was a problem, check error.description
+                            }
+                        }
+
+                        
+                        
                     } else {
                         // There was a problem, check error.description
                     }

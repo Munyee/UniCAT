@@ -20,7 +20,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     
     @IBOutlet weak var cap: SpringImageView!
     @IBOutlet weak var typeButton: UIButton!
-    var typeName = ["UniCAT", "Convocation"]
+    var typeName = ["UniCAT","Notification", "Convocation"]
     var mode = ["normal","convo"]
     var selection = 0
     var depnum = [Int]()
@@ -34,9 +34,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var scale:CGFloat = 1
     var lon = Double()
     var lat = Double()
-    
+    var joinGroup = NSMutableArray()
     var buildingType = ""
-    
+    var today = NSDate()
     let building = Building()
     
     var buildingImage = [SpringImageView()]
@@ -62,6 +62,10 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var arrConvoDetails = [String()]
     var convoCount = 0
     
+    //arr of notification
+    var arrNotiButton = [UIButton()]
+    var arrNotiObject = Set<PFObject>()
+    var arrNotiImage = [SpringImageView()]
     
     var numtype = 0
     
@@ -141,14 +145,22 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         }
         else if(typeButton.titleLabel!.text == "UniCAT"){
             
-                    for (var y = 0 ; y < arrImage[numtype].count-1 ; y++){
-                            getButton(arrImage[numtype][y])
-                            setButtonLocation(arrButton[numtype][y+1])
-                        
-                        
-                    }
-                    
+            for (var y = 0 ; y < arrImage[numtype].count-1 ; y++){
+                getButton(arrImage[numtype][y])
+                setButtonLocation(arrButton[numtype][y+1])
+                
+                
+            }
             
+            
+        }
+        else if(typeButton.titleLabel!.text == "Notification"){
+            for (var y = 0 ; y < self.arrNotiImage.count ; y++){
+                self.getButton(self.arrNotiImage[y])
+                self.setButtonLocation(self.arrNotiButton[y])
+                
+                
+            }
         }
         
         first = false
@@ -188,7 +200,128 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         
     }
     
+   
+    
     override func viewWillAppear(animated: Bool) {
+        
+        if (selection == 1){
+            if arrNotiButton.count > 0 {
+                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                    
+                    arrNotiImage[y].hidden = true
+                    arrNotiButton[y].hidden = true
+                    
+                    if(self.arrNotiImage.count-1 == y){
+                        arrNotiButton.removeAll()
+                        arrNotiImage.removeAll()
+                        arrNotiObject.removeAll()
+                    }
+                }
+            }
+            
+            
+            
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Fetching data"
+            
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                buildingImage[actionx].hidden = true
+                button[actionx].hidden = true
+            }
+            
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                
+                
+                self.buildingImage[actionx].hidden = true
+                self.button[actionx+1].hidden = true
+            }
+            
+            for (var c = 0 ; c < allPOI.count ; c++){
+                for (var y = 0 ; y < arrImage[c].count-1 ; y++){
+                    
+                    if(arrButton[c].count > 1){
+                        arrImage[c][y].hidden = true
+                        arrButton[c][y+1].hidden = true
+                    }
+                    
+                    
+                }
+            }
+            
+            
+            
+            if arrConvoButton.count > 1 {
+                for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
+                    
+                    arrConvoImage[y].hidden = true
+                    arrConvoButton[y+1].hidden = true
+                    
+                }
+            }
+            
+            
+            
+            var x = 0
+            var count = 0
+            for item in joinGroup{
+               
+                let query = PFQuery(className:"GroupEvent")
+                query.whereKey("date", greaterThanOrEqualTo:today)
+                query.whereKey("group", equalTo:item)
+                query.findObjectsInBackgroundWithBlock {
+                    (objects: [PFObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        // The find succeeded.
+                        print("Successfully retrieved \(objects!.count) scores.")
+                        // Do something with the found objects
+                        if let objects = objects {
+                            for object in objects {
+                                let tempImage = SpringImageView()
+                                
+                                self.arrNotiObject.insert(object)
+                                self.arrNotiImage.insert(tempImage, atIndex: count)
+                                count++
+                                
+                            }
+                            x++
+                        }
+                        
+                        
+                        if (self.joinGroup.count == x) {
+                            
+                            var y = 0
+                            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                            for item in self.arrNotiObject{
+                                
+                                
+                                let coor = item["location"] as! PFGeoPoint
+                                
+                                self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
+                                
+                                
+                                if(self.arrNotiObject.count == y){
+                                    for (var z = 0 ; z < self.arrNotiImage.count ; z++){
+                                        self.getButton(self.arrNotiImage[z])
+                                        self.setButtonLocation(self.arrNotiButton[z])
+                                        
+                                        
+                                    }
+                                }
+                            }
+                            
+                        }
+                        
+                    } else {
+                        // Log details of the failure
+                        print("Error: \(error!) \(error!.userInfo)")
+                    }
+                }
+                
+            }
+        }
+        
         if(initView){
             let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             loadingNotification.mode = MBProgressHUDMode.Indeterminate
@@ -196,6 +329,56 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             initView = false
         }
         
+        let currentUser = PFUser.currentUser()
+        
+        let joinquery = PFQuery(className:"JoinGroup")
+        joinquery.whereKey("user",equalTo:currentUser!)
+        print(currentUser!.objectId!)
+        joinquery.findObjectsInBackgroundWithBlock {
+            (objects: [PFObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) join.")
+                self.joinGroup.removeAllObjects()
+
+                for object in objects!{
+                    let item = object["group"] as! PFObject
+                    
+                    self.joinGroup.addObject(item)
+                }
+                // Do something with the found objects
+                
+                let query = PFQuery(className:"Group")
+                query.whereKey("creator",equalTo:currentUser!)
+                query.findObjectsInBackgroundWithBlock {
+                    (objects: [PFObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        // The find succeeded.
+                        print("Successfully retrieved \(objects!.count) groups.")
+                        
+                        // Do something with the found objects
+                        for object in objects!{
+                            
+                            
+                            self.joinGroup.addObject(object)
+                        }
+                        
+                        
+                        
+                    } else {
+                        // Log details of the failure
+                        print("Error: \(error!) \(error!.userInfo)")
+                    }
+                }
+                
+            } else {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+    
         
         if(PFUser.currentUser() != nil){
             let install = PFInstallation.currentInstallation()
@@ -211,6 +394,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         }
 
     }
+    
+    
     
     
     
@@ -526,7 +711,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             image = UIImage(named: "Clinic")!
         case "washroom":
             image = UIImage(named: "washroom")!
-        
+        case "noti":
+            image = UIImage(named: "dep")!
         default:
             break
         }
@@ -535,7 +721,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         annot = UIImageView(image:image)
         
         image1.addSubview(annot)
-        if (selection == 1){
+        if (selection == 2){
             image1.addSubview(capImageView)
         }
         scrollView.scrollView.addSubview(image1)
@@ -1187,67 +1373,147 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 
             }
             
-            for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
-                
-                
-                
-                arrConvoImage[y].hidden = true
-                arrConvoButton[y+1].hidden = true
-                
-                
-                
-                
+            if arrConvoButton.count > 1 {
+                for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
+                    
+                    arrConvoImage[y].hidden = true
+                    arrConvoButton[y+1].hidden = true
+                    
+                }
             }
             
-//            for item in self.arrConvoObject{
-//                
-//                let coor = item["coordinate"] as! PFGeoPoint
-//                let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
-//                let distance = coor.distanceInKilometersTo(userpoint)
-//                print(distance)
-//                
-//                
-//                if(short == 0){
-//                    short = distance
-//                    point = coor
-//                    select = c
-//                    check++
-//                }
-//                else{
-//                    if(distance < short){
-//                        short = distance
-//                        point = coor
-//                        select = c
-//                        check++
-//                        
-//                    }
-//                    else{
-//                        check++
-//                    }
-//                }
-//                
-//                
-//                
-//                if(check == arrObject[c].count){
-//                    let long = (CGFloat)((point.longitude - longmin) / (longmax - longmin) * 1000)
-//                    let lat = (CGFloat)((latmax - point.latitude) / (latmax - latmin) * 1000)
-//                    scrollView.scrollView.setContentOffset (CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
-//                }
-//                
-//                
-//                
-//                
-//            }
-            
-            
-            
-        
-            
-    
-        
+            if arrNotiButton.count > 0 {
+                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                    
+                    arrNotiImage[y].hidden = true
+                    arrNotiButton[y].hidden = true
+                    
+                }
+            }
+ 
         
         }
-        else{
+        else if selection == 1{
+            convoCount = 0
+            cap.hidden = true
+
+            if arrNotiButton.count > 0 {
+                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                    
+                    arrNotiImage[y].hidden = true
+                    arrNotiButton[y].hidden = true
+                    
+                    if(self.arrNotiImage.count-1 == y){
+                        arrNotiButton.removeAll()
+                        arrNotiImage.removeAll()
+                        arrNotiObject.removeAll()
+                    }
+                }
+            }
+            
+            
+            
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Fetching data"
+            
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                buildingImage[actionx].hidden = true
+                button[actionx].hidden = true
+            }
+            
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                
+                
+                self.buildingImage[actionx].hidden = true
+                self.button[actionx+1].hidden = true
+            }
+            
+            for (var c = 0 ; c < allPOI.count ; c++){
+                for (var y = 0 ; y < arrImage[c].count-1 ; y++){
+                    
+                    if(arrButton[c].count > 1){
+                        arrImage[c][y].hidden = true
+                        arrButton[c][y+1].hidden = true
+                    }
+                    
+                    
+                }
+            }
+            
+            
+            
+            if arrConvoButton.count > 1 {
+                for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
+                    
+                    arrConvoImage[y].hidden = true
+                    arrConvoButton[y+1].hidden = true
+                    
+                }
+            }
+            
+            
+            
+            var x = 0
+            var count = 0
+            for item in joinGroup{
+                let query = PFQuery(className:"GroupEvent")
+                query.whereKey("date", greaterThanOrEqualTo:today)
+                query.whereKey("group", equalTo: item)
+                query.findObjectsInBackgroundWithBlock {
+                    (objects: [PFObject]?, error: NSError?) -> Void in
+                    
+                    if error == nil {
+                        // The find succeeded.
+                        print("Successfully retrieved \(objects!.count) scores.")
+                        // Do something with the found objects
+                        if let objects = objects {
+                            for object in objects {
+                                let tempImage = SpringImageView()
+
+                                self.arrNotiObject.insert(object)
+                                self.arrNotiImage.insert(tempImage, atIndex: count)
+                                count++
+
+                            }
+                            x++
+                        }
+                        
+                        
+                        if (self.joinGroup.count == x) {
+                            
+                            var y = 0
+                            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                            for item in self.arrNotiObject{
+                                
+                                
+                                let coor = item["location"] as! PFGeoPoint
+                                
+                                self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
+                                
+                                
+                                if(self.arrNotiObject.count == y){
+                                    for (var z = 0 ; z < self.arrNotiImage.count ; z++){
+                                        self.getButton(self.arrNotiImage[z])
+                                        self.setButtonLocation(self.arrNotiButton[z])
+                                        
+                                        
+                                    }
+                                }
+                            }
+
+                        }
+                        
+                    } else {
+                        // Log details of the failure
+                        print("Error: \(error!) \(error!.userInfo)")
+                    }
+                }
+                
+            }
+         
+            
+        }else{
             cap.hidden = false
             cap.animation = "fadeInDown"
             cap.curve = "easeInOut"
@@ -1312,18 +1578,21 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 }
             }
             
+            
+            if arrNotiButton.count > 0 {
+                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                    
+                    arrNotiImage[y].hidden = true
+                    arrNotiButton[y].hidden = true
+                    
+                }
+            }
+            
             for item in self.arrConvoObject{
-                
 
                 let coor = item["coordinate"] as! PFGeoPoint
-                
-                
                 let userpoint = PFGeoPoint(latitude: self.lat, longitude: self.lon)
                 let distance = coor.distanceInKilometersTo(userpoint)
-                
-                
-                
-                
                 if(short == 0){
                     short = distance
                     point = coor
@@ -1340,20 +1609,14 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                         check++
                     }
                 }
-                
-                
-                
                 if(check == arrConvoObject.count){
                     let long = (CGFloat)((point.longitude - longmin) / (longmax - longmin) * 1000)
                     let lat = (CGFloat)((latmax - point.latitude) / (latmax - latmin) * 1000)
                     scrollView.scrollView.setContentOffset (CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
                 }
                 
-                
-                
             }
-            
-            
+
             for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
                 
                 
@@ -1366,15 +1629,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 self.arrConvoImage[y].animate()
                 getButton(arrConvoImage[y])
                 setButtonLocation(arrConvoButton[y+1])
-                
-                
-                
-                
-                
+        
             }
-            
-            
-            
+       
         }
         
     }
@@ -1386,15 +1643,21 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             selectedAlphabet = arrAlphabet[numtype][sender.tag+1]
             selectedEventCount = "0"
             selectedDetails = arrDetails[numtype][sender.tag+1]
+            self.performSegueWithIdentifier("mapToBuilding", sender: nil)
+
         }
         else if(selection == 1){
+            
+        }
+        else if(selection == 2){
             selectedBuilding = arrConvoNames[sender.tag+1]
             selectedAlphabet = arrConvoAlphabet[sender.tag+1]
             selectedEventCount = "0"
             selectedDetails = arrConvoDetails[sender.tag+1]
+            self.performSegueWithIdentifier("mapToBuilding", sender: nil)
+
         }
         
-        self.performSegueWithIdentifier("mapToBuilding", sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

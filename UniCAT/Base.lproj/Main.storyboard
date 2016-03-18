@@ -2878,7 +2878,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="664687E3-811D-43F8-9607-7C8CFA24497A" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="7FD06962-D6CD-4D5A-BC87-01FD5B17458F" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -7091,7 +7091,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="664687E3-811D-43F8-9607-7C8CFA24497A" width="36" height="32">
+        <image name="7FD06962-D6CD-4D5A-BC87-01FD5B17458F" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -7252,11 +7252,11 @@ AgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAHEw
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="z4y-Jg-Vfd"/>
-        <segue reference="36Y-9s-rBf"/>
+        <segue reference="TSX-jc-4jS"/>
         <segue reference="90g-tF-drr"/>
-        <segue reference="evS-H6-bVb"/>
-        <segue reference="TYt-2a-cTY"/>
         <segue reference="aNJ-3L-ZjD"/>
+        <segue reference="TYt-2a-cTY"/>
+        <segue reference="evS-H6-bVb"/>
         <segue reference="xXL-rV-qlf"/>
     </inferredMetricsTieBreakers>
 </document>
