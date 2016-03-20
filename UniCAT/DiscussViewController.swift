@@ -8,20 +8,24 @@
 
 import UIKit
 
-class DiscussViewController: UIViewController {
+class DiscussViewController: UIViewController,UITextViewDelegate {
 
     @IBOutlet weak var userProfile: PFImageView!
     @IBOutlet weak var comment: UITextView!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var userView: UIView!
     
     let currentUser = PFUser.currentUser()
-    
+    var keyboardHeight = CGFloat()
     override func viewDidAppear(animated: Bool) {
     
         super.viewDidAppear(true)
 
+        keyboardHeight = 0.0
+        
         comment.text = "Write Here"
         comment.textColor = UIColor.lightGrayColor()
-        
+        comment.delegate = self
         if (PFUser.currentUser() != nil){
             userProfile.file = currentUser!["image"] as? PFFile
             userProfile.loadInBackground()
@@ -29,6 +33,11 @@ class DiscussViewController: UIViewController {
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidLoad() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,6 +62,9 @@ class DiscussViewController: UIViewController {
             comment.text = nil
             comment.textColor = UIColor.blackColor()
         }
+        
+        
+        
     }
     
     func textViewDidEndEditing(textView: UITextView) {
@@ -60,6 +72,20 @@ class DiscussViewController: UIViewController {
             comment.text = "Placeholder"
             comment.textColor = UIColor.lightGrayColor()
         }
+
+    }
+    
+   
+    
+    func keyboardWasShown(notification: NSNotification) {
+        var info = notification.userInfo!
+        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        
+        UIView.beginAnimations( "animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.bottomConstraint.constant = keyboardFrame.size.height - 30
+        })
     }
     /*
     // MARK: - Navigation
