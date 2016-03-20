@@ -29,7 +29,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     
     var pointSelected = CLLocationCoordinate2D()
     var newCover = false
-    var removedCover = true
+    var removedCover = false
     let picker = UIImagePickerController()
     var creategroup = [String()]
     var groupobject = NSMutableArray()
@@ -47,6 +47,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     
     var point = PFGeoPoint()
     
+   
     override func viewDidAppear(animated: Bool) {
         creategroup.removeAll()
         groupobject.removeAllObjects()
@@ -203,7 +204,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
             
             var chosenImage = cover.image
             
-            if removedCover {
+            if removedCover || !newCover {
                 chosenImage = UIImage(named: "placeholder")
             }
             

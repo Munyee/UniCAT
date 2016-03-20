@@ -62,7 +62,20 @@ class SignUpInViewController: UIViewController, UITextFieldDelegate {
             if error == nil {
                 
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.performSegueWithIdentifier("loginToSignup", sender: self)
+                    if(PFUser.currentUser() != nil){
+                        let install = PFInstallation.currentInstallation()
+                        install["user"] = PFUser.currentUser()
+                        install.saveInBackgroundWithBlock {
+                            (success: Bool, error: NSError?) -> Void in
+                            if (success) {
+                                print("User saved")
+                                self.performSegueWithIdentifier("loginToSignup", sender: self)
+                                
+                            } else {
+                                // There was a problem, check error.description
+                            }
+                        }
+                    }
                 }
                 
             } else {
@@ -90,7 +103,22 @@ class SignUpInViewController: UIViewController, UITextFieldDelegate {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    
+                    if(PFUser.currentUser() != nil){
+                        let install = PFInstallation.currentInstallation()
+                        install["user"] = PFUser.currentUser()
+                        install.saveInBackgroundWithBlock {
+                            (success: Bool, error: NSError?) -> Void in
+                            if (success) {
+                                print("User saved")
+                                self.dismissViewControllerAnimated(true, completion: nil)
+
+                            } else {
+                                // There was a problem, check error.description
+                            }
+                        }
+                    }
+                    
                     //self.performSegueWithIdentifier("signInToNavigation", sender: self)
                 }
             } else {
