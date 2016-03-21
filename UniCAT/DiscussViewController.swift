@@ -14,6 +14,7 @@ class DiscussViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var comment: UITextView!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var userView: UIView!
+    @IBOutlet weak var tableView: UITableView!
     
     let currentUser = PFUser.currentUser()
     var keyboardHeight = CGFloat()
@@ -37,6 +38,12 @@ class DiscussViewController: UIViewController,UITextViewDelegate {
     
     override func viewDidLoad() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardWillShowNotification, object: nil)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
+        self.navigationController!.interactivePopGestureRecognizer!.enabled = false;
+
 
     }
 
@@ -69,7 +76,7 @@ class DiscussViewController: UIViewController,UITextViewDelegate {
     
     func textViewDidEndEditing(textView: UITextView) {
         if comment.text.isEmpty {
-            comment.text = "Placeholder"
+            comment.text = "Write Here"
             comment.textColor = UIColor.lightGrayColor()
         }
 
@@ -81,11 +88,26 @@ class DiscussViewController: UIViewController,UITextViewDelegate {
         var info = notification.userInfo!
         var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         
-        UIView.beginAnimations( "animateView", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
+        self.view.layoutIfNeeded()
         UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.bottomConstraint.constant = keyboardFrame.size.height - 30
+            self.bottomConstraint.constant = keyboardFrame.size.height - 40
+            self.view.layoutIfNeeded()
         })
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        self.view.layoutIfNeeded()
+
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.bottomConstraint.constant = 0
+            self.view.layoutIfNeeded()
+
+        })
+        
+        view.endEditing(true)
+        
+        
     }
     /*
     // MARK: - Navigation

@@ -2878,7 +2878,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="80833C48-6F4E-40BA-9401-34C031893B55" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="3941BFBF-FC7D-4340-BE38-C786AA23AC8A" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -5296,6 +5296,7 @@
                     <connections>
                         <outlet property="bottomConstraint" destination="09r-LP-AJW" id="9qd-5p-UEH"/>
                         <outlet property="comment" destination="doB-4L-taj" id="enK-P3-enj"/>
+                        <outlet property="tableView" destination="kx2-d1-H90" id="Aau-g2-5Hk"/>
                         <outlet property="userProfile" destination="8NB-Mm-Fw9" id="OlI-oe-EAW"/>
                         <outlet property="userView" destination="HhT-Od-jMT" id="K88-VP-9Vv"/>
                     </connections>
@@ -7506,7 +7507,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="80833C48-6F4E-40BA-9401-34C031893B55" width="36" height="32">
+        <image name="3941BFBF-FC7D-4340-BE38-C786AA23AC8A" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
