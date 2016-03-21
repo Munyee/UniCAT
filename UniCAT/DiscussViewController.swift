@@ -250,6 +250,14 @@ class DiscussViewController: UIViewController,UITextViewDelegate,UITableViewData
                 comment.saveInBackgroundWithBlock {
                     (success: Bool, error: NSError?) -> Void in
                     if (success) {
+                        self.view.layoutIfNeeded()
+                        
+                        UIView.animateWithDuration(0.3, animations: { () -> Void in
+                            self.bottomConstraint.constant = 0
+                            self.view.layoutIfNeeded()
+                            
+                        })
+                        
                         self.view.endEditing(true)
                         self.arrComment.removeAllObjects()
                         self.comment.text = "Write Here"
