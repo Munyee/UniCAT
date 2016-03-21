@@ -60,6 +60,15 @@ class GroupEventDetailsTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "discussion"){
+            let detailScene = segue.destinationViewController as! DiscussViewController
+            detailScene.object = self.eventObject
+
+        }
+        
+    }
 
     // MARK: - Table view data source
 

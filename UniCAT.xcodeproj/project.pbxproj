@@ -145,6 +145,7 @@
 		FED0AB791C9ACA980067CFF7 /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED0AB781C9ACA980067CFF7 /* EventTableViewController.swift */; };
 		FEDE9C9D1C997A8F00CEEC38 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */; };
 		FEDE9C9F1C99835400CEEC38 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE9C9E1C99835400CEEC38 /* GroupTableViewCell.swift */; };
+		FEDEAA1A1C9FEEAC0085CD22 /* DiscussionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDEAA191C9FEEAC0085CD22 /* DiscussionTableViewCell.swift */; };
 		FEE1DA731C4F30FB002B8E19 /* DEMOPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */; };
 		FEED415D1C1E8D24002A8049 /* DefineLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415C1C1E8D24002A8049 /* DefineLocation.swift */; };
 		FEED41601C1E9857002A8049 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED415F1C1E9857002A8049 /* PhotoView.swift */; };
@@ -351,6 +352,7 @@
 		FED0AB781C9ACA980067CFF7 /* EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
 		FEDE9C9E1C99835400CEEC38 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
+		FEDEAA191C9FEEAC0085CD22 /* DiscussionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionTableViewCell.swift; sourceTree = "<group>"; };
 		FEE1DA711C4F30FB002B8E19 /* DEMOPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOPhoto.h; sourceTree = "<group>"; };
 		FEE1DA721C4F30FB002B8E19 /* DEMOPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOPhoto.m; sourceTree = "<group>"; };
 		FEED415C1C1E8D24002A8049 /* DefineLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefineLocation.swift; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 				FED0AB781C9ACA980067CFF7 /* EventTableViewController.swift */,
 				FE64964E1C9EAD6000CEFBFC /* GroupEventDetailsTableViewController.swift */,
 				FE6496501C9F1BD500CEFBFC /* DiscussViewController.swift */,
+				FEDEAA191C9FEEAC0085CD22 /* DiscussionTableViewCell.swift */,
 			);
 			name = Group;
 			sourceTree = "<group>";
@@ -1260,6 +1263,7 @@
 				FE5800611C254D970010DB1F /* FoodCategoryViewController.swift in Sources */,
 				CB42E8201C293C2500302D6B /* UnwindSegue.swift in Sources */,
 				84CB2CED1B39454200E8B569 /* SubTableViewCell.swift in Sources */,
+				FEDEAA1A1C9FEEAC0085CD22 /* DiscussionTableViewCell.swift in Sources */,
 				84680BBC1B1CD9EA0020CFB5 /* SubEventsTableViewController.swift in Sources */,
 				FE9BE37B1C53BD2C00BCC4BE /* NoDataTableViewCell.swift in Sources */,
 				844566591B3AE1490086B8D4 /* JPBParallaxTableViewController.m in Sources */,

@@ -204,60 +204,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     
     override func viewWillAppear(animated: Bool) {
         
-        if(joinGroup.count == 0){
-            let currentUser = PFUser.currentUser()
-            
-            if(currentUser != nil){
-                let joinquery = PFQuery(className:"JoinGroup")
-                joinquery.whereKey("user",equalTo:currentUser!)
-                print(currentUser!.objectId!)
-                joinquery.findObjectsInBackgroundWithBlock {
-                    (objects: [PFObject]?, error: NSError?) -> Void in
-                    
-                    if error == nil {
-                        // The find succeeded.
-                        print("Successfully retrieved \(objects!.count) join.")
-                        self.joinGroup.removeAllObjects()
-                        
-                        for object in objects!{
-                            let item = object["group"] as! PFObject
-                            
-                            self.joinGroup.addObject(item)
-                        }
-                        // Do something with the found objects
-                        
-                        let query = PFQuery(className:"Group")
-                        query.whereKey("creator",equalTo:currentUser!)
-                        query.findObjectsInBackgroundWithBlock {
-                            (objects: [PFObject]?, error: NSError?) -> Void in
-                            
-                            if error == nil {
-                                // The find succeeded.
-                                print("Successfully retrieved \(objects!.count) groups.")
-                                
-                                // Do something with the found objects
-                                for object in objects!{
-                                    
-                                    
-                                    self.joinGroup.addObject(object)
-                                }
-                                
-                                self.selection = 0
-                                
-                            } else {
-                                // Log details of the failure
-                                print("Error: \(error!) \(error!.userInfo)")
-                            }
-                        }
-                        
-                    } else {
-                        // Log details of the failure
-                        print("Error: \(error!) \(error!.userInfo)")
-                    }
-                    
-                }
-            }
-        }
+        
+        
+        
         
         let currentUser = PFUser.currentUser()
         
@@ -276,10 +225,13 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
         
             
-        } else if(selection == 1) {
+        }
+        
+        if (currentUser != nil){
         
         
     
+            
             
         
         if arrNotiButton.count > 0 {
@@ -338,65 +290,118 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         }
         
         
-        
-        var x = 0
-        var count = 0
-        for item in joinGroup{
-            let query = PFQuery(className:"GroupEvent")
-            query.orderByAscending("date")
-            query.whereKey("date", greaterThanOrEqualTo:today)
-            query.whereKey("group", equalTo: item)
-            query.findObjectsInBackgroundWithBlock {
-                (objects: [PFObject]?, error: NSError?) -> Void in
-                
-                if error == nil {
-                    // The find succeeded.
-                    print("Successfully retrieved \(objects!.count) scores.")
-                    // Do something with the found objects
-                    if let objects = objects {
-                        for object in objects {
-                            let tempImage = SpringImageView()
-                            
-                            self.arrNotiObject.insert(object)
-                            self.arrNotiImage.insert(tempImage, atIndex: count)
-                            count++
-                            
-                        }
-                        x++
-                    }
+            let currentUser = PFUser.currentUser()
+            
+            if(currentUser != nil){
+                let joinquery = PFQuery(className:"JoinGroup")
+                joinquery.whereKey("user",equalTo:currentUser!)
+                print(currentUser!.objectId!)
+                joinquery.findObjectsInBackgroundWithBlock {
+                    (objects: [PFObject]?, error: NSError?) -> Void in
                     
-                    
-                    if (self.joinGroup.count == x) {
+                    if error == nil {
+                        // The find succeeded.
+                        print("Successfully retrieved \(objects!.count) join.")
+                        self.joinGroup.removeAllObjects()
                         
-                        var y = 0
-                        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                        for item in self.arrNotiObject{
+                        for object in objects!{
+                            let item = object["group"] as! PFObject
                             
+                            self.joinGroup.addObject(item)
+                        }
+                        // Do something with the found objects
+                        
+                        let query = PFQuery(className:"Group")
+                        query.whereKey("creator",equalTo:currentUser!)
+                        query.findObjectsInBackgroundWithBlock {
+                            (objects: [PFObject]?, error: NSError?) -> Void in
                             
-                            let coor = item["location"] as! PFGeoPoint
-                            
-                            self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
-                            
-                            
-                            if(self.arrNotiObject.count == y){
-                                for (var z = 0 ; z < self.arrNotiImage.count ; z++){
-                                    self.getButton(self.arrNotiImage[z])
-                                    self.setButtonLocation(self.arrNotiButton[z])
+                            if error == nil {
+                                // The find succeeded.
+                                print("Successfully retrieved \(objects!.count) groups.")
+                                
+                                // Do something with the found objects
+                                for object in objects!{
                                     
+                                    
+                                    self.joinGroup.addObject(object)
+                                }
+                                
+                                var x = 0
+                                var count = 0
+                                for item in self.joinGroup{
+                                    let query = PFQuery(className:"GroupEvent")
+                                    query.includeKey("group")
+                                    query.orderByAscending("date")
+                                    query.whereKey("date", greaterThanOrEqualTo:self.today)
+                                    query.whereKey("group", equalTo: item)
+                                    query.findObjectsInBackgroundWithBlock {
+                                        (objects: [PFObject]?, error: NSError?) -> Void in
+                                        
+                                        if error == nil {
+                                            // The find succeeded.
+                                            print("Successfully retrieved \(objects!.count) scores.")
+                                            // Do something with the found objects
+                                            if let objects = objects {
+                                                for object in objects {
+                                                    let tempImage = SpringImageView()
+                                                    
+                                                    self.arrNotiObject.insert(object)
+                                                    self.arrNotiImage.insert(tempImage, atIndex: count)
+                                                    count++
+                                                    
+                                                }
+                                                x++
+                                            }
+                                            
+                                            
+                                            if (self.joinGroup.count == x) {
+                                                
+                                                var y = 0
+                                                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                                for item in self.arrNotiObject{
+                                                    
+                                                    
+                                                    let coor = item["location"] as! PFGeoPoint
+                                                    
+                                                    self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
+                                                    
+                                                    
+                                                    if(self.arrNotiObject.count == y){
+                                                        for (var z = 0 ; z < self.arrNotiImage.count ; z++){
+                                                            self.getButton(self.arrNotiImage[z])
+                                                            self.setButtonLocation(self.arrNotiButton[z])
+                                                            
+                                                            
+                                                        }
+                                                    }
+                                                }
+                                                
+                                            }
+                                            
+                                        } else {
+                                            // Log details of the failure
+                                            print("Error: \(error!) \(error!.userInfo)")
+                                        }
+                                    }
                                     
                                 }
+                                
+                            } else {
+                                // Log details of the failure
+                                print("Error: \(error!) \(error!.userInfo)")
                             }
                         }
                         
+                    } else {
+                        // Log details of the failure
+                        print("Error: \(error!) \(error!.userInfo)")
                     }
                     
-                } else {
-                    // Log details of the failure
-                    print("Error: \(error!) \(error!.userInfo)")
                 }
             }
-            
-        }
+        
+        
         }
         
     }
@@ -1464,6 +1469,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             var count = 0
             for item in joinGroup{
                 let query = PFQuery(className:"GroupEvent")
+                query.includeKey("group")
                 query.orderByAscending("date")
                 query.whereKey("date", greaterThanOrEqualTo:today)
                 query.whereKey("group", equalTo: item)
