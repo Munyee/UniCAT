@@ -61,7 +61,7 @@ class DiscussViewController: UIViewController,UITextViewDelegate,UITableViewData
             let query = PFQuery(className:"Discussion")
             query.whereKey("event", equalTo:item)
             query.includeKey("user")
-            query.orderByDescending("date")
+            query.orderByDescending("createdAt")
             query.findObjectsInBackgroundWithBlock {
                 (objects: [PFObject]?, error: NSError?) -> Void in
                 
@@ -126,7 +126,7 @@ class DiscussViewController: UIViewController,UITextViewDelegate,UITableViewData
         for item in self.object{
             let query = PFQuery(className:"Discussion")
             query.whereKey("event", equalTo:item)
-            query.orderByDescending("date")
+            query.orderByDescending("createdAt")
             query.includeKey("user")
             query.findObjectsInBackgroundWithBlock {
                 (objects: [PFObject]?, error: NSError?) -> Void in
@@ -193,7 +193,7 @@ class DiscussViewController: UIViewController,UITextViewDelegate,UITableViewData
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "d MMMM yyyy, h:mm a"
-        let tmptime = self.arrComment[indexPath.row].valueForKey("date") as? NSDate
+        let tmptime = self.arrComment[indexPath.row].valueForKey("createdAt") as? NSDate
         
         cell.date.text = formatter.stringFromDate(tmptime!)
         
@@ -270,7 +270,7 @@ class DiscussViewController: UIViewController,UITextViewDelegate,UITableViewData
                         for item in self.object{
                             let query = PFQuery(className:"Discussion")
                             query.whereKey("event", equalTo:item)
-                            query.orderByDescending("date")
+                            query.orderByDescending("createdAt")
                             query.includeKey("user")
                             query.findObjectsInBackgroundWithBlock {
                                 (objects: [PFObject]?, error: NSError?) -> Void in

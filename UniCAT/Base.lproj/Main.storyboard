@@ -2878,7 +2878,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="8AE6588B-107E-4F60-BF49-FD6E8978AC88" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="D54D8E68-F223-48C8-8836-09D57912676C" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -7548,7 +7548,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="8AE6588B-107E-4F60-BF49-FD6E8978AC88" width="36" height="32">
+        <image name="Add Cover" width="70" height="92"/>
+        <image name="Cap" width="64" height="45"/>
+        <image name="D54D8E68-F223-48C8-8836-09D57912676C" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -7676,8 +7678,6 @@ G48bmBurG68buhvDG8gb0BvTG9gb5xvrG/Ib+hwHHAwcDhwQHBUcHRwgHCUcLRwwHEIcRRxKAAAAAAAA
 AgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAHEw
 </mutableData>
         </image>
-        <image name="Add Cover" width="70" height="92"/>
-        <image name="Cap" width="64" height="45"/>
         <image name="Dropdown" width="15" height="9"/>
         <image name="Interest" width="24" height="24"/>
         <image name="Logo" width="512" height="512"/>

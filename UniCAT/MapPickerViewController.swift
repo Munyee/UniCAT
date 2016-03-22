@@ -52,6 +52,8 @@ class MapPickerViewController: UIViewController, UIPickerViewDelegate {
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         refreshDelegate?.updateClass(row)
+        self.dismissViewControllerAnimated(true, completion: nil)
+
     }
     
     @IBAction func dismissView(sender: AnyObject) {

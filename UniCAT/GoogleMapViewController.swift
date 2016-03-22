@@ -332,7 +332,18 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                 
                                 if (self.joinGroup.count == 0){
                                     MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                                    //Alert view here
+                                    dispatch_async(dispatch_get_main_queue()) {
+                                        let title = "No group found"
+                                        let alert = UIAlertController(title: title , message: "Add a new group now?", preferredStyle: UIAlertControllerStyle.Alert)
+                                        
+                                        let delete = UIAlertAction(title : "Ok", style:  UIAlertActionStyle.Default) { (action) in
+                                            self.tabBarController?.selectedIndex = 2
+                                        }
+                                        
+                                        alert.addAction(delete)
+                                        alert.addAction(UIAlertAction(title: "Later", style: UIAlertActionStyle.Cancel,handler: nil))
+                                        self.presentViewController(alert, animated: true, completion: nil)
+                                    }
                                 }
                                 
                                 for item in self.joinGroup{
@@ -360,6 +371,16 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                 x++
                                             }
                                             
+                                            if(objects!.count == 0){
+                                                dispatch_async(dispatch_get_main_queue()) {
+                                                    let title = "Error"
+                                                    let alert = UIAlertController(title: title , message: "No event found", preferredStyle: UIAlertControllerStyle.Alert)
+                                                    
+                                                    
+                                                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel,handler: nil))
+                                                    self.presentViewController(alert, animated: true, completion: nil)
+                                                }
+                                            }
                                             
                                             if (self.joinGroup.count == x) {
                                                 
@@ -645,15 +666,13 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         scrollView.levelsOfZoom = 1;
         scrollView.levelsOfDetail = 1;
         
-        let currentUser = PFUser.currentUser()
-        let approve = currentUser!["approve"] as? String
-        if  approve == "yes" {
+        
             let lpgr = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
             lpgr.minimumPressDuration = 0.5
             lpgr.delaysTouchesBegan = true
             lpgr.delegate = self
             scrollView.addGestureRecognizer(lpgr)
-        }
+        
         
         
         
@@ -664,7 +683,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     
     
     func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
-        
+        let currentUser = PFUser.currentUser()
+        let approve = currentUser!["approve"] as? String
+        if  approve == "yes" {
         
         self.locationx = gestureReconizer.locationInView(scrollView.scrollView).x
         self.locationy = gestureReconizer.locationInView(scrollView.scrollView).y
@@ -672,7 +693,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             self.performSegueWithIdentifier("mapToGroup", sender: nil)
 
         }
-        
+        }
         
     }
     
@@ -1478,7 +1499,18 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
             if (self.joinGroup.count == 0){
                 MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                //Alert view here
+                dispatch_async(dispatch_get_main_queue()) {
+                    let title = "No group found"
+                    let alert = UIAlertController(title: title , message: "Add a new group now?", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    let delete = UIAlertAction(title : "Ok", style:  UIAlertActionStyle.Default) { (action) in
+                        self.tabBarController?.selectedIndex = 2
+                    }
+                    
+                    alert.addAction(delete)
+                    alert.addAction(UIAlertAction(title: "Later", style: UIAlertActionStyle.Cancel,handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
             }
             
             
@@ -1529,8 +1561,25 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                 var count = 0
                                 
                                 if (self.joinGroup.count == 0){
-                                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                                    //Alert view here
+                                        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                    dispatch_async(dispatch_get_main_queue()) {
+                                        
+                                        
+                                        
+                                        let title = "No group found"
+                                        let alert = UIAlertController(title: title , message: "Add a new group now?", preferredStyle: UIAlertControllerStyle.Alert)
+                                        
+                                        let delete = UIAlertAction(title : "Ok", style:  UIAlertActionStyle.Default) { (action) in
+                                            self.tabBarController?.selectedIndex = 2
+                                        }
+                                        
+                                        alert.addAction(delete)
+                                        alert.addAction(UIAlertAction(title: "Later", style: UIAlertActionStyle.Cancel,handler: nil))
+                                        
+                                        
+                                        
+                                        self.presentViewController(alert, animated: true, completion: nil)
+                                    }
                                 }
                                 
                                 for item in self.joinGroup{
@@ -1558,6 +1607,21 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                 x++
                                             }
                                             
+                                            
+                                            if(objects!.count == 0){
+                                                dispatch_async(dispatch_get_main_queue()) {
+                                                    
+                                                    let title = "Error"
+                                                    let alert = UIAlertController(title: title , message: "No event found", preferredStyle: UIAlertControllerStyle.Alert)
+                                                    
+                                                   
+                                                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel,handler: nil))
+                                                    
+                                                    let vc = MapPickerViewController()
+                                                    vc.dismissViewControllerAnimated(true, completion: nil)
+                                                    self.presentViewController(alert, animated: true, completion: nil)
+                                                }
+                                            }
                                             
                                             if (self.joinGroup.count == x) {
                                                 
