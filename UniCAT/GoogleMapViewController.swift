@@ -230,64 +230,60 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         if (currentUser != nil && selection == 1){
         
         
-    
-            
-            
-        
-        if arrNotiButton.count > 0 {
-            for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
-                
-                arrNotiImage[y].hidden = true
-                arrNotiButton[y].hidden = true
-                
-                if(y == self.arrNotiImage.count-1){
-                    arrNotiButton.removeAll()
-                    arrNotiImage.removeAll()
-                    arrNotiObject.removeAll()
+            if arrNotiButton.count > 0 {
+                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                    
+                    arrNotiImage[y].hidden = true
+                    arrNotiButton[y].hidden = true
+                    
+                    if(y == self.arrNotiImage.count-1){
+                        arrNotiButton.removeAll()
+                        arrNotiImage.removeAll()
+                        arrNotiObject.removeAll()
+                    }
                 }
             }
-        }
         
         
         
-        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        loadingNotification.mode = MBProgressHUDMode.Indeterminate
-        loadingNotification.labelText = "Fetching data"
-        
-        for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
-            buildingImage[actionx].hidden = true
-            button[actionx].hidden = true
-        }
-        
-        for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Fetching data"
             
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
+                buildingImage[actionx].hidden = true
+                button[actionx].hidden = true
+            }
             
-            self.buildingImage[actionx].hidden = true
-            self.button[actionx+1].hidden = true
-        }
-        
-        for (var c = 0 ; c < allPOI.count ; c++){
-            for (var y = 0 ; y < arrImage[c].count-1 ; y++){
+            for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
                 
-                if(arrButton[c].count > 1){
-                    arrImage[c][y].hidden = true
-                    arrButton[c][y+1].hidden = true
+                
+                self.buildingImage[actionx].hidden = true
+                self.button[actionx+1].hidden = true
+            }
+            
+            for (var c = 0 ; c < allPOI.count ; c++){
+                for (var y = 0 ; y < arrImage[c].count-1 ; y++){
+                    
+                    if(arrButton[c].count > 1){
+                        arrImage[c][y].hidden = true
+                        arrButton[c][y+1].hidden = true
+                    }
+                    
+                    
                 }
-                
-                
             }
-        }
-        
-        
-        
-        if arrConvoButton.count > 1 {
-            for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
-                
-                arrConvoImage[y].hidden = true
-                arrConvoButton[y+1].hidden = true
-                
+            
+            
+            
+            if arrConvoButton.count > 1 {
+                for (var y = 0 ; y < self.arrConvoImage.count-1 ; y++){
+                    
+                    arrConvoImage[y].hidden = true
+                    arrConvoButton[y+1].hidden = true
+                    
+                }
             }
-        }
         
         
             let currentUser = PFUser.currentUser()
@@ -371,18 +367,24 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                 x++
                                             }
                                             
-                                            if(objects!.count == 0){
-                                                dispatch_async(dispatch_get_main_queue()) {
-                                                    let title = "Error"
-                                                    let alert = UIAlertController(title: title , message: "No event found", preferredStyle: UIAlertControllerStyle.Alert)
-                                                    
-                                                    
-                                                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel,handler: nil))
-                                                    self.presentViewController(alert, animated: true, completion: nil)
-                                                }
-                                            }
+                                           
                                             
                                             if (self.joinGroup.count == x) {
+                                                
+                                                if(self.arrNotiObject.count == 0){
+                                                    dispatch_async(dispatch_get_main_queue()) {
+                                                        
+                                                        let title = "Error"
+                                                        let alert = UIAlertController(title: title , message: "No event found", preferredStyle: UIAlertControllerStyle.Alert)
+                                                        
+                                                        
+                                                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel,handler: nil))
+                                                        
+                                                        let vc = MapPickerViewController()
+                                                        vc.dismissViewControllerAnimated(true, completion: nil)
+                                                        self.presentViewController(alert, animated: true, completion: nil)
+                                                    }
+                                                }
                                                 
                                                 var y = 0
                                                 
@@ -759,7 +761,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         case "washroom":
             image = UIImage(named: "washroom")!
         case "noti":
-            image = UIImage(named: "dep")!
+            image = UIImage(named: "group")!
         default:
             break
         }
@@ -1497,21 +1499,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 }
             }
             
-            if (self.joinGroup.count == 0){
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                dispatch_async(dispatch_get_main_queue()) {
-                    let title = "No group found"
-                    let alert = UIAlertController(title: title , message: "Add a new group now?", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let delete = UIAlertAction(title : "Ok", style:  UIAlertActionStyle.Default) { (action) in
-                        self.tabBarController?.selectedIndex = 2
-                    }
-                    
-                    alert.addAction(delete)
-                    alert.addAction(UIAlertAction(title: "Later", style: UIAlertActionStyle.Cancel,handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
-            }
+            
             
             
             let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -1608,22 +1596,24 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                             }
                                             
                                             
-                                            if(objects!.count == 0){
-                                                dispatch_async(dispatch_get_main_queue()) {
-                                                    
-                                                    let title = "Error"
-                                                    let alert = UIAlertController(title: title , message: "No event found", preferredStyle: UIAlertControllerStyle.Alert)
-                                                    
-                                                   
-                                                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel,handler: nil))
-                                                    
-                                                    let vc = MapPickerViewController()
-                                                    vc.dismissViewControllerAnimated(true, completion: nil)
-                                                    self.presentViewController(alert, animated: true, completion: nil)
-                                                }
-                                            }
+                                            
                                             
                                             if (self.joinGroup.count == x) {
+                                                
+                                                if(self.arrNotiObject.count == 0){
+                                                    dispatch_async(dispatch_get_main_queue()) {
+                                                        
+                                                        let title = "Error"
+                                                        let alert = UIAlertController(title: title , message: "No event found", preferredStyle: UIAlertControllerStyle.Alert)
+                                                        
+                                                        
+                                                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel,handler: nil))
+                                                        
+                                                        let vc = MapPickerViewController()
+                                                        vc.dismissViewControllerAnimated(true, completion: nil)
+                                                        self.presentViewController(alert, animated: true, completion: nil)
+                                                    }
+                                                }
                                                 
                                                 var y = 0
                                                 
@@ -1806,6 +1796,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         }
         else if(selection == 1 && typeName[selection] == "Notification"){
             self.performSegueWithIdentifier("mapToGroupEvent", sender: sender.tag)
+            scrollView.setZoomScale(1, animated: true)
+
         }
         else if(selection == 2){
             selectedBuilding = arrConvoNames[sender.tag+1]
