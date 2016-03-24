@@ -124,6 +124,8 @@
 		FE5800631C254DE80010DB1F /* FoodCategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */; };
 		FE64964F1C9EAD6000CEFBFC /* GroupEventDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64964E1C9EAD6000CEFBFC /* GroupEventDetailsTableViewController.swift */; };
 		FE6496511C9F1BD500CEFBFC /* DiscussViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6496501C9F1BD500CEFBFC /* DiscussViewController.swift */; };
+		FE7ABF0B1CA4804300981338 /* ForumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7ABF0A1CA4804300981338 /* ForumTableViewController.swift */; };
+		FE7ABF0D1CA4807800981338 /* ForumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7ABF0C1CA4807800981338 /* ForumTableViewCell.swift */; };
 		FE8C534F1C70931500A07D6E /* PlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8C534D1C70931500A07D6E /* PlaceTableViewCell.swift */; };
 		FE8C53501C70931500A07D6E /* PlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE8C534E1C70931500A07D6E /* PlaceTableViewCell.xib */; };
 		FE8C53531C70B24A00A07D6E /* BusTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8C53511C70B24A00A07D6E /* BusTimeTableViewCell.swift */; };
@@ -331,6 +333,8 @@
 		FE5800621C254DE80010DB1F /* FoodCategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewCell.swift; sourceTree = "<group>"; };
 		FE64964E1C9EAD6000CEFBFC /* GroupEventDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupEventDetailsTableViewController.swift; sourceTree = "<group>"; };
 		FE6496501C9F1BD500CEFBFC /* DiscussViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussViewController.swift; sourceTree = "<group>"; };
+		FE7ABF0A1CA4804300981338 /* ForumTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumTableViewController.swift; sourceTree = "<group>"; };
+		FE7ABF0C1CA4807800981338 /* ForumTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForumTableViewCell.swift; sourceTree = "<group>"; };
 		FE8C534D1C70931500A07D6E /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
 		FE8C534E1C70931500A07D6E /* PlaceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceTableViewCell.xib; sourceTree = "<group>"; };
 		FE8C53511C70B24A00A07D6E /* BusTimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusTimeTableViewCell.swift; sourceTree = "<group>"; };
@@ -814,6 +818,8 @@
 				FE64964E1C9EAD6000CEFBFC /* GroupEventDetailsTableViewController.swift */,
 				FE6496501C9F1BD500CEFBFC /* DiscussViewController.swift */,
 				FEDEAA191C9FEEAC0085CD22 /* DiscussionTableViewCell.swift */,
+				FE7ABF0A1CA4804300981338 /* ForumTableViewController.swift */,
+				FE7ABF0C1CA4807800981338 /* ForumTableViewCell.swift */,
 			);
 			name = Group;
 			sourceTree = "<group>";
@@ -1178,6 +1184,7 @@
 				FEED41C11C1EA6A2002A8049 /* TCStepsViewController.m in Sources */,
 				CB42E81C1C293C2500302D6B /* SpringTextView.swift in Sources */,
 				84A6F5DA1B4521EC00C6A4C9 /* FbTableViewCell.swift in Sources */,
+				FE7ABF0D1CA4807800981338 /* ForumTableViewCell.swift in Sources */,
 				84CB2CE91B39447800E8B569 /* MenuTableViewCell.swift in Sources */,
 				FEED418D1C1EA516002A8049 /* TCUserLocationManager.m in Sources */,
 				FED0AB791C9ACA980067CFF7 /* EventTableViewController.swift in Sources */,
@@ -1226,6 +1233,7 @@
 				847315D91B37E5240037D750 /* MenuController.swift in Sources */,
 				CB42E8111C293C2500302D6B /* DesignableTabBarController.swift in Sources */,
 				FEED41AC1C1EA5AA002A8049 /* TCGooglePlacesAPIClient.m in Sources */,
+				FE7ABF0B1CA4804300981338 /* ForumTableViewController.swift in Sources */,
 				FEDE9C9D1C997A8F00CEEC38 /* GroupTableViewController.swift in Sources */,
 				847C70CA1B3B095D00953B54 /* DetailTableViewCell.swift in Sources */,
 				84A054B11B079D2C004DC5AC /* EventsTableViewCell.swift in Sources */,

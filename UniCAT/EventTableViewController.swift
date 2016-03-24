@@ -228,7 +228,12 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
                     updateObject["venue"] = self.venue.text
                     updateObject["details"] = self.details.text
                     updateObject["location"] = self.point
-                    updateObject["block"] = self.buildings[buildingselection]
+                    if(self.buildingButton.titleLabel?.text == ""){
+                        updateObject["block"] = "Arena"
+                    }
+                    else{
+                        updateObject["block"] = self.buildingButton.titleLabel?.text
+                    }
                     updateObject.saveInBackgroundWithBlock {
                         (success: Bool, error: NSError?) -> Void in
                         if (success) {

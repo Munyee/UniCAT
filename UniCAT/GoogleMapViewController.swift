@@ -239,7 +239,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
         
             if arrNotiButton.count > 0 {
-                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                for (var y = 0 ; y < self.arrNotiImage.count ; y++){
                     
                     arrNotiImage[y].hidden = true
                     arrNotiButton[y].hidden = true
@@ -332,7 +332,6 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                 }
                                 
                                 var x = 0
-                                var count = 0
                                 
                                 if (self.joinGroup.count == 0){
                                     MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
@@ -350,6 +349,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                     }
                                 }
                                 
+                                
+                                
                                 for item in self.joinGroup{
                                     let query = PFQuery(className:"GroupEvent")
                                     query.includeKey("group")
@@ -362,14 +363,16 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                         if error == nil {
                                             // The find succeeded.
                                             print("Successfully retrieved \(objects!.count) scores.")
+                                            
+
                                             // Do something with the found objects
                                             if let objects = objects {
                                                 for object in objects {
-                                                    let tempImage = SpringImageView()
+                                                    
                                                     
                                                     self.arrNotiObject.insert(object)
-                                                    self.arrNotiImage.insert(tempImage, atIndex: count)
-                                                    count++
+                                                    
+                                                    
                                                     
                                                 }
                                                 x++
@@ -395,17 +398,85 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                 }
                                                 
                                                 var y = 0
-                                                
+                                                var count = 0
+
                                                 MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                                                for item in self.arrNotiObject{
-                                                    
-                                                    
-                                                    let coor = item["location"] as! PFGeoPoint
-                                                    
-                                                    self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
-                                                    
-                                                    
-                                                    if(self.arrNotiObject.count == y){
+                                                
+                                                for(var g = 0 ; g <= self.buildings.count ; g++){
+                                                    for item in self.arrNotiObject{
+                                                        
+                                                        
+//                                                        let coor = item["location"] as! PFGeoPoint
+                                                        let name = item["block"] as! String
+                                                        
+                                                        var location:CLLocation = CLLocation(latitude: 0, longitude: 0)
+                                                        
+                                                        switch(g){
+                                                        case 0:
+                                                            location = CLLocation(latitude: 4.336586, longitude: 101.135725)
+                                                        case 1:
+                                                            location = CLLocation(latitude: 4.335357, longitude: 101.141050)
+                                                        case 2:
+                                                            location = CLLocation(latitude: 4.336641, longitude: 101.141069)
+                                                        case 3:
+                                                            location = CLLocation(latitude: 4.337290, longitude: 101.142339)
+                                                        case 4:
+                                                            location = CLLocation(latitude: 4.338071, longitude: 101.143580)
+                                                        case 5:
+                                                            location = CLLocation(latitude: 4.338780, longitude: 101.143479)
+                                                        case 6:
+                                                            location = CLLocation(latitude: 4.339766, longitude: 101.143608)
+                                                        case 7:
+                                                            location = CLLocation(latitude: 4.339929, longitude: 101.143061)
+                                                        case 8:
+                                                            location = CLLocation(latitude: 4.341391, longitude: 101.142968)
+                                                        case 9:
+                                                            location = CLLocation(latitude: 4.340802, longitude: 101.142486)
+                                                        case 10:
+                                                            location = CLLocation(latitude: 4.341213, longitude: 101.144216)
+                                                        case 11:
+                                                            location = CLLocation(latitude: 4.342081, longitude: 101.141268)
+                                                        case 12:
+                                                            location = CLLocation(latitude: 4.341819, longitude: 101.140305)
+                                                        case 13:
+                                                            location = CLLocation(latitude: 4.340561, longitude: 101.137677)
+                                                        case 14:
+                                                            location = CLLocation(latitude: 4.338680, longitude: 101.136600)
+                                                        case 15:
+                                                            location = CLLocation(latitude: 4.338530, longitude: 101.137182)
+                                                        case 16:
+                                                            location = CLLocation(latitude: 4.337456, longitude: 101.134147)
+                                                        default:
+                                                            break
+                                                            
+                                                        }
+                                                        
+                                                        if(g == 0){
+                                                            if (name == "Arena"){
+                                                                let tempImage = SpringImageView()
+                                                                self.arrNotiImage.insert(tempImage, atIndex: count)
+                                                                self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((location.coordinate.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - location.coordinate.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "shout", block: "", tag: y++))
+                                                                break
+                                                                
+                                                            }
+                                                            
+                                                        }else {
+                                                            if (name == self.buildings[g-1] ){
+                                                                let tempImage = SpringImageView()
+                                                                self.arrNotiImage.insert(tempImage, atIndex: count)
+                                                                self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((location.coordinate.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - location.coordinate.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
+                                                                break
+                                                                
+                                                            }
+                                                            
+                                                        }
+                                                        
+                                                        
+
+                                                        
+                                                    }
+                                                    count++
+                                                    if(y == self.buildings.count+1){
                                                         for (var z = 0 ; z < self.arrNotiImage.count ; z++){
                                                             self.getButton(self.arrNotiImage[z])
                                                             self.setButtonLocation(self.arrNotiButton[z])
@@ -414,6 +485,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                         }
                                                     }
                                                 }
+                                                
                                                 
                                             }
                                             
@@ -770,6 +842,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             image = UIImage(named: "washroom")!
         case "noti":
             image = UIImage(named: "group")!
+        case "shout":
+            image = UIImage(named :"shout")!
         default:
             break
         }
@@ -1456,7 +1530,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             self.navigationItem.rightBarButtonItem = nil
 
             if arrNotiButton.count > 0 {
-                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                for (var y = 0 ; y < self.arrNotiImage.count ; y++){
                     
                     arrNotiImage[y].hidden = true
                     arrNotiButton[y].hidden = true
@@ -1471,7 +1545,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
             
             
-            
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Fetching data"
             
             for (var actionx = 0 ; actionx < buildingImage.count ; actionx++){
                 buildingImage[actionx].hidden = true
@@ -1507,14 +1583,6 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                     
                 }
             }
-            
-            
-            
-            
-            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.Indeterminate
-            loadingNotification.labelText = "Fetching data"
-
             
             
             let currentUser = PFUser.currentUser()
@@ -1555,14 +1623,10 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                 }
                                 
                                 var x = 0
-                                var count = 0
                                 
                                 if (self.joinGroup.count == 0){
-                                        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
                                     dispatch_async(dispatch_get_main_queue()) {
-                                        
-                                        
-                                        
                                         let title = "No group found"
                                         let alert = UIAlertController(title: title , message: "Add a new group now?", preferredStyle: UIAlertControllerStyle.Alert)
                                         
@@ -1572,12 +1636,11 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                         
                                         alert.addAction(delete)
                                         alert.addAction(UIAlertAction(title: "Later", style: UIAlertActionStyle.Cancel,handler: nil))
-                                        
-                                        
-                                        
                                         self.presentViewController(alert, animated: true, completion: nil)
                                     }
                                 }
+                                
+                                
                                 
                                 for item in self.joinGroup{
                                     let query = PFQuery(className:"GroupEvent")
@@ -1591,19 +1654,20 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                         if error == nil {
                                             // The find succeeded.
                                             print("Successfully retrieved \(objects!.count) scores.")
+                                            
+                                            
                                             // Do something with the found objects
                                             if let objects = objects {
                                                 for object in objects {
-                                                    let tempImage = SpringImageView()
+                                                    
                                                     
                                                     self.arrNotiObject.insert(object)
-                                                    self.arrNotiImage.insert(tempImage, atIndex: count)
-                                                    count++
+                                                    
+                                                    
                                                     
                                                 }
                                                 x++
                                             }
-                                            
                                             
                                             
                                             
@@ -1625,17 +1689,85 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                 }
                                                 
                                                 var y = 0
+                                                var count = 0
                                                 
                                                 MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                                                for item in self.arrNotiObject{
-                                                    
-                                                    
-                                                    let coor = item["location"] as! PFGeoPoint
-                                                    
-                                                    self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((coor.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - coor.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
-                                                    
-                                                    
-                                                    if(self.arrNotiObject.count == y){
+                                                
+                                                for(var g = 0 ; g <= self.buildings.count ; g++){
+                                                    for item in self.arrNotiObject{
+                                                        
+                                                        
+                                                        //                                                        let coor = item["location"] as! PFGeoPoint
+                                                        let name = item["block"] as! String
+                                                        
+                                                        var location:CLLocation = CLLocation(latitude: 0, longitude: 0)
+                                                        
+                                                        switch(g){
+                                                        case 0:
+                                                            location = CLLocation(latitude: 4.336586, longitude: 101.135725)
+                                                        case 1:
+                                                            location = CLLocation(latitude: 4.335357, longitude: 101.141050)
+                                                        case 2:
+                                                            location = CLLocation(latitude: 4.336641, longitude: 101.141069)
+                                                        case 3:
+                                                            location = CLLocation(latitude: 4.337290, longitude: 101.142339)
+                                                        case 4:
+                                                            location = CLLocation(latitude: 4.338071, longitude: 101.143580)
+                                                        case 5:
+                                                            location = CLLocation(latitude: 4.338780, longitude: 101.143479)
+                                                        case 6:
+                                                            location = CLLocation(latitude: 4.339766, longitude: 101.143608)
+                                                        case 7:
+                                                            location = CLLocation(latitude: 4.339929, longitude: 101.143061)
+                                                        case 8:
+                                                            location = CLLocation(latitude: 4.341391, longitude: 101.142968)
+                                                        case 9:
+                                                            location = CLLocation(latitude: 4.340802, longitude: 101.142486)
+                                                        case 10:
+                                                            location = CLLocation(latitude: 4.341213, longitude: 101.144216)
+                                                        case 11:
+                                                            location = CLLocation(latitude: 4.342081, longitude: 101.141268)
+                                                        case 12:
+                                                            location = CLLocation(latitude: 4.341819, longitude: 101.140305)
+                                                        case 13:
+                                                            location = CLLocation(latitude: 4.340561, longitude: 101.137677)
+                                                        case 14:
+                                                            location = CLLocation(latitude: 4.338680, longitude: 101.136600)
+                                                        case 15:
+                                                            location = CLLocation(latitude: 4.338530, longitude: 101.137182)
+                                                        case 16:
+                                                            location = CLLocation(latitude: 4.337456, longitude: 101.134147)
+                                                        default:
+                                                            break
+                                                            
+                                                        }
+                                                        
+                                                        if(g == 0){
+                                                            if (name == "Arena"){
+                                                                let tempImage = SpringImageView()
+                                                                self.arrNotiImage.insert(tempImage, atIndex: count)
+                                                                self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((location.coordinate.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - location.coordinate.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "shout", block: "", tag: y++))
+                                                                break
+                                                                
+                                                            }
+                                                            
+                                                        }else {
+                                                            if (name == self.buildings[g-1] ){
+                                                                let tempImage = SpringImageView()
+                                                                self.arrNotiImage.insert(tempImage, atIndex: count)
+                                                                self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((location.coordinate.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - location.coordinate.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
+                                                                break
+                                                                
+                                                            }
+                                                            
+                                                        }
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    }
+                                                    count++
+                                                    if(y == self.buildings.count+1){
                                                         for (var z = 0 ; z < self.arrNotiImage.count ; z++){
                                                             self.getButton(self.arrNotiImage[z])
                                                             self.setButtonLocation(self.arrNotiButton[z])
@@ -1644,6 +1776,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                         }
                                                     }
                                                 }
+                                                
                                                 
                                             }
                                             
@@ -1845,18 +1978,23 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             pickerScene.scale = self.scale
         }
         else if segue.identifier == "mapToGroupEvent" {
-            let pickerScene = segue.destinationViewController as! GroupEventDetailsTableViewController
+            let pickerScene = segue.destinationViewController as! ForumTableViewController
             
-            var x = 0
-            for item in arrNotiObject{
-                if (x == sender as! Int){
-                    pickerScene.eventObject.insert(item)
-                    break
-                }
-                else{
-                    x++
-                }
+            if(sender as! Int == 0){
+                pickerScene.block = "Arena"
+            }else{
+                pickerScene.block = self.buildings[sender as! Int - 1 ]
             }
+//            var x = 0
+//            for item in arrNotiObject{
+//                if (x == sender as! Int){
+//                    pickerScene.eventObject.insert(item)
+//                    break
+//                }
+//                else{
+//                    x++
+//                }
+//            }
             
         }
     }
