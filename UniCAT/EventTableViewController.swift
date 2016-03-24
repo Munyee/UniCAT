@@ -20,8 +20,10 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var saveActivity: UIActivityIndicatorView!
     
+    @IBOutlet weak var buildingName: UITextField!
     @IBOutlet weak var saveLabel: UILabel!
     @IBOutlet weak var groupbtn: UIButton!
+    @IBOutlet weak var buildingButton: UIButton!
    
     
     var today = NSDate()
@@ -35,6 +37,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     var groupobject = NSMutableArray()
     var users = NSMutableArray()
     var selection = 0
+    var buildingselection = 0
     var scale = CGFloat()
     
     var pointx = Double()
@@ -45,8 +48,10 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     let longmin = 101.133013;
     let longmax = 101.145641;
     
-    var point = PFGeoPoint()
+    var buildings = ["Heritage Hall","Learning Complex I","Student Pavilion I","Faculty of Science","FEGT","Administration Block","Library","FBF","Lecture Complex I","Engineering Workshop","Student Pavilion II","Lecture Complex II","Grand Hall","FICT & IPSR Lab","FAS & ICS","Sports Complex"]
     
+    var point = PFGeoPoint()
+    var groupCheck = true
    
     override func viewDidAppear(animated: Bool) {
         creategroup.removeAll()
@@ -223,6 +228,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
                     updateObject["venue"] = self.venue.text
                     updateObject["details"] = self.details.text
                     updateObject["location"] = self.point
+                    updateObject["block"] = self.buildings[buildingselection]
                     updateObject.saveInBackgroundWithBlock {
                         (success: Bool, error: NSError?) -> Void in
                         if (success) {
@@ -286,8 +292,18 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
     }
     
     @IBAction func selectGroup(sender: AnyObject) {
+        self.groupCheck = true
         self.performSegueWithIdentifier("pickerView", sender: self)
+        
     }
+    
+    @IBAction func selectBuilding(sender: AnyObject) {
+        self.groupCheck = false
+        self.performSegueWithIdentifier("pickerView", sender: self)
+        
+    }
+    
+    
     @IBAction func showActionSheet(sender: AnyObject) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
@@ -354,21 +370,32 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "pickerView" {
+        if segue.identifier == "pickerView" && groupCheck == true {
             let pickerScene = segue.destinationViewController as! MapPickerViewController
             
             pickerScene.type = selection
             pickerScene.typeName = self.creategroup
             pickerScene.refreshDelegate = self
+        }else  if segue.identifier == "pickerView" && groupCheck == false {
+            let pickerScene = segue.destinationViewController as! MapPickerViewController
+            
+            pickerScene.type = buildingselection
+            pickerScene.typeName = self.buildings
+            pickerScene.refreshDelegate = self
         }
-        
     }
     
     func updateClass(classType: Int) {
-        group.placeholder = nil
-        selection = classType
-        groupbtn.setTitle(self.creategroup[selection], forState: UIControlState.Normal)
         
+        if groupCheck{
+            group.placeholder = nil
+            selection = classType
+            groupbtn.setTitle(self.creategroup[selection], forState: UIControlState.Normal)
+        }else if !groupCheck{
+            buildingName.placeholder = nil
+            buildingselection = classType
+            buildingButton.setTitle(self.buildings[buildingselection], forState: UIControlState.Normal)
+        }
     }
     
    

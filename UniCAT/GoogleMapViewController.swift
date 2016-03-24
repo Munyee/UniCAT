@@ -98,6 +98,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var alphabet:[String] = []
     var eventcount: [String] = []
     var eventname : [String] = []
+    var buildings = ["Heritage Hall","Learning Complex I","Student Pavilion I","Faculty of Science","FEGT","Administration Block","Library","FBF","Lecture Complex I","Engineering Workshop","Student Pavilion II","Lecture Complex II","Grand Hall","FICT & IPSR Lab","FAS & ICS","Sports Complex"]
+    
+    
     
     func tiledScrollViewDidZoom(scrollView: JCTiledScrollView!) {
         scale = CGFloat(scrollView.zoomScale)
@@ -227,8 +230,13 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
         }
         
+        if (selection != 0){
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        
         if (currentUser != nil && selection == 1){
         
+            
         
             if arrNotiButton.count > 0 {
                 for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
@@ -1445,6 +1453,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         else if selection == 1 && typeName[selection] == "Notification"{
             convoCount = 0
             cap.hidden = true
+            self.navigationItem.rightBarButtonItem = nil
 
             if arrNotiButton.count > 0 {
                 for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
@@ -1662,6 +1671,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
          
             
         }else{
+            
+            self.navigationItem.rightBarButtonItem = nil
             cap.hidden = false
             cap.animation = "fadeInDown"
             cap.curve = "easeInOut"
