@@ -66,6 +66,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
     var arrNotiButton = [UIButton()]
     var arrNotiObject = Set<PFObject>()
     var arrNotiImage = [SpringImageView()]
+    var blockName = [String()]
     
     var numtype = 0
     
@@ -293,6 +294,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 }
             }
         
+            self.blockName.removeAll()
         
             let currentUser = PFUser.currentUser()
             
@@ -456,6 +458,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                                 let tempImage = SpringImageView()
                                                                 self.arrNotiImage.insert(tempImage, atIndex: count)
                                                                 self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((location.coordinate.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - location.coordinate.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "shout", block: "", tag: y++))
+                                                                count++
+                                                                self.blockName.append("Arena")
                                                                 break
                                                                 
                                                             }
@@ -465,17 +469,20 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                                 let tempImage = SpringImageView()
                                                                 self.arrNotiImage.insert(tempImage, atIndex: count)
                                                                 self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((location.coordinate.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - location.coordinate.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
+                                                                count++
+                                                                self.blockName.append(self.buildings[g-1])
+                                                                
                                                                 break
                                                                 
                                                             }
                                                             
                                                         }
+
                                                         
                                                         
 
                                                         
                                                     }
-                                                    count++
                                                     if(y == self.buildings.count+1){
                                                         for (var z = 0 ; z < self.arrNotiImage.count ; z++){
                                                             self.getButton(self.arrNotiImage[z])
@@ -1514,7 +1521,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             }
             
             if arrNotiButton.count > 0 {
-                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                for (var y = 0 ; y < self.arrNotiImage.count ; y++){
                     
                     arrNotiImage[y].hidden = true
                     arrNotiButton[y].hidden = true
@@ -1584,6 +1591,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                 }
             }
             
+            blockName.removeAll()
             
             let currentUser = PFUser.currentUser()
             
@@ -1747,6 +1755,8 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                                 let tempImage = SpringImageView()
                                                                 self.arrNotiImage.insert(tempImage, atIndex: count)
                                                                 self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((location.coordinate.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - location.coordinate.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "shout", block: "", tag: y++))
+                                                                count++
+                                                                self.blockName.append("Arena")
                                                                 break
                                                                 
                                                             }
@@ -1756,6 +1766,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                                 let tempImage = SpringImageView()
                                                                 self.arrNotiImage.insert(tempImage, atIndex: count)
                                                                 self.arrNotiButton.append(self.setpoi(self.arrNotiImage[y], size: CGRect(x: ((location.coordinate.longitude - self.longmin)/(self.longmax - self.longmin)) * 1000, y:  ((self.latmax - location.coordinate.latitude)/(self.latmax - self.latmin)) * 1000, width: 50, height: 72), item: "noti", block: "", tag: y++))
+                                                                count++
+                                                                self.blockName.append(self.buildings[g-1])
+
                                                                 break
                                                                 
                                                             }
@@ -1766,7 +1779,6 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
                                                         
                                                         
                                                     }
-                                                    count++
                                                     if(y == self.buildings.count+1){
                                                         for (var z = 0 ; z < self.arrNotiImage.count ; z++){
                                                             self.getButton(self.arrNotiImage[z])
@@ -1872,7 +1884,7 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             
             
             if arrNotiButton.count > 0 {
-                for (var y = 0 ; y < self.arrNotiImage.count-1 ; y++){
+                for (var y = 0 ; y < self.arrNotiImage.count ; y++){
                     
                     arrNotiImage[y].hidden = true
                     arrNotiButton[y].hidden = true
@@ -1980,11 +1992,13 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
         else if segue.identifier == "mapToGroupEvent" {
             let pickerScene = segue.destinationViewController as! ForumTableViewController
             
-            if(sender as! Int == 0){
-                pickerScene.block = "Arena"
-            }else{
-                pickerScene.block = self.buildings[sender as! Int - 1 ]
-            }
+            pickerScene.block = self.blockName[sender as! Int]
+            
+//            if(sender as! Int == 0){
+//                pickerScene.block = "Arena"
+//            }else{
+//                pickerScene.block = self.buildings[sender as! Int - 1 ]
+//            }
 //            var x = 0
 //            for item in arrNotiObject{
 //                if (x == sender as! Int){

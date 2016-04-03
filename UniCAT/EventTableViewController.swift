@@ -228,7 +228,7 @@ class EventTableViewController: UITableViewController, UIImagePickerControllerDe
                     updateObject["venue"] = self.venue.text
                     updateObject["details"] = self.details.text
                     updateObject["location"] = self.point
-                    if(self.buildingButton.titleLabel?.text == ""){
+                    if(self.buildingButton.titleLabel?.text == nil){
                         updateObject["block"] = "Arena"
                     }
                     else{
