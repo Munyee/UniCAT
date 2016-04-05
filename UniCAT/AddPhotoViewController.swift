@@ -16,6 +16,8 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
     @IBOutlet weak var imageCell: UITableViewCell!
     @IBOutlet weak var save: UIButton!
     
+    var buildingName = String()
+    
     let imagePicker = UIImagePickerController()
     var newImage = false
     var num : Int = 0
@@ -43,6 +45,8 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
         imagePicker.delegate = self
         textField.text = MapViewController.Name.nameof
         textField.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
+        textField.placeholder = buildingName
+        textField.enabled = false
     }
     
     
@@ -131,7 +135,7 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
             
             var imageobject = PFObject(className: "Gallery")
             
-            imageobject["venue"] = textField.text
+            imageobject["venue"] = self.buildingName
             imageobject["description"] = textview.text
             imageobject["image"] = imageFile
             imageobject["num"] = num+1
@@ -170,7 +174,7 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
        
             
     }
-        
+    
     
     
 }

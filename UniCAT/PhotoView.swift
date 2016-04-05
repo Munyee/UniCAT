@@ -528,7 +528,7 @@ let reuseIdentifier = "photocell"
     }
     
     @IBAction func addImage(sender: AnyObject) {
-        self.performSegueWithIdentifier("addImage", sender: self)
+        self.performSegueWithIdentifier("addImageIdentifier", sender: self)
     }
     
     func photoPagesController(photoPagesController: EBPhotoPagesController!, shouldAllowActivitiesForPhotoAtIndex index: Int) -> Bool {
@@ -547,6 +547,15 @@ let reuseIdentifier = "photocell"
     
     func photoPagesControllerDidDismiss(photoPagesController: EBPhotoPagesController!) {
         print("Finsih");
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "addImageIdentifier" {
+            let detailScene = segue.destinationViewController as! AddPhotoViewController
+            
+            detailScene.buildingName = selectedBuilding
+        }
+        
     }
     
     
