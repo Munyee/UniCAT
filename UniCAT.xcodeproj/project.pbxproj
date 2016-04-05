@@ -143,6 +143,7 @@
 		FE9BE37C1C53BD2C00BCC4BE /* NoDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9BE37A1C53BD2C00BCC4BE /* NoDataTableViewCell.xib */; };
 		FE9BE37E1C567B0900BCC4BE /* SortFoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE37D1C567B0900BCC4BE /* SortFoodTableViewController.swift */; };
 		FE9BE3801C56852400BCC4BE /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */; };
+		FEAB3F941CB405060075715E /* QRDetailBusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAB3F931CB405060075715E /* QRDetailBusViewController.swift */; };
 		FEB6A9C91C2481D200B0D7E2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */; };
 		FED0AB791C9ACA980067CFF7 /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED0AB781C9ACA980067CFF7 /* EventTableViewController.swift */; };
 		FEDE9C9D1C997A8F00CEEC38 /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */; };
@@ -352,6 +353,7 @@
 		FE9BE37A1C53BD2C00BCC4BE /* NoDataTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoDataTableViewCell.xib; sourceTree = "<group>"; };
 		FE9BE37D1C567B0900BCC4BE /* SortFoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortFoodTableViewController.swift; sourceTree = "<group>"; };
 		FE9BE37F1C56852400BCC4BE /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
+		FEAB3F931CB405060075715E /* QRDetailBusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRDetailBusViewController.swift; sourceTree = "<group>"; };
 		FEB6A9C81C2481D200B0D7E2 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		FED0AB781C9ACA980067CFF7 /* EventTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		FEDE9C9C1C997A8F00CEEC38 /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 				FE9BE3661C53559000BCC4BE /* QRScanTableViewController.swift */,
 				FE9BE3671C53559000BCC4BE /* QRCodeTableViewControllerCell.swift */,
 				FE9BE36B1C53644300BCC4BE /* QRDetailViewController.swift */,
+				FEAB3F931CB405060075715E /* QRDetailBusViewController.swift */,
 			);
 			name = QRCodeModule;
 			sourceTree = "<group>";
@@ -1182,6 +1185,7 @@
 				FE58005F1C254B900010DB1F /* ImageView.swift in Sources */,
 				84680BBE1B1CDA580020CFB5 /* SubEventsTableViewCell.swift in Sources */,
 				FEED41C11C1EA6A2002A8049 /* TCStepsViewController.m in Sources */,
+				FEAB3F941CB405060075715E /* QRDetailBusViewController.swift in Sources */,
 				CB42E81C1C293C2500302D6B /* SpringTextView.swift in Sources */,
 				84A6F5DA1B4521EC00C6A4C9 /* FbTableViewCell.swift in Sources */,
 				FE7ABF0D1CA4807800981338 /* ForumTableViewCell.swift in Sources */,

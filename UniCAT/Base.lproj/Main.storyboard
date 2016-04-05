@@ -2939,7 +2939,7 @@
         <scene sceneID="Omz-CI-NUE">
             <objects>
                 <navigationController id="NSm-fW-hX4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="EE94E3EE-9FA2-452C-BC2F-6525A00759BE" id="SZe-X8-TCJ"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Profile" image="81A932B6-C12B-4955-AC29-30BFD1C0C879" id="SZe-X8-TCJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3b-sh-2ex">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -7371,6 +7371,7 @@
                         <outlet property="messageLabel" destination="3Xz-UY-TNb" id="BV7-Ux-gXe"/>
                         <segue destination="4vW-92-Aht" kind="push" identifier="qrToDetails" id="03E-EL-u5Q"/>
                         <segue destination="iRt-NJ-vk5" kind="push" identifier="eventListToEventDetail" id="90g-tF-drr"/>
+                        <segue destination="pa2-R0-bY2" kind="push" identifier="qrToDetailsBus" id="Z6e-4k-TRw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cUc-ME-NCX" sceneMemberID="firstResponder"/>
@@ -7416,6 +7417,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w8D-cv-fL2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-349" y="4142"/>
+        </scene>
+        <!--Detail Bus View Controller-->
+        <scene sceneID="ccN-bj-5oo">
+            <objects>
+                <viewController id="pa2-R0-bY2" customClass="QRDetailBusViewController" customModule="UniCAT" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wba-jm-xK0"/>
+                        <viewControllerLayoutGuide type="bottom" id="tBJ-j4-jS4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0MR-IY-PPE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="EEM-v5-Z5Z"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gxf-uY-VSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1092" y="3406"/>
         </scene>
         <!--Details-->
         <scene sceneID="qDl-Ic-iXV">
@@ -7654,10 +7674,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Add Cover" width="70" height="92"/>
-        <image name="Cap" width="64" height="45"/>
-        <image name="Dropdown" width="15" height="9"/>
-        <image name="EE94E3EE-9FA2-452C-BC2F-6525A00759BE" width="36" height="32">
+        <image name="81A932B6-C12B-4955-AC29-30BFD1C0C879" width="36" height="32">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -7785,6 +7802,9 @@ G48bmBurG68buhvDG8gb0BvTG9gb5xvrG/Ib+hwHHAwcDhwQHBUcHRwgHCUcLRwwHEIcRRxKAAAAAAAA
 AgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAHEw
 </mutableData>
         </image>
+        <image name="Add Cover" width="70" height="92"/>
+        <image name="Cap" width="64" height="45"/>
+        <image name="Dropdown" width="15" height="9"/>
         <image name="Interest" width="24" height="24"/>
         <image name="Logo" width="512" height="512"/>
         <image name="Love" width="37" height="32"/>

@@ -221,6 +221,81 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                             
                         }
                     }
+                    else if(type[0] == "bus?"){
+                        let query = PFQuery(className:"QRCode")
+                        query.whereKey("name", equalTo: type[1])
+                        query.findObjectsInBackgroundWithBlock {
+                            (objects: [PFObject]?, error: NSError?) -> Void in
+                            
+                            if error == nil {
+                                
+                                
+                                
+                                
+                                // The find succeeded.
+                                print("Successfully retrieved \(objects!.count) scores.")
+                                // Do something with the found objects
+                                if let objects = objects {
+                                    for object in objects {
+                                        
+                                        if(object["Timetable"] != nil){
+                                            
+                                            
+                                            self.table = object["Timetable"] as! String
+                                        }
+                                        
+                                        
+                                        QRCodeViewController.QRname.name = object["roomName"] as! String
+                                        
+                                        QRCodeViewController.QRname.timetableArr = self.table.characters.split{$0 == "\n"}.map(String.init)
+                                        
+                                        
+                                        QRCodeViewController.QRname.cap = object["details"] as! String
+                                        
+                                        let image = object["image"] as! PFFile
+                                        image.getDataInBackgroundWithBlock {
+                                            (imageData: NSData?, error: NSError?) -> Void in
+                                            if error == nil {
+                                                if let imageData = imageData {
+                                                    
+                                                    QRCodeViewController.QRname.image = UIImage(data:imageData)!
+                                                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                                    
+                                                    self.performSegueWithIdentifier("qrToDetailsBus", sender: nil)
+                                                    
+                                                    
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                    
+                                    if(objects.count == 0){
+                                        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                                        let alert = UIAlertController(title: "Error", message: "No data found", preferredStyle: UIAlertControllerStyle.Alert)
+                                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
+                                            switch action.style{
+                                            case .Default:
+                                                self.captureSession?.startRunning()
+                                                
+                                            case .Cancel:
+                                                print("cancel")
+                                                
+                                            case .Destructive:
+                                                print("destructive")
+                                            }
+                                        }))
+                                        self.presentViewController(alert, animated: true, completion: nil)
+                                    }
+                                }
+                                
+                            } else {
+                                // Log details of the failure
+                                print("Error: \(error!) \(error!.userInfo)")
+                            }
+                            
+                        }
+                    }
                     else if type[0] == "event?"{
                         let newString = type[1].stringByReplacingOccurrencesOfString("&", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
                         let query = PFQuery(className:"Event")
