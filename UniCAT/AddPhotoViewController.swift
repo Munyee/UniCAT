@@ -15,6 +15,7 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var imageCell: UITableViewCell!
     @IBOutlet weak var save: UIButton!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     
     var buildingName = String()
     
@@ -37,6 +38,7 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
         super.viewDidLoad()
         checkconnection()
         
+        activity.hidden = true
         
         let width = UIScreen.mainScreen().bounds.width
         imageCell.frame = CGRect(x: 0, y: 0, width: width, height: width)
@@ -127,7 +129,10 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     @IBAction func savePhoto(sender: AnyObject) {
-        if (newImage && textField.text != ""){
+        if (newImage){
+            save.hidden = true
+            activity.hidden = false
+            activity.startAnimating()
             print("Save")
             let chosenImage = photo.image
             let imageData = UIImageJPEGRepresentation(chosenImage!,0.4)
@@ -144,7 +149,7 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
                 imageobject.saveInBackgroundWithBlock{
                     (success: Bool, error: NSError?) -> Void in
                     if (success) {
-                        
+                        self.navigationController?.popViewControllerAnimated(true)
                     } else {
                         // There was a problem, check error.description
                     }
@@ -170,9 +175,7 @@ class AddPhotoViewController: UITableViewController, UIImagePickerControllerDele
     @IBAction func cancel(sender: AnyObject) {
       
             
-            dismissViewControllerAnimated(true, completion: nil)
-       
-            
+        
     }
     
     

@@ -135,6 +135,7 @@ let reuseIdentifier = "photocell"
     }
     
     override func objectsDidLoad(error: NSError?) {
+        super.objectsDidLoad(error)
         pfFile = []
         text = []
         objectid = []

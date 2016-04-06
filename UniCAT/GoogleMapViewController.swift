@@ -762,7 +762,9 @@ class GoogleMapViewController: UIViewController,JCTiledScrollViewDelegate,JCTile
             lpgr.delegate = self
             scrollView.addGestureRecognizer(lpgr)
         
-        
+        let long = (CGFloat)((101.14105 - longmin) / (longmax - longmin) * 1000)
+        let lat = (CGFloat)((latmax - 4.335357) / (latmax - latmin) * 1000)
+        scrollView.scrollView.setContentOffset (CGPoint(x: long - UIScreen.mainScreen().bounds.width/2, y: lat - UIScreen.mainScreen().bounds.height/2), animated: true)
         
         
         
